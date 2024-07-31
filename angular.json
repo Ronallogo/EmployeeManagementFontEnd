@@ -17,19 +17,33 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets",
+              "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/demo/demo.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "src/assets/js/paper-dashboard.js",
+              "node_modules/moment/moment.js",
+              "node_modules/chartist/dist/index.js",
+              "src/assets/js/plugins/bootstrap-notify.js",
+              "src/assets/demo/demo.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -75,19 +89,34 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing" ,
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+
+              },
+              "src/assets",
+              "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/sass/paper-dashboard.scss",
+              "src/assets/demo/demo.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/arrive/src/arrive.js",
+              "node_modules/moment/moment.js",
+              "node_modules/chartist/dist/index.js",
+              "src/assets/js/plugins/bootstrap-notify.js",
+              "src/assets/js/paper-dashboard.js",
+              "src/assets/demo/demo.js"
+            ]
           }
         }
       }
