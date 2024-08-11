@@ -16,12 +16,17 @@ import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component'
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import {PositionComponent} from "../../pages/PositionTools/position/position.component";
+
+
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
+    RouterModule.forChild(AdminLayoutRoutes ),
     FormsModule,
-    NgbModule
+    NgbModule,
+    PositionComponent,
+
   ],
   declarations: [
     DashboardComponent,
@@ -31,7 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TypographyComponent,
     IconsComponent,
     MapsComponent,
-    NotificationsComponent,
+    NotificationsComponent
   ]
 })
 
