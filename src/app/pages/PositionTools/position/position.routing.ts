@@ -12,8 +12,7 @@ export const PositionLayoutsRoutes: Routes = [
   { path: 'position-update',      component: PositionUpdateComponent },
   { path: 'position-search',      component: PositionSearchComponent },
   {path: 'position-menu',      component: PositionMenuComponent },
-  {path: 'position-list',      component: PositionListComponent },
-  {path: 'position-search',      component: PositionSearchComponent },
+  {path: 'position-list',      component: PositionListComponent }
 
 
 ];

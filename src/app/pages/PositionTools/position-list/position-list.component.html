@@ -1,3 +1,15 @@
+<div  *ngIf="show">
+  <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
+      <i class="nc-icon nc-simple-remove"></i>
+    </button>
+
+    <span> <i data-notify="fa" class="fa fa-trash">&nbsp; &nbsp;</i>  Le poste <b>{{positionForNotification.position_name}} </b>
+        ne peut pas etre supprimé . Rassurez vous qu il  est pas en relation avec un employé!!
+    </span>
+  </div>
+</div>
+
 <div class="col-md-12">
   <div class="card">
     <div class="card-header row">
@@ -20,21 +32,38 @@
       <div class="table-responsive">
         <table class="table">
           <thead class=" text-default">
-          <th>
-            id
-          </th>
-          <th >
-            nom du poste
-          </th>
-          <th>
-            description
-          </th>
-          <th >
-            actions
+          <th *ngFor="let h of header" style="width: 100px">
+            {{h}}
           </th>
           </thead>
           <tbody>
+           <tr *ngFor="let p of dataSource">
+              <th>
+                {{p.id}}
+              </th>
+             <th>
+                {{p.position_name}}
+              </th>
+             <th>
+                {{p.position_description}}
+              </th>
+             <th>
+                <div class="row" style="margin-left: 30px">
+                  <button class="btn btn-outline-default-default"   (click)="deletePosition(p.id , p)">
+                    <i class="fa fa-trash"></i>
+                  </button>
 
+                  <button class="btn btn-outline-default"  (click)="service.setPosition(p)" routerLinkActive="active" routerLink="/position-update" >
+                    <i class="fa fa-edit"></i>
+                  </button>
+
+                <!--  <button class="btn  btn-outline-default">
+                    <i class="fa fa-info-circle"></i>
+                  </button> -->
+                </div>
+             </th>
+
+           </tr>
           </tbody>
         </table>
       </div>
