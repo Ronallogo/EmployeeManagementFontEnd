@@ -4,6 +4,7 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {PositionService} from "../service/position.service";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-position-creation',
@@ -17,6 +18,18 @@ import {PositionService} from "../service/position.service";
     NgIf,
     ReactiveFormsModule
   ],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('800ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('800ms ease-in', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ] ,
   templateUrl: './position-creation.component.html',
   styleUrl: './position-creation.component.css'
 })

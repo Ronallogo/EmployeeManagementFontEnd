@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
-import {PositionModels} from "../../../models/Position.models";
+import {PositionModel} from "../../../models/models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PositionService {
   private Url : string = environment.host+"/position"
-  private position!: PositionModels;
+  private position!: PositionModel;
 
 
   constructor(
@@ -18,7 +18,7 @@ export class PositionService {
 
 
 
-  allPositions(): Observable<PositionModels[]> {
+  allPositions(): Observable<PositionModel[]> {
     return  this.http.get<any>(this.Url + '/all');
   }
 
@@ -27,11 +27,11 @@ export class PositionService {
 
   }
 
-  getPosition() : PositionModels {
+  getPosition() : PositionModel {
     console.log(this.position + "give")
     return this.position
   }
-  setPosition(position : PositionModels){
+  setPosition(position : PositionModel){
     this.position = position;
     console.log(position + " receive")
   }

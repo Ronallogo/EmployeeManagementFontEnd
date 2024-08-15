@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 import {PositionService} from "../service/position.service";
-import {PositionModels} from "../../../models/Position.models";
+import {PositionModel} from "../../../models/models";
 import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
@@ -26,7 +26,7 @@ import {PositionListComponent} from "../position-list/position-list.component";
   styleUrl: './position-search.component.css'
 })
 export class PositionSearchComponent implements  OnInit{
-  protected dataSource: PositionModels[] = [] ;
+  protected dataSource: PositionModel[] = [] ;
   public keyword! : string
   public header = ["No" , "nom" , "description" , "actions"];
 

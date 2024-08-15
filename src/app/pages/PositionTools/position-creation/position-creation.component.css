@@ -6,3 +6,18 @@ form , .card-header  , .card-footer{
   width: 500px ;
 }
 
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 1.5s ease-out; /* Durée de 1.5 secondes pour une animation plus lente */
+}
+

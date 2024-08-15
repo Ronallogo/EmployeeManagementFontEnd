@@ -8,11 +8,14 @@ import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {HttpClient, HttpClientModule, provideHttpClient} from "@angular/common/http";
+import {CommonModule, DatePipe} from "@angular/common";
 
 
 @NgModule({
@@ -30,11 +33,16 @@ import {HttpClient, HttpClientModule, provideHttpClient} from "@angular/common/h
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,
+    CommonModule ,
+    DatePipe
 
   ],
   providers: [
     provideHttpClient(),
+
+
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,12 +11,16 @@ import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import {EmployeeComponent} from "../../pages/EmployeeTools/employee/employee.component";
 import {PositionComponent} from "../../pages/PositionTools/position/position.component";
 import {PositionLayoutsRoutes} from "../../pages/PositionTools/position/position.routing";
+import {TaskComponent} from "../../pages/TaskTools/task/task.component";
+import {ContenuComponent} from "../../pages/contenuTools/contenu/contenu.component";
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard',      component: DashboardComponent },
     { path: 'employee',      component: EmployeeComponent },
     { path: 'position',      component: PositionComponent },
+    { path: 'task',      component: TaskComponent },
+    { path: 'contenu',      component: ContenuComponent },
     { path: 'user',           component: UserComponent },
     { path: 'table',          component: TableComponent },
     { path: 'icons',          component: IconsComponent },

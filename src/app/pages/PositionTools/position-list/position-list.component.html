@@ -1,4 +1,4 @@
-<div  *ngIf="show">
+<div  *ngIf="show" @slideInOut>
   <div class="alert alert-danger alert-dismissible fade show">
     <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
       <i class="nc-icon nc-simple-remove"></i>
@@ -39,7 +39,7 @@
           <tbody>
            <tr *ngFor="let p of dataSource">
               <th>
-                {{p.id}}
+                {{dataSource.indexOf(p) + 1 }}
               </th>
              <th>
                 {{p.position_name}}

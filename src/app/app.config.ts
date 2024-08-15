@@ -6,5 +6,5 @@ import {provideHttpClient} from "@angular/common/http";
 import {provideLocationMocks} from "@angular/common/testing";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)  , provideHttpClient()  ]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)  ,  provideHttpClient()  ]
 };

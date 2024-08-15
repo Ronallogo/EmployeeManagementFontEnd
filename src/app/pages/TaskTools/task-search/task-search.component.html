@@ -1,0 +1,64 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">recherche des taches</h4>
+      </div>
+      <div class="col text-right" style="margin-top: 6px">
+        <form>
+          <div class="input-group no-border">
+            <input  [(ngModel)]="keyword"   name="keyword"  type="text"   class="form-control" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <button  (click)="searchTask(keyword)"  type="submit" style="border: none"><i class="nc-icon nc-zoom-split"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-default">
+          <th *ngFor="let h of header" style="width: 100px">
+            {{h}}
+          </th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let p of dataSource">
+            <th>
+              {{p.id}}
+            </th>
+            <th>
+              {{p.task_name}}
+            </th>
+            <th>
+              {{p.task_description}}
+            </th>
+            <th>
+              <div class="row" style="margin-left: 30px">
+                <button class="btn btn-outline-default-default"   (click)="service.deleteTask(p.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+
+                <button class="btn btn-outline-default"  (click)="service.setTask(p)" routerLinkActive="active" routerLink="/task-update" >
+                  <i class="fa fa-edit"></i>
+                </button>
+
+                <!--  <button class="btn  btn-outline-default">
+                    <i class="fa fa-info-circle"></i>
+                  </button> -->
+              </div>
+            </th>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

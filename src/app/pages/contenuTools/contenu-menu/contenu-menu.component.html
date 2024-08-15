@@ -1,0 +1,204 @@
+<div class="row" style="margin-left: 100px">
+  <div class="col-md-9 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-simple-add text-info"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">ajout</p>
+              <p class="card-title">ajouter  un nouveau contenu
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="nc-icon nc-minimal-right"></i> <button routerLinkActive="active" routerLink="/contenu-creation" class="btn btn-info btn-neutral">ajouter ici</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-zoom-split text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">recherche</p>
+              <p class="card-title"> rechercher un contenu
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="nc-icon nc-minimal-right"></i>  <button   routerLinkActive="active" routerLink="/contenu-search" class="btn btn-success btn-neutral">recherche ici</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-paper text-default"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Liste</p>
+              <p class="card-title">Liste des tout les contenu
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="nc-icon nc-minimal-right"></i> <button  routerLinkActive="active" routerLink="/contenu-list" class="btn btn-default btn-neutral">afficher ici</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div >
+
+<router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="row">
+  <div class="col-md-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-circle-10 text-warning"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Employés</p>
+              <p class="card-title">150 individus
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-refresh"></i> <button class="btn btn-warning btn-neutral">Update now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-tag-content text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Taches</p>
+              <p class="card-title"> 20 planifiées
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-refresh"></i>  <button class="btn btn-success btn-neutral">Update now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-briefcase-24 text-danger"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Postes</p>
+              <p class="card-title">23 identifiés
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-refresh"></i>  <button class="btn btn-danger btn-neutral">Update now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-book-bookmark text-info"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Contenu</p>
+              <p class="card-title">45 réalisés
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-refresh"></i>  <button class="btn btn-info btn-neutral">Update now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div >
+-->

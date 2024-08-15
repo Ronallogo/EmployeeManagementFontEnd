@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {PositionModels} from "../../../models/Position.models";
+import {PositionModel} from "../../../models/models";
 import {PositionService} from "../service/position.service";
 import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-position-update',
@@ -15,12 +16,24 @@ import {NgIf} from "@angular/common";
     ReactiveFormsModule,
     NgIf
   ],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('800ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('800ms ease-in', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ] ,
   templateUrl: './position-update.component.html',
   styleUrl: './position-update.component.css'
 })
 export class PositionUpdateComponent implements OnInit{
   ////variable qui nous permettra de modifier la position selectionner
-  position!: PositionModels ;
+  position!: PositionModel ;
 
   public id! : number ;
 

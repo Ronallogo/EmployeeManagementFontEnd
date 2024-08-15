@@ -1,0 +1,75 @@
+<div  *ngIf="show" @slideInOut>
+  <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
+      <i class="nc-icon nc-simple-remove"></i>
+    </button>
+
+    <span> <i data-notify="fa" class="fa fa-trash">&nbsp; &nbsp;</i>  La tache <b>{{taskForNotification.task_name}} </b>
+        ne peut pas etre supprimée . Rassurez vous qu elle  est pas en relation avec un employé!!
+    </span>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">Liste des taches</h4>
+      </div>
+      <div class="col text-right" >
+        <form>
+          <div class="input-group no-border text-right">
+            <button class="btn btn-outline-default btn-round"  style="margin-left: 100px">
+              <i class="nc-icon nc-cloud-download-93"></i> imprimer la liste des taches
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-default">
+          <th *ngFor="let h of header" style="width: 100px">
+            {{h}}
+          </th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let p of dataSource">
+            <th>
+              {{dataSource.indexOf(p) + 1 }}
+            </th>
+            <th>
+              {{p.task_name}}
+            </th>
+            <th>
+              {{p.task_description}}
+            </th>
+            <th>
+              {{dataStatus.at(dataSource.indexOf(p))}}
+            </th>
+            <th>
+              <div class="row" style="margin-left: 30px">
+                <button class="btn btn-outline-default-default"   (click)="deleteTask(p.id , p)">
+                  <i class="fa fa-trash"></i>
+                </button>
+
+                <button class="btn btn-outline-default"  (click)="service.setTask(p)" routerLinkActive="active" routerLink="/task-update" >
+                  <i class="fa fa-edit"></i>
+                </button>
+
+                <!--  <button class="btn  btn-outline-default">
+                    <i class="fa fa-info-circle"></i>
+                  </button> -->
+              </div>
+            </th>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
