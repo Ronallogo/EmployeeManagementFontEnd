@@ -1,1 +1,147 @@
-<p>contenu-update works!</p>
+<div  *ngIf="show" @slideInOut>
+  <div class="alert alert-success alert-dismissible fade show">
+    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
+      <i class="nc-icon nc-simple-remove"></i>
+    </button>
+
+    <span> <i data-notify="fa" class="fa fa-bell">&nbsp; &nbsp;</i>
+          la mise à jour des données du contenu a été effectué avec succès !!!!
+    </span>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px; "   >
+  <div class="card card-stats">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-5 col-md-4">
+          <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+            <i class="nc-icon nc-tile-56 text-default"></i>
+          </div>
+        </div>
+        <div class="col-7 col-md-8">
+          <div class="numbers">
+            <p class="card-category">formulaire</p>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-8">
+          <div class="card-header">
+            <h2 class="card-title">enregistrement d'un contenu </h2>
+          </div>
+        </div>
+      </div>
+      <form   [formGroup]="contenuForm" (ngSubmit)= "updateContenu()">
+        <div class="row" style="border-top: solid 1px lightgray">
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="name">Nom du contenu: <span class="star">*</span></label>
+              <input  value="{{contenuFecth.title}}" formControlName="title" class="form-control ng-pristine ng-invalid ng-touched" name="title"   required type="text">
+
+            </div>
+          </div>
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="name">Theme du contenu: <span class="star">*</span></label>
+              <input value="{{contenuFecth.theme}}" formControlName="theme" class="form-control ng-pristine ng-invalid ng-touched" name="theme"  required type="text">
+
+            </div>
+          </div>
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="email">Nature du contenu: <span class="star">*</span></label>
+              <input value="{{contenuFecth.nature}}" formControlName="nature" class="form-control ng-pristine ng-invalid ng-touched" name="nature"   required type="text">
+              <small class="text-danger" hidden> Mail doit est etre inserer  </small>
+            </div>
+          </div>
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="email">Langue  du contenu: <span class="star">*</span></label>
+              <input formControlName="language" class="form-control ng-pristine ng-invalid ng-touched" name="language"  required type="text">
+              <small class="text-danger" hidden> Le mail doit etre saisi  </small>
+            </div>
+          </div>
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="number">  Date de création du contenu: <span class="star">*</span></label>
+              <input value="{{contenuFecth.creation_date}}" formControlName="creation_date" class="form-control ng-pristine ng-invalid ng-touched" name="creation_date" required type="date">
+
+            </div>
+
+          </div>
+
+          <div class="card-body  col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-3">
+              <div class="dropdown">
+                <div class="form-group  ">
+                  <label class="control-label"  for="name">Status du  contenu: <span class="star">*</span></label>
+                  <select id="ContenuSelect"  formControlName="status" name="status"   class="form-control "   style="width: 200%;  ">
+                    <option value="" disabled selected>Choix de status du contenu</option>
+                    <option value="{{contenuFecth.status}}" selected>derniere status enregistré : value="{{contenuFecth.status}}"</option>
+                    <option value="En conception" >En conception</option>
+                    <option value="Publié">publié</option>
+
+
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="card-body  col-sm-6">
+            <button class="btn btn-outline-default btn-round">
+              <i class="fa fa-refresh"></i> modifier le contenu
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<!--
+<form novalidate class="ng-pristine ng-invalid ng-touched" >
+
+  <div class="card-body">
+    <div class="form-group has-label">
+      <label class="control-label" for="email">Email Address: <span class="star">*</span></label>
+      <input class="form-control ng-pristine ng-invalid ng-touched" name="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required type="email">
+      <small class="text-danger" hidden> Email is required and format should be   </small>
+    </div>
+    <div class="form-group has-label">
+      <label class="control-label" for="password">Password <span class="star">*</span></label>
+      <input class="form-control ng-untouched ng-pristine ng-invalid" name="password" required type="password" validateequal="confirmPassword">
+      <small class="text-danger" hidden> Password is required </small>
+    </div>
+    <div class="form-group has-label">
+      <label class="control-label" for="confirmPassword">Confirm Password <span class="star">*</span></label>
+      <input class="form-control ng-untouched ng-pristine ng-invalid" name="confirmPassword" required type="password" validateequal="password">
+      <small class="text-danger" hidden> Password mismatch </small>
+    </div>
+    <div class="category">
+      <span class="star">*</span> Required fields
+    </div>
+  </div>
+  <div class="card-footer text-right">
+
+    <button class="btn btn-primary" type="submit">Register</button>
+  </div>
+</form>
+
+-->
+
+

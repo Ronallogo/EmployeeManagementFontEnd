@@ -1,17 +1,18 @@
-
-
 <div class="col-md-12">
   <div class="card">
     <div class="card-header row">
       <div class="col">
-        <h4 class="card-title">Liste de tout les contenu</h4>
+        <h4 class="card-title">recherche des contenus</h4>
       </div>
-      <div class="col text-right" >
+      <div class="col text-right" style="margin-top: 6px">
         <form>
-          <div class="input-group no-border text-right">
-            <button class="btn btn-outline-default btn-round"  style="margin-left: 100px">
-              <i class="nc-icon nc-cloud-download-93"></i> imprimer la liste de contenu
-            </button>
+          <div class="input-group no-border">
+            <input  [(ngModel)]="keyword"   name="keyword"  type="text"   class="form-control" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <button  (click)="searchContenu(keyword)"  type="submit" style="border: none"><i class="nc-icon nc-zoom-split"></i></button>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -27,9 +28,9 @@
           </th>
           </thead>
           <tbody>
-          <tr *ngFor="let c of contenus">
+          <tr *ngFor="let c of contenuPicked">
             <th>
-              {{contenus.indexOf(c) + 1 }}
+              {{contenuPicked.indexOf(c) + 1 }}
             </th>
             <th>
               {{c.title}}
@@ -40,15 +41,15 @@
             <th>
               {{c.nature}}
             </th> <th>
-              {{c.language}}
-            </th> <th>
-              {{c.creation_date}}
-            </th> <th>
-              {{c.status}}
-            </th>
+            {{c.language}}
+          </th> <th>
+            {{c.creation_date}}
+          </th> <th>
+            {{c.status}}
+          </th>
             <th>
-              <div class="row" style="margin-left: 20px">
-                <button class="btn btn-outline-default-default" style="margin-bottom: 5px"  (click)="deleteContenu(c.id)">
+              <div class="row" style="margin-left: 30px">
+                <button class="btn btn-outline-default-default"   (click)="deleteContenu(c.id)">
                   <i class="fa fa-trash"></i>
                 </button>
 
@@ -69,3 +70,4 @@
     </div>
   </div>
 </div>
+

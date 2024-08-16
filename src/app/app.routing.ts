@@ -4,6 +4,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import {PositionLayoutsRoutes} from "./pages/PositionTools/position/position.routing";
 import {EmployeeLayoutsRoutes} from "./pages/EmployeeTools/employee/employee.routing";
 import {TaskLayoutsRoutes} from "./pages/TaskTools/task/task.routing";
+import {ContenuLayoutsRoutes} from "./pages/contenuTools/contenu/contenu.routing";
 
 export const AppRoutes: Routes = [
 
@@ -18,10 +19,14 @@ export const AppRoutes: Routes = [
       ...EmployeeLayoutsRoutes ,
       ...PositionLayoutsRoutes ,
       ...TaskLayoutsRoutes ,
+      ...ContenuLayoutsRoutes ,
         {
       path: '',
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(x => x.AdminLayoutModule)
-  }]}
+  }] ,
+
+
+}
 
 
 
