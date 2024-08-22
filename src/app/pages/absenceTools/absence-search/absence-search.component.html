@@ -1,0 +1,67 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">recherche des absences</h4>
+      </div>
+      <div class="col text-right" style="margin-top: 6px">
+        <form>
+          <div class="input-group no-border">
+            <input  [(ngModel)]="keyword"   name="keyword"  type="text"   class="form-control" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <button  (click)="search(keyword)"  type="submit" style="border: none"><i class="nc-icon nc-zoom-split"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-default">
+          <th *ngFor="let h of header" style="width: 100px">
+            {{h}}
+          </th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let a of absences">
+            <th>
+              {{absences.indexOf(a) + 1 }}
+            </th>
+            <th>
+              {{a.employee.name}} {{a.employee.surname}}
+            </th>
+            <th>
+              {{a.absence_day}}
+            </th>
+            <th>
+              {{a.reason}}
+            </th>
+            <th>
+              <div class="row" style="margin-left: 20px">
+                <button class="btn btn-outline-default-default" style="margin-bottom: 5px ; margin-right: 5px ; height: 50px"  (click)="deleteAbsence(a.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+
+                <button class="btn btn-outline-default" style="height: 50px"  (click)="service.setAbsence(a)" routerLinkActive="active" routerLink="/absence-update" >
+                  <i class="fa fa-edit"></i>
+                </button>
+
+                <!--  <button class="btn  btn-outline-default">
+                    <i class="fa fa-info-circle"></i>
+                  </button> -->
+              </div>
+            </th>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

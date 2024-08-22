@@ -13,18 +13,24 @@ import {PositionComponent} from "../../pages/PositionTools/position/position.com
 import {PositionLayoutsRoutes} from "../../pages/PositionTools/position/position.routing";
 import {TaskComponent} from "../../pages/TaskTools/task/task.component";
 import {ContenuComponent} from "../../pages/contenuTools/contenu/contenu.component";
+import {CongeComponent} from "../../pages/congetools/conge/conge.component";
+import {AbsenceComponent} from "../../pages/absenceTools/absence/absence.component";
+import {PayStubComponent} from "../../pages/payStubTools/pay-stub/pay-stub.component";
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard',      component: DashboardComponent },
-    { path: 'employee',      component: EmployeeComponent },
-    { path: 'position',      component: PositionComponent },
-    { path: 'task',      component: TaskComponent },
-    { path: 'contenu',      component: ContenuComponent },
-    { path: 'user',           component: UserComponent },
-    { path: 'table',          component: TableComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent }
+  { path: 'employee',      component: EmployeeComponent },
+  { path: 'position',      component: PositionComponent },
+  { path: 'task',      component: TaskComponent },
+  { path: 'contenu',      component: ContenuComponent },
+  { path: 'conge',      component:  CongeComponent },
+  { path: 'absence',      component:  AbsenceComponent },
+  { path: 'payement',      component:  PayStubComponent },
+  { path: 'user',           component: UserComponent },
+  { path: 'table',          component: TableComponent },
+  { path: 'icons',          component: IconsComponent },
+  { path: 'maps',           component: MapsComponent },
+  { path: 'notifications',  component: NotificationsComponent },
+  { path: 'upgrade',        component: UpgradeComponent }
 ];

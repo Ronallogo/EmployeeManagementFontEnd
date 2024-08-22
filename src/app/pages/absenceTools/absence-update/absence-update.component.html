@@ -1,0 +1,106 @@
+<div  *ngIf="show" @slideInOut>
+  <div class="alert alert-success alert-dismissible fade show">
+    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
+      <i class="nc-icon nc-simple-remove"></i>
+    </button>
+
+    <span> <i data-notify="fa" class="fa fa-bell">&nbsp; &nbsp;</i>
+         l'absence de l'employé a été enregistrée avec succès !!!!
+    </span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px; "   >
+  <div class="card card-stats">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-5 col-md-4">
+          <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+            <i class="nc-icon nc-tile-56 text-default"></i>
+          </div>
+        </div>
+        <div class="col-7 col-md-8">
+          <div class="numbers">
+            <p class="card-category">formulaire</p>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-8">
+          <div class="card-header">
+            <h2 class="card-title">enregistrement d'une Absence </h2>
+          </div>
+        </div>
+      </div>
+      <form  [formGroup]="formulaire" (ngSubmit)= "updateAbsence()">
+        <div class="row" style="border-top: solid 1px lightgray">
+
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="reason">Raison de l'absence: <span class="star">*</span></label>
+              <textarea [(ngModel)]="formulaire.getRawValue().reason" class="form-control ng-pristine ng-invalid ng-touched" name="reason"  required type="text"> </textarea>
+
+            </div>
+          </div>
+          <div class="card-body  col-sm-6">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="date">  Date de l'absence: <span class="star">*</span></label>
+              <input  [(ngModel)]="formulaire.getRawValue().date" class="form-control ng-pristine ng-invalid ng-touched" name="date" required type="date">
+
+            </div>
+          </div>
+          <div class="card-body  col-sm-6">
+            <button class="btn btn-outline-default btn-round">
+              <i class="fa fa-edit"></i>  modifier les donnée de l'absence
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<!--
+<form novalidate class="ng-pristine ng-invalid ng-touched" >
+
+  <div class="card-body">
+    <div class="form-group has-label">
+      <label class="control-label" for="email">Email Address: <span class="star">*</span></label>
+      <input class="form-control ng-pristine ng-invalid ng-touched" name="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required type="email">
+      <small class="text-danger" hidden> Email is required and format should be   </small>
+    </div>
+    <div class="form-group has-label">
+      <label class="control-label" for="password">Password <span class="star">*</span></label>
+      <input class="form-control ng-untouched ng-pristine ng-invalid" name="password" required type="password" validateequal="confirmPassword">
+      <small class="text-danger" hidden> Password is required </small>
+    </div>
+    <div class="form-group has-label">
+      <label class="control-label" for="confirmPassword">Confirm Password <span class="star">*</span></label>
+      <input class="form-control ng-untouched ng-pristine ng-invalid" name="confirmPassword" required type="password" validateequal="password">
+      <small class="text-danger" hidden> Password mismatch </small>
+    </div>
+    <div class="category">
+      <span class="star">*</span> Required fields
+    </div>
+  </div>
+  <div class="card-footer text-right">
+
+    <button class="btn btn-primary" type="submit">Register</button>
+  </div>
+</form>
+
+-->
+
+
+

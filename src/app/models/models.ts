@@ -65,3 +65,27 @@ export interface EmployeeModel2 {
 }
 
 
+export interface AbsenceModel2 {
+  date : string ;
+  reason : string  ;
+  employee : string  ;
+}
+export interface AbsenceModel extends AbsenceModel2{
+    id : number;
+}
+
+export interface CongeModel2{
+  date_beginning : string ;
+  date_end : string ;
+  type : string ;
+  status : boolean ;
+  time_off_apply : number
+
+
+}
+
+export interface CongeModel extends AbsenceModel2{
+  id  : number;
+}
+
+

@@ -41,7 +41,7 @@ export class EmployeeCreationComponent implements  OnInit{
       name : new FormControl() ,
       surname : new FormControl() ,
       email : new FormControl() ,
-      birthdate : new FormControl() ,
+      birthday : new FormControl() ,
       phone : new FormControl() ,
       password: new FormControl() ,
       confirmPassword: new FormControl() ,
@@ -53,21 +53,22 @@ export class EmployeeCreationComponent implements  OnInit{
   show2: boolean = false;
 
   createEmployee(){
-      console.log(this.Employee.getRawValue().password  , " ", this.Employee.getRawValue().confirmPassword)
-      if( this.Employee.getRawValue().password == this.Employee.getRawValue().confirmPassword ){
-        this.employeeService.createEmployee(this.Employee.getRawValue()).subscribe(data => {
-          console.log(data);
-          this.show = true ;
-          this.show2 = false
-        } , error => {
-          console.log(error);
+    console.log(this.Employee.getRawValue().password  , " ", this.Employee.getRawValue().confirmPassword)
+    console.log(this.Employee.getRawValue())
+    if( this.Employee.getRawValue().password == this.Employee.getRawValue().confirmPassword ){
+      this.employeeService.createEmployee(this.Employee.getRawValue()).subscribe(data => {
+        console.log(data);
+        this.show = true ;
+        this.show2 = false
+      } , error => {
+        console.log(error);
 
-        })
-      }
-      else{
-        this.show2 = true ;
+      })
+    }
+    else{
+      this.show2 = true ;
 
-      }
+    }
 
   }
 
