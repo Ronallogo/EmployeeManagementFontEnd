@@ -9,10 +9,8 @@ import jwt_decode from 'jwt-decode';
 export class AuthenticationService {
   host = "http://localhost:8080/api/auth";
   user !: {
-    name : number ,
-    username : string,
-    password : string,
-    role :any
+    email : number ,
+    role :string
   }
   jwt!:any ;
 
@@ -78,5 +76,12 @@ export class AuthenticationService {
   loadToken(){
     this.jwt=localStorage.getItem('token');
     this.parseJWT();
+  }
+
+  setUser(data : {
+    email : string ,
+    role : string
+  }){
+    localStorage.setItem('user',JSON.stringify(data));
   }
 }

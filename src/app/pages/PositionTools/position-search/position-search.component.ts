@@ -27,7 +27,7 @@ import {PositionListComponent} from "../position-list/position-list.component";
 })
 export class PositionSearchComponent implements  OnInit{
   protected dataSource: PositionModel[] = [] ;
-  public keyword! : string
+  public keyword! : string ;
   public header = ["No" , "nom" , "description" , "actions"];
 
 

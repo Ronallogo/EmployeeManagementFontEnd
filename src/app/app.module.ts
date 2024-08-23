@@ -16,6 +16,7 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {HttpClient, HttpClientModule, provideHttpClient} from "@angular/common/http";
 import {CommonModule, DatePipe} from "@angular/common";
+import {LoginComponent} from "./pages/login/login.component";
 
 
 @NgModule({
@@ -23,20 +24,21 @@ import {CommonModule, DatePipe} from "@angular/common";
     AppComponent,
     AdminLayoutComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes,{
-      useHash: true
-    }),
-    SidebarModule,
-    NavbarModule,
-    ToastrModule.forRoot(),
-    FooterModule,
-    FixedPluginModule,
-    CommonModule ,
-    DatePipe
+    imports: [
+        BrowserAnimationsModule,
+        RouterModule.forRoot(AppRoutes, {
+            useHash: true
+        }),
+        SidebarModule,
+        NavbarModule,
+        ToastrModule.forRoot(),
+        FooterModule,
+        FixedPluginModule,
+        CommonModule,
+        DatePipe,
+        LoginComponent
 
-  ],
+    ],
   providers: [
     provideHttpClient(),
 

@@ -1,1 +1,49 @@
+  <nav    class="navbar navbar-transparent navbar-absolute">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="icon-big"><i class="nc-icon nc-chart-bar-32 "></i> <span  class="navbar-brand"> EMPLOYEE MANAGER</span></div>
+      </div>
+    </div>
+  </nav>
 
+
+
+<section class="d-flex justify-content-center align-items-center" >
+  <div  >
+    <div class="container">
+      <div class="row-">
+        <div style="width: 500px" >
+          <form   (ngSubmit)="onLogin()" >
+            <div class="card" data-background="color" data-color="blue">
+              <div class="card-header">
+                <h3 class="card-title text-center " style="font-size: 35px">Connexion</h3>
+              </div>
+              <div class="card-content">
+                <div class="form-group">
+                  <label class="control-label" for="email"><b style="margin-left: 12px">Username: <span class="star">*</span></b></label>
+                  <input [(ngModel)]="dataConnexion.email" name="email" type="email" placeholder="Enter email" class="form-control input-no-border">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="password"><b style="margin-left: 12px">Password: <span class="star">*</span></b></label>
+                  <input [(ngModel)]="dataConnexion.password" name="password" type="password" placeholder="Password" class="form-control input-no-border">
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <button type="submit" class="btn btn-fill btn-wd ">connexion</button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<div class="foot" style="background: black;width: 100%">foot</div>

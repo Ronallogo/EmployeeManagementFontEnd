@@ -1,2 +1,10 @@
 
-<router-outlet></router-outlet>
+
+
+<ng-container *ngIf="!checkPermission()">
+    <app-login></app-login>
+</ng-container>
+
+<ng-container *ngIf="checkPermission()">
+    <router-outlet></router-outlet>
+</ng-container>
