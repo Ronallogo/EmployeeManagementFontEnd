@@ -1,14 +1,4 @@
-<div  *ngIf="show" @slideInOut>
-  <div class="alert alert-success alert-dismissible fade show">
-    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
-      <i class="nc-icon nc-simple-remove"></i>
-    </button>
 
-    <span> <i data-notify="fa" class="fa fa-bell">&nbsp; &nbsp;</i>
-         l'absence de l'employé {{employeePicked.name}} {{employeePicked.surname}} a été enregistrée avec succès !!!!
-    </span>
-  </div>
-</div>
 
 
 
@@ -41,22 +31,31 @@
       <form     (submit)= "createAbsence()">
         <div class="row" style="border-top: solid 1px lightgray">
 
+
           <div class="card-body  col-sm-6">
             <div class="form-group has-label col-xl-11" style="width: 100%">
-              <label class="control-label" for="reason">Raison de l'absence: <span class="star">*</span></label>
-              <textarea [(ngModel)]="absenceForm.reason" class="form-control ng-pristine ng-invalid ng-touched" name="reason"  required type="text"> </textarea>
+              <label class="control-label" for="email">  L'email de l'employé: <span class="star">*</span></label>
+              <input  [(ngModel)]="absenceForm.email" class="form-control ng-pristine ng-invalid ng-touched" name="email" required type="email">
 
             </div>
           </div>
           <div class="card-body  col-sm-6">
             <div class="form-group has-label col-xl-11" style="width: 100%">
               <label class="control-label" for="date">  Date de l'absence: <span class="star">*</span></label>
-              <input  [(ngModel)]="absenceForm.date" class="form-control ng-pristine ng-invalid ng-touched" name="date" required type="date">
+              <input  [(ngModel)]="absenceForm.absence_day" class="form-control ng-pristine ng-invalid ng-touched" name="absence_day" required type="date">
 
             </div>
           </div>
           <div class="card-body  col-sm-6">
-            <button class="btn btn-outline-default btn-round">
+            <div class="form-group has-label col-xl-11" style="width: 100%">
+              <label class="control-label" for="reason">Raison de l'absence: <span class="star">*</span></label>
+              <textarea style="width: 300px" [(ngModel)]="absenceForm.reason" class="form-control ng-pristine ng-invalid ng-touched" name="reason"  required type="text"> </textarea>
+
+            </div>
+          </div>
+
+          <div class="card-body  col-sm-6"  >
+            <button type="submit" class="btn btn-outline-default btn-round" style=" margin-left: 50px ; margin-top: 50px">
               <i class="fa fa-save"></i> enregistrer l'absence
             </button>
           </div>

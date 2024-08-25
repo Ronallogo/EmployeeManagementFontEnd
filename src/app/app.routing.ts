@@ -8,6 +8,7 @@ import {ContenuLayoutsRoutes} from "./pages/contenuTools/contenu/contenu.routing
 import {CongeLayoutsRoutes} from "./pages/congetools/conge/conge.routing";
 import {AbsenceLayoutsRoutes} from "./pages/absenceTools/absence/absence.routing";
 import {PayStubLayoutsRoutes} from "./pages/payStubTools/pay-stub/payStub.routing";
+import {LoginComponent} from "./pages/login/login.component";
 
 export const AppRoutes: Routes = [
 
@@ -32,7 +33,8 @@ export const AppRoutes: Routes = [
   }] ,
 
 
-}
+},
+  { path: 'login',      component:  LoginComponent }
 
 
 

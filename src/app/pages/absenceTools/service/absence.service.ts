@@ -36,7 +36,7 @@ export class AbsenceService {
   }
 
 
-  createAbsence(Absence: { date: string; reason: string; employee: number }){
+  createAbsence(Absence: { absence_day: string; reason: string; email: string }){
     return this.http.post(this.Url + '/create', Absence)
   }
 

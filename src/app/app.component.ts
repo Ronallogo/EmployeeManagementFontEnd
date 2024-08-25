@@ -12,16 +12,26 @@ import {ApplicationService} from "./globalService/appService/application.service
 })
 
 export class AppComponent implements OnInit {
+  private jwt!: string | null;
 
 
-  constructor(private service : ApplicationService, private router: Router) {
+
+
+  constructor(private service : ApplicationService, private router: Router , public toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+      this.checkPermission() ;
   }
 
   checkPermission(){
-    return this.service.getPermission();
+    this.jwt=localStorage.getItem('jwt');
+    if(this.jwt != null){
+          this.router.navigate(['dashboard']);
+    }
+    else{
+      this.router.navigate(["/login"]);
+    }
   }
 
 

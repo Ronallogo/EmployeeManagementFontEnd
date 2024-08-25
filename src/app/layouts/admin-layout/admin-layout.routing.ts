@@ -16,6 +16,8 @@ import {ContenuComponent} from "../../pages/contenuTools/contenu/contenu.compone
 import {CongeComponent} from "../../pages/congetools/conge/conge.component";
 import {AbsenceComponent} from "../../pages/absenceTools/absence/absence.component";
 import {PayStubComponent} from "../../pages/payStubTools/pay-stub/pay-stub.component";
+import {LogoutComponent} from "../../pages/logout/logout.component";
+import {LoginComponent} from "../../pages/login/login.component";
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -27,6 +29,8 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'conge',      component:  CongeComponent },
   { path: 'absence',      component:  AbsenceComponent },
   { path: 'payement',      component:  PayStubComponent },
+  { path: 'logout',      component:  LogoutComponent },
+
   { path: 'user',           component: UserComponent },
   { path: 'table',          component: TableComponent },
   { path: 'icons',          component: IconsComponent },

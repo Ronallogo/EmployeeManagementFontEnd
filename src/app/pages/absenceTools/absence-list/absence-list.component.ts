@@ -4,6 +4,7 @@ import {AbsenceService} from "../service/absence.service";
 import {AbsenceModel} from "../../../models/models";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-absence-list',
@@ -24,9 +25,10 @@ export class AbsenceListComponent implements OnInit{
   private show2: boolean = false;
 
   protected header : string[] = ["No" , "le nom de l'employé", "Date de l'absence" , "Raison de l'absence" , "Actions"];
+  public icon = `<i class="nc-icon nc-chart-bar-32 "></i>`;
+  public customTitle = '<span style=""><i class="nc-icon nc-chart-bar-32 "></i> EMPLOYEE MANAGER</span>';
 
-
-  constructor(protected service: AbsenceService){}
+  constructor(protected service: AbsenceService ,  public toastr: ToastrService){}
 
   ngOnInit(): void {
       this.getAllAbsences();
@@ -45,6 +47,9 @@ export class AbsenceListComponent implements OnInit{
       this.service.deleteAbsence(id).subscribe(data =>{
         console.log(data);
         this.show = true ;
+        this.toastr.success(this.icon+"Absence created successfully!!!!" , this.customTitle , {
+          enableHtml: true
+        });
 
       })
   }

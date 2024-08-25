@@ -3,6 +3,7 @@ import {ApplicationService} from "../../globalService/appService/application.ser
 import {ToastrService} from "ngx-toastr";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
+import {routes} from "../../app.routes";
 
 @Component({
   selector: 'app-login',
@@ -14,21 +15,28 @@ import {Router} from "@angular/router";
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit{
-  tokenObject !: any;
+  token !:string |null;
   public message : string  = "nous sur le bon chemin !!!!!!!!"
 
+  roles : string[]  =  ["USER" , "ADMIN"];
+  protected dataUser : {
+    email : string ,
+    role : string
+  } = {email: "", role : ""}
 
-
-  dataConnexion : {
+  protected dataConnexion : {
     email : string ,
     password : string
   } = {email: "", password : ""}
 
 
-  constructor(private serviceApp : ApplicationService , public toastr: ToastrService) {
+  constructor(private serviceApp : ApplicationService , public toastr: ToastrService , private router : Router) {
   }
 
   ngOnInit(): void {
+    this.serviceApp.loadToken()
+    this.serviceApp.setPermission(false);
+
   }
 
   onLogin():void{
@@ -36,8 +44,17 @@ export class LoginComponent implements OnInit{
     this.serviceApp.login(this.dataConnexion).subscribe(data => {
         console.log(data);
         this.serviceApp.saveToken(data.body);
-        this.showSuccess()
-        this.serviceApp.setPermission(true);
+        this.dataUser = this.serviceApp.getUser() ;
+        this.token =    localStorage.getItem('jwt') ;
+      console.log(localStorage.getItem("jwt"))
+      console.log(localStorage.getItem("user"))
+        if(this.dataUser.role =="USER" || this.dataUser.role =="ADMIN"){
+            this.serviceApp.parseJWT()
+            this.showSuccess()
+            this.serviceApp.setPermission(true);
+           this.router.navigateByUrl("/dashboard")
+
+        }
 
     } , error => {
       console.log(error);
