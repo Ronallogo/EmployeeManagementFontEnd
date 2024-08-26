@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../../environments/environment";
-import {TaskInsertedModel, TaskModel} from "../../../models/models";
+import {TaskInsertedModel2, TaskModel} from "../../../models/models";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TaskInsertionListComponent} from "../task_insertion/task-insertion-list/task-insertion-list.component";
@@ -13,9 +13,10 @@ export class TaskService {
 
   private Url : string = environment.host+"/task"
   private Url2 : string = environment.host+"/taskInserted"
+  private Url3 : string = environment.host+"/taskScheduled"
   private Task!: TaskModel;
 
-  private TaskInserted! : TaskInsertedModel ;
+  private TaskInserted! : TaskInsertedModel2 ;
   private formattedDate!: string;
    private date!: Date;
 
@@ -38,7 +39,7 @@ export class TaskService {
     return  this.http.get<any>(this.Url + '/all');
   }
 
-  allTasksInserted(): Observable<TaskInsertedModel[]> {
+  allTasksInserted(): Observable<TaskInsertedModel2[]> {
     return  this.http.get<any>(this.Url2 + '/all');
   }
 
@@ -55,7 +56,7 @@ export class TaskService {
     console.log(this.Task + "give")
     return this.Task
   }
-  getTaskInserted() : TaskInsertedModel {
+  getTaskInserted() : TaskInsertedModel2 {
     console.log(this.TaskInserted + "give")
     return this.TaskInserted
   }
@@ -64,7 +65,7 @@ export class TaskService {
     console.log(Task + " receive")
   }
 
-  setTaskInserted(Task : TaskInsertedModel){
+  setTaskInserted(Task : TaskInsertedModel2){
     this.TaskInserted = Task;
     console.log(Task + " receive")
   }
@@ -89,9 +90,17 @@ export class TaskService {
     date_insertion : string | null,
     gain_task_post : number |null
   }) {
-
-
     return this.http.put(this.Url2 + '/edit/'+`${id}`, taskInserted)
+  }
+
+
+  getTaskScheduleForOne(id: number) : Observable<any> {
+      return this.http.get(this.Url3 + '/taskForOne/'+id)
+  }
+  getAllTaskScheduled(){
+    return  this.http.get<any>(this.Url3 + '/all');
+  }
+  getAllTaskForOnePosition(id : number){
 
   }
 }

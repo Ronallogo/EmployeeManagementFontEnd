@@ -7,18 +7,15 @@
   </div>
     <ul class="nav">
         <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
-           <ng-container *ngIf="menuItem.title != deconnexion">
+           <ng-container *ngIf="menuItem.views == 'all'  || user.role ==  menuItem.views ">
                <a [routerLink]="[menuItem.path]">
                  <i class="nc-icon {{menuItem.icon}}"></i>
                  <p>{{menuItem.title}}</p>
                </a>
            </ng-container>
-          <ng-container *ngIf="menuItem.title == deconnexion  ">
-            <a [routerLink]="[menuItem.path]">
-              <i class="nc-icon {{menuItem.icon}}"></i>
-              <p>{{menuItem.title}}</p>
-            </a>
-          </ng-container>
+
+
+
 
         </li>
 

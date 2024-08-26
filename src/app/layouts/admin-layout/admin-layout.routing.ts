@@ -18,19 +18,22 @@ import {AbsenceComponent} from "../../pages/absenceTools/absence/absence.compone
 import {PayStubComponent} from "../../pages/payStubTools/pay-stub/pay-stub.component";
 import {LogoutComponent} from "../../pages/logout/logout.component";
 import {LoginComponent} from "../../pages/login/login.component";
+import {UserProfilComponent} from "../../pages/user-part/userProfilTools/user-profil/user-profil.component";
+import {UserTaskComponent} from "../../pages/user-part/usertaskTools/user-task/user-task.component";
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard',      component: DashboardComponent },
+  { path: 'user-profil',      component: UserProfilComponent },
   { path: 'employee',      component: EmployeeComponent },
   { path: 'position',      component: PositionComponent },
   { path: 'task',      component: TaskComponent },
+  { path: 'user-task',      component: UserTaskComponent },
   { path: 'contenu',      component: ContenuComponent },
   { path: 'conge',      component:  CongeComponent },
   { path: 'absence',      component:  AbsenceComponent },
   { path: 'payement',      component:  PayStubComponent },
   { path: 'logout',      component:  LogoutComponent },
-
   { path: 'user',           component: UserComponent },
   { path: 'table',          component: TableComponent },
   { path: 'icons',          component: IconsComponent },

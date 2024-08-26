@@ -37,12 +37,12 @@ export class ContenuService {
     console.log(Contenu + " receive")
   }
 
-  updateContenu(id : number, Contenu  : ContenuModel2  ){
+  updateContenu(id : number, Contenu  : any  ){
     return this.http.put(this.Url + '/edit/'+id , Contenu)
   }
 
 
-  createContenu(Contenu :  ContenuModel2 ){
+  createContenu(Contenu :  any ){
     return this.http.post(this.Url + '/create', Contenu)
   }
 

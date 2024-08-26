@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../../../environments/environment";
-import { EmployeeModel } from "../../../models/models";
+import {EmployeeModel, EmployeeModel2} from "../../../models/models";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { AuthenticationService } from "../../../globalService/auth/authentication.service";
@@ -43,7 +43,7 @@ export class EmployeeService {
     this.selectedEmployee = employee;
   }
 
-  updateEmployee(id: number, employee: EmployeeModel): Observable<EmployeeModel> {
+  updateEmployee(id: number, employee: EmployeeModel2): Observable<EmployeeModel> {
     return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id}`, employee);
   }
 
@@ -84,5 +84,9 @@ export class EmployeeService {
 
   private registerUser(data: { firstname: string; lastname: string; email: string; password: string; role: string }): Observable<void> {
     return this.http.post<void>(this.registerEndpoint, data);
+  }
+
+  getEmployeeByEmail(email : string){
+    return this.http.get<EmployeeModel>(`${this.baseUrl}/email/${email}`);
   }
 }

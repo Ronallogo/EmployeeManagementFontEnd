@@ -13,6 +13,7 @@ import {ApplicationService} from "./globalService/appService/application.service
 
 export class AppComponent implements OnInit {
   private jwt!: string | null;
+  public icon = `<i class="nc-icon nc-chart-bar-32 "></i>`;
 
 
 
@@ -26,11 +27,26 @@ export class AppComponent implements OnInit {
 
   checkPermission(){
     this.jwt=localStorage.getItem('jwt');
+    let user =  JSON.parse(String(localStorage.getItem('user')));
     if(this.jwt != null){
-          this.router.navigate(['dashboard']);
+          if(user.role == "ADMIN"){
+            console.log("je suis en administrador")
+             this.router.navigate(['dashboard']);
+            this.toastr.success(this.icon+" Bienvenu dans l'interface administrateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
+          }
+          if(user.role == "USER"){
+            console.log("je suis en user")
+            this.router.navigate(['user-profil']);
+            this.toastr.success(this.icon+" Bienvenu dans l'interface utilisateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
+          }
+          else{
+              this.router.navigate(['login']);
+              this.toastr.error(this.icon+" L'accès vous est refusé !!!" , "EMPLOYEE MANAGER" , {enableHtml : true});
+          }
     }
     else{
       this.router.navigate(["/login"]);
+      this.toastr.error(this.icon+" L'accès vous est refusé !!!" , "EMPLOYEE MANAGER" , {enableHtml : true});
     }
   }
 

@@ -29,7 +29,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   styleUrl: './contenu-update.component.css'
 })
 export class ContenuUpdateComponent  implements OnInit{
-  protected contenuFecth! : ContenuModel ;
+  protected contenuFecth! : ContenuModel2 ;
   private id = 0
   protected contenuForm = new FormGroup({
     title  :  new  FormControl (),
@@ -59,7 +59,7 @@ export class ContenuUpdateComponent  implements OnInit{
       status  : this.contenuForm.getRawValue().status,
     });
 
-    this.service.updateContenu(this.id , this.contenuForm.getRawValue()).subscribe(data =>{
+    this.service.updateContenu(this.id , {...this.contenuForm.getRawValue()}).subscribe(data =>{
       console.log(data);
       this.show  = true ;
     } , error => {
@@ -79,7 +79,7 @@ export class ContenuUpdateComponent  implements OnInit{
       theme: this.contenuFecth.theme,
       title: this.contenuFecth.title,
       language: this.contenuFecth.language,
-      creation_date: formatDate(this.contenuFecth.creation_date, 'yyyy-MM-dd', 'en-US'),
+      creation_date: formatDate(String(this.contenuFecth.creation_date), 'yyyy-MM-dd', 'en-US'),
       status: this.contenuFecth.status
     });
 

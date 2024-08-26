@@ -16,7 +16,8 @@ import {routes} from "../../app.routes";
 })
 export class LoginComponent implements OnInit{
   token !:string |null;
-  public message : string  = "nous sur le bon chemin !!!!!!!!"
+  public message : string  = "nous sur le bon chemin !!!!!!!!";
+  public icon = `<i class="nc-icon nc-chart-bar-32 "></i>`;
 
   roles : string[]  =  ["USER" , "ADMIN"];
   protected dataUser : {
@@ -52,7 +53,20 @@ export class LoginComponent implements OnInit{
             this.serviceApp.parseJWT()
             this.showSuccess()
             this.serviceApp.setPermission(true);
-           this.router.navigateByUrl("/dashboard")
+          if(this.dataUser.role == "ADMIN"){
+            console.log("je suis en administrador")
+            this.router.navigate(['dashboard']);
+            this.toastr.success(this.icon+" Bienvenu dans l'interface administrateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
+          }
+          if(this.dataUser.role == "USER"){
+            console.log("je suis en user")
+            this.router.navigate(['user-profil']);
+            this.toastr.success(this.icon+" Bienvenu dans l'interface utilisateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
+          }
+          else{
+            this.router.navigate(['login']);
+            this.toastr.error(this.icon+" L'accès vous est refusé !!!" , "EMPLOYEE MANAGER" , {enableHtml : true});
+          }
 
         }
 
