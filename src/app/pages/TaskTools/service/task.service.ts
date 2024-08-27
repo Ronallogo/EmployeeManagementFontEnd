@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../../environments/environment";
-import {TaskInsertedModel2, TaskModel} from "../../../models/models";
+import {TaskInsertedModel2, TaskModel, TaskScheduled} from "../../../models/models";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TaskInsertionListComponent} from "../task_insertion/task-insertion-list/task-insertion-list.component";
@@ -13,7 +13,7 @@ export class TaskService {
 
   private Url : string = environment.host+"/task"
   private Url2 : string = environment.host+"/taskInserted"
-  private Url3 : string = environment.host+"/taskScheduled"
+  private Url3 : string = environment.host+"/TaskScheduled"
   private Task!: TaskModel;
 
   private TaskInserted! : TaskInsertedModel2 ;
@@ -101,6 +101,10 @@ export class TaskService {
     return  this.http.get<any>(this.Url3 + '/all');
   }
   getAllTaskForOnePosition(id : number){
+    return  this.http.get<any>(this.Url2 + '/allForOnePosition/' + id );
+  }
 
+  createTaskScheduled(task  : TaskScheduled){
+      return this.http.post(this.Url3 + '/create', task);
   }
 }

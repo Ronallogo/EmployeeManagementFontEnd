@@ -1,1 +1,128 @@
-<p>user-task works!</p>
+
+<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px; "   >
+  <div class="card card-stats">
+    <div class="card-body ">
+      <div class="row">
+        <div class="col-5 col-md-4">
+          <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+            <i class="nc-icon nc-tile-56 text-default"></i>
+          </div>
+        </div>
+        <div class="col-7 col-md-8">
+          <div class="numbers">
+            <p class="card-category">formulaire</p>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-8">
+          <div class="card-header ">
+            <h2 class="card-title">Programmer une tache</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row" style=" border-top: solid 1px lightgray">
+        <form  (submit)= "createTaskScheduled()" style="width: 800px ;">
+          <div class="row"  >
+            <div class="card-body  col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-3">
+                <div class="dropdown">
+
+                  <div class="form-group  ">
+                    <label for="contenuSelect" class="control-label">  Contenu: <span class="star">*</span></label>
+                    <select id="contenuSelect" class="form-control"  [(ngModel)]="taskScheduled.content"   name="contenu" style="width: 200%; max-width: 400px;">
+                      <option value="" disabled selected>Choisir un poste</option>
+                      <option *ngFor="let c of listContent" [value]="c.id">
+                        {{ c.title }}
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="card-body  col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-3">
+                <div class="dropdown">
+                  <div class="form-group  ">
+                    <label class="control-label"  for="tache">Tache: <span class="star">*</span></label>
+                    <select id="taskSelect"  [(ngModel)]="taskScheduled.taskInserted" name="task"   class="form-control "   style="width: 200%; max-width: 400px;">
+                      <option value="" disabled selected>Choisir une tache</option>
+                      <option *ngFor="let task of ListTaskInserted" [value]="task.id">
+                        {{ task.task.task_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+            <div class="card-body  col-sm-6">
+              <div class="form-group has-label col-xl-11"  >
+                <label class="control-label" for="beginning">début de tache: <span class="star">*</span></label>
+                <input    [(ngModel)]="taskScheduled.beginning"   class="form-control  ng-pristine ng-invalid ng-touched" name="beginning"   required type="date">
+
+              </div>
+            </div>
+            <div class="card-body  col-sm-6">
+              <div class="form-group has-label col-xl-11"  >
+                <label class="control-label" for="end">fin de tache: <span class="star">*</span></label>
+                <input   [(ngModel)]="taskScheduled.end" class="form-control  ng-pristine ng-invalid ng-touched" name="end"   required type="date">
+
+              </div>
+            </div>
+
+
+
+            <div class="card-body  col-sm-6" style="margin-left: 20px">
+              <button    type="submit" class="btn btn-outline-default btn-round">
+                <i class="fa fa-thumb-tack"></i> &nbsp;  progammer la tache
+              </button>
+            </div>
+
+
+
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<!--
+<form novalidate class="ng-pristine ng-invalid ng-touched" >
+
+  <div class="card-body">
+    <div class="form-group has-label">
+      <label class="control-label" for="email">Email Address: <span class="star">*</span></label>
+      <input class="form-control ng-pristine ng-invalid ng-touched" name="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required type="email">
+      <small class="text-danger" hidden> Email is required and format should be   </small>
+    </div>
+    <div class="form-group has-label">
+      <label class="control-label" for="password">Password <span class="star">*</span></label>
+      <input class="form-control ng-untouched ng-pristine ng-invalid" name="password" required type="password" validateequal="confirmPassword">
+      <small class="text-danger" hidden> Password is required </small>
+    </div>
+    <div class="form-group has-label">
+      <label class="control-label" for="confirmPassword">Confirm Password <span class="star">*</span></label>
+      <input class="form-control ng-untouched ng-pristine ng-invalid" name="confirmPassword" required type="password" validateequal="password">
+      <small class="text-danger" hidden> Password mismatch </small>
+    </div>
+    <div class="category">
+      <span class="star">*</span> Required fields
+    </div>
+  </div>
+  <div class="card-footer text-right">
+
+    <button class="btn btn-primary" type="submit">Register</button>
+  </div>
+</form>
+
+-->
+

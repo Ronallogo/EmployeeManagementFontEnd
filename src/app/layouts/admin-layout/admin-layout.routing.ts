@@ -20,6 +20,7 @@ import {LogoutComponent} from "../../pages/logout/logout.component";
 import {LoginComponent} from "../../pages/login/login.component";
 import {UserProfilComponent} from "../../pages/user-part/userProfilTools/user-profil/user-profil.component";
 import {UserTaskComponent} from "../../pages/user-part/usertaskTools/user-task/user-task.component";
+import {UserPayementComponent} from "../../pages/user-part/userPayementTools/user-payement/user-payement.component";
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -32,7 +33,8 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'contenu',      component: ContenuComponent },
   { path: 'conge',      component:  CongeComponent },
   { path: 'absence',      component:  AbsenceComponent },
-  { path: 'payement',      component:  PayStubComponent },
+  { path: 'payStub',      component:  PayStubComponent },
+  { path: 'user-payement',      component:  UserPayementComponent },
   { path: 'logout',      component:  LogoutComponent },
   { path: 'user',           component: UserComponent },
   { path: 'table',          component: TableComponent },

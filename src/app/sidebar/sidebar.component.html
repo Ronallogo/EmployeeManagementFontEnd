@@ -5,6 +5,7 @@
       <i class="nc-icon nc-chart-bar-32 "></i><span style="font-size: 18px">Employee manager</span>
     </a>
   </div>
+
     <ul class="nav">
         <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
            <ng-container *ngIf="menuItem.views == 'all'  || user.role ==  menuItem.views ">

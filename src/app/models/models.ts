@@ -17,15 +17,15 @@ export interface TaskModel {
 export interface TaskInsertedModel {
 
   "id":number ,
-  "task":number  ,
+  "task":number   ,
   "position":number ,
   "date":string ,
   "gain":number
 }
 
 export interface TaskInsertedModel2 extends TaskInsertedModel {
-      task_body : any,
-      position_body : any,
+      task : any,
+      position : any,
 
 }
 
@@ -97,21 +97,36 @@ export const iconApp  = `<i class="nc-icon nc-chart-bar-32 "></i>`;
 
 
 
-export interface TaskSheduled{
-    TaskInserted : any ;
-    employe : any ;
+export interface TaskScheduled {
+    taskInserted : any ;
+    employee : any ;
     beginning : string;
     end :string ;
     status :boolean;
     content : any;
 }
 
-export interface TaskSheduled2 extends  TaskSheduled {
+export interface TaskScheduled2 extends  TaskScheduled {
     id : number;
 }
 
 
 export const manager  = "EMPLOYEE MANAGER";
+
+
+
+export interface PayStubModel{
+
+
+  amount : number;
+  nbrTasks : number;
+  bonus : number ;
+  paymentDate : string;
+  employee : any;
+}
+export interface PayStubModel2 extends PayStubModel{
+    id : number;
+}
 
 
 

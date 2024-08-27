@@ -20,10 +20,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/contenu',       title: 'Contenu',    icon:'nc-icon nc-book-bookmark',  views : "ADMIN" ,  class: '' },
     { path: '/conge',         title: 'Conge',        icon:'nc-icon  nc-sun-fog-29',  views : "ADMIN" ,  class: '' },
     { path: '/absence',       title: 'Absence',    icon:'nc-icon nc-time-alarm', views : "ADMIN" ,   class: '' },
-    { path: '/payement',      title: 'payement',  icon:'nc-icon nc-money-coins', views : "ADMIN" ,   class: '' },
-    { path: '/icons',         title: 'Icons',             icon:'nc-diamond', views : "all" ,   class: '' },
+    { path: '/payStub',      title: 'Payement',  icon:'nc-icon nc-money-coins', views : "ADMIN" ,   class: '' },
+    { path: '/icons',         title: 'Icons',             icon:'nc-diamond', views : "" ,   class: '' },
     { path: '/user',          title: 'Utilisateurs',      icon:'nc-single-02', views : "" , class: '' },
    /* { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },*/
+    { path: '/user-payement',       title: 'bulletin de Paie',    icon:'nc-icon nc-money-coins',  views : "USER"  , class: '' },
     { path: '/logout',       title: 'Deconnexion',    icon:'nc-button-power', views : "all" , class: '' },
 ];
 
