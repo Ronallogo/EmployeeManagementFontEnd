@@ -63,4 +63,8 @@ export class PayStubService {
   deletePayStub(id : number){
     return this.http.delete(this.Url + '/delete/'+id)
   }
+
+  refreshPayStub(id :number , data : PayStubModel):Observable<any>{
+      return this.http.put(this.Url + '/edit/'+id, data)
+  }
 }

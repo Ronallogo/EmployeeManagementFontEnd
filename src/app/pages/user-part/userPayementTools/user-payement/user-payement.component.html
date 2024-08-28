@@ -2,68 +2,67 @@
   <div class="col-md-8 ml-auto mr-auto">
     <div class="card card-upgrade">
       <div class="card-header text-center">
-        <h4 class="card-title">Paper Dashboard PRO Angular</h4>
-        <p class="card-category">Are you looking for more components? Please check our Premium Version of Paper Dashboard PRO.</p>
+        <h4 class="card-title">Bulletin de Paie</h4>
+
       </div>
       <div class="card-body">
         <div class="table-responsive table-upgrade">
           <table class="table">
             <thead>
-            <th class="text-center">Intiltulé</th>
-            <th class="text-center"> icon</th>
-            <th >valeurs</th>
-
+              <th class="text-center">Intiltulé</th>
+              <th class="text-center"> icon</th>
+              <th class="text-center">valeurs</th>
             </thead>
             <tbody>
                 <tr>
                   <td>Nom et Prénom de l'employé :</td>
                   <td class="text-center"><i class="fa fa-user"></i></td>
-                  <td class="text-center">160</td>
+                  <td class="text-center"> {{userPayStub?.employee.name}} &nbsp;  {{userPayStub?.employee.surname}}</td>
                 </tr>
 
                 <tr>
                   <td>Username :</td>
                   <td class="text-center"><i class="fa fa-user-circle-o"></i></td>
-                  <td class="text-center">27</td>
+                  <td class="text-center">&#64;{{userPayStub?.employee.name}}</td>
                 </tr>
                 <tr>
                   <td>Date de naissance :</td>
                   <td class="text-center"><i class="fa fa-birthday-cake"></i></td>
-                  <td class="text-center"><i class="nc-icon nc-check-2 text-success"></i></td>
+                  <td class="text-center">{{userPayStub?.employee.birthday}} </td>
                 </tr>
                 <tr>
                   <td> Poste  :</td>
                   <td class="text-center"><i class="fa fa-briefcase"></i></td>
-                  <td class="text-center"><i class="nc-icon nc-check-2 text-success"></i></td>
+                  <td class="text-center">{{userPayStub?.employee.position.position_name}} </td>
                 </tr>
                 <tr>
                   <td> Email  :</td>
                   <td class="text-center"><i class="fa fa-envelope"></i></td>
-                  <td class="text-center"><i class="nc-icon nc-check-2 text-success"></i></td>
+                  <td class="text-center"> {{userPayStub?.employee.email}}</td>
                 </tr>
                 <tr>
                   <td>Nombre de tache :</td>
                   <td class="text-center"><i class="fa  fa-tasks"></i></td>
-                  <td class="text-center"><i class="nc-icon nc-check-2 text-success"></i></td>
+                  <td class="text-center"> {{userPayStub?.nbrTasks}}</td>
                 </tr>
                 <tr>
                   <td>Bonus :</td>
                   <td class="text-center"> <i class="fa fa-gift"></i></td>
-                  <td class="text-center">Just $49</td>
+                  <td class="text-center"> {{userPayStub?.bonus}}</td>
 
                 </tr>
                 <tr>
                   <td>Montant :</td>
                   <td class="text-center">  <i class="fa fa-dollar"></i></td>
-                  <td class="text-center">Just $49</td>
+                  <td class="text-center">{{userPayStub?.amount}}</td>
                 </tr>
                 <tr>
-                  <td class="text-center"></td>
+                  <td class="text-center"> <button type="submit" (click)="refreshDataPayStub()"  class="btn btn-round btn-outline-default"> <i  class="fa fa-refresh">&nbsp;</i>  <span>mise à jour de votre bulletin</span> </button></td>
                   <td class="text-center">
-                    <a href="#" class="btn btn-round btn-default disabled">Current Version</a>
+
                   </td>
                   <td class="text-center">
-                    <a target="_blank" href="https://www.creative-tim.com/product/paper-dashboard-pro-angular?ref=pd-free-angular-upgrade-live" class="btn btn-round btn-primary">Upgrade to PRO</a>
+                    <button type="submit"   class="btn btn-round btn-outline-default"> <i  class="fa fa-cloud-download">&nbsp;</i>  <span>imprimer votre bulletin</span> </button>
                   </td>
                 </tr>
             </tbody>

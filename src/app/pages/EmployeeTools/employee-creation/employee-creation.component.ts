@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EmployeeService} from "../service/employee.service";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {NgForOf, NgIf} from "@angular/common";
+import {PayStubService} from "../../payStubTools/service/pay-stub.service";
+import {ToastrService} from "ngx-toastr";
+import {iconApp, manager} from "../../../models/models";
 
 
 
@@ -13,7 +16,8 @@ import {NgForOf, NgIf} from "@angular/common";
   imports: [
     ReactiveFormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    FormsModule
   ],
   animations: [
     trigger('slideInOut', [
@@ -34,7 +38,18 @@ export class EmployeeCreationComponent implements  OnInit{
 
   protected allPosition : any[] = []
 
+  protected date_insertion : string = "";
 
+  constructor(
+    private employeeService: EmployeeService ,
+    private positionService : PositionService ,
+    private payStubService : PayStubService,
+    private toastr :ToastrService
+  ) {}
+
+  ngOnInit(): void {
+    this.getAllPosition() ;
+  }
 
 
   protected Employee = new FormGroup({
@@ -58,27 +73,35 @@ export class EmployeeCreationComponent implements  OnInit{
     if( this.Employee.getRawValue().password == this.Employee.getRawValue().confirmPassword ){
       this.employeeService.createEmployee(this.Employee.getRawValue()).subscribe(data => {
         console.log(data);
-        this.show = true ;
-        this.show2 = false
+        this.toastr.success(iconApp+ " Employee crée avec succès !",manager , {enableHtml:true})
+
+
+        this.payStubService.createPayStub({
+          amount : 0 ,
+          nbrTasks : 0,
+          bonus : 0 ,
+          paymentDate : this.date_insertion,
+          employee : data.id
+        }).subscribe(data =>{
+          this.toastr.info(iconApp+ " Cet employé possède désormais un bulletin de paie !",manager , {enableHtml:true})
+          console.log(data);
+        },error => {
+            console.log(error);
+          this.toastr.warning(iconApp+ " Cet employé ne possède pas de bulletin de paie !",manager , {enableHtml:true})
+        })
       } , error => {
         console.log(error);
 
       })
     }
     else{
-      this.show2 = true ;
+        this.toastr.warning(iconApp+ " Les mots de passes ne sont pas identiques !!",manager , {enableHtml:true})
 
     }
 
   }
 
 
-
-  constructor(private employeeService: EmployeeService , private positionService : PositionService) {}
-
-  ngOnInit(): void {
-    this.getAllPosition() ;
-  }
 
   getAllPosition(){
     this.positionService.allPositions().subscribe(data =>{

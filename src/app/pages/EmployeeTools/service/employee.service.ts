@@ -4,6 +4,7 @@ import {EmployeeModel, EmployeeModel2} from "../../../models/models";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { AuthenticationService } from "../../../globalService/auth/authentication.service";
+import {PayStubService} from "../../payStubTools/service/pay-stub.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,6 @@ export class EmployeeService {
 
   constructor(
     private http: HttpClient,
-
 
   ) {}
 
@@ -71,6 +71,7 @@ export class EmployeeService {
         this.isCreate = true ;
      } , error => {
        console.log(error);
+
        }
      );
 
