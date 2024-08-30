@@ -1,1 +1,96 @@
+<div class="col-lg-9 col-md-6 col-6" style="margin-left: 100px;">
+  <div class="card card-stats">
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-5 col-md-4">
+          <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+            <i class="nc-icon nc-tile-56 text-default"></i>
+          </div>
+        </div>
+        <div class="col-7 col-md-8">
+          <div class="numbers">
+            <p class="card-category">Formulaire</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-header">
+        <h2 class="card-title">Modification d'un employé</h2>
+      </div>
+      <form  (submit)="UpdateEmployee()">
+        <div class="row" style="border-top: solid 1px lightgray; padding-top: 15px;">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="name">Nom: <span class="text-danger">*</span></label>
+              <input  [(ngModel)]="employee.name"  value="{{employee.name}}" class="form-control" name="name" required type="text">
+
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="surname">Prénom: <span class="text-danger">*</span></label>
+              <input [(ngModel)]="employee.surname" value="{{employee.surname}}" class="form-control" name="surname" required type="text">
+
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="birthday">Date de naissance: <span class="text-danger">*</span></label>
+              <input [(ngModel)]="employee.birthday"  value="{{employee.birthday}}" class="form-control" name="birthday" required type="date">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="email">Adresse Mail: <span class="text-danger">*</span></label>
+              <input name="email"   [(ngModel)]="employee.email" class="form-control"    required type="email">
+
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="phone">Téléphone: <span class="text-danger">*</span></label>
+              <input name="phone"  [(ngModel)]="employee.phone"  class="form-control"  required type="tel"   value="{{employee.phone}}" >
+
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="position">Poste de l'employé: (sélectionnez le poste) <span class="text-danger">*</span></label>
+              <select name="position"   class="form-control">
+                <option value="" disabled selected> dernier selection : {{employee.position.position_name}}</option>
+                <option *ngFor="let p of allPosition" [value]="p">{{ p.position_name }}</option>
+              </select>
+            </div>
+          </div>
+    <!--      <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="old_password">Ancien mot de passe:(En cas de modification) <span class="text-danger">*</span></label>
+              <input name="old_password"  [(ngModel)]="password_body.old_password" placeholder="Veuillez saisir l'ancien mot de passe"  class="form-control"   required type="password">
+
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label" for="new_Password"> Nouveau   mot de passe:(En cas de modification) <span class="text-danger">*</span></label>
+              <input  name="new_password" [(ngModel)]="password_body.new_password" class="form-control"   placeholder="Veuillez saisir le nouveau mot de passe" required type="password">
+
+            </div>
+          </div> -->
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label" for="address">Adresse de l'employé: <span class="text-danger">*</span></label>
+              <input name="address"  value="{{employee.address}}" class="form-control"   required type="text">
+
+            </div>
+          </div>
+          <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-outline-default btn-round">
+              <i class="fa fa-refresh"></i>  mise a jour des données de l'employé
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 

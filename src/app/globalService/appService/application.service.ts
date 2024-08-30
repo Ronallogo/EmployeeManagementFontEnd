@@ -4,6 +4,8 @@ import {AuthenticationService} from "../auth/authentication.service";
 import { jwtDecode } from 'jwt-decode';
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {Observable} from "rxjs";
+import {UserDetails, UserDetails2} from "../../models/models";
 
 
 @Injectable({
@@ -14,6 +16,9 @@ export class ApplicationService {
   public permit : boolean = false;
   private jwt !: any;
   private objJWT : any
+
+
+
 
   private user  = {
     email :"" ,
@@ -86,6 +91,17 @@ export class ApplicationService {
 
     console.log(localStorage.getItem("jwt"))
     console.log(localStorage.getItem("user"))
+  }
+
+  fetchUser(email : string): Observable<any>{
+    return this.http.get(`${this.host}/user/`+email);
+  }
+
+  updateUserWithPassword(id : number , userDetails : UserDetails) : Observable<any>{
+    return this.http.put(`${this.host}/editWithPassword/${id}`, userDetails);
+  }
+  updateUserWithoutPassword(id : number , userDetails : UserDetails2) : Observable<any>{
+    return this.http.put(`${this.host}/editWithoutPassword/${id}`, userDetails);
   }
 
 

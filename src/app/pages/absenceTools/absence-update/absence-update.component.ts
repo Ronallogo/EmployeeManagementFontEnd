@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {AbsenceModel, AbsenceModel2, PositionModel} from "../../../models/models";
+import {AbsenceModel, AbsenceModel2, iconApp, manager, PositionModel} from "../../../models/models";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {AbsenceService} from "../service/absence.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-absence-update',
@@ -31,7 +32,7 @@ export class AbsenceUpdateComponent {
 
 
 
-  constructor(private service: AbsenceService) {}
+  constructor(private service: AbsenceService , private toastr : ToastrService,) {}
 
   ngOnInit(): void {
     this.initialize()
@@ -56,14 +57,13 @@ export class AbsenceUpdateComponent {
   updateAbsence(){
     this.service.updateAbsence(this.id, {...this.formulaire.getRawValue()}).subscribe(data =>{
       console.log(data);
-      this.show = true ;
+      this.toastr.success(iconApp+ "mise à jour effectuée avec succès !!!" , manager , {enableHtml:true})
     } , error => {
       console.log(error);
+      this.toastr.error(iconApp+" Une erreur est survenue au niveau de la mise à jour!!!" , manager , {enableHtml:true})
     })
   }
 
 
-  reloadNotification() {
-    this.show = false
-  }
+
 }

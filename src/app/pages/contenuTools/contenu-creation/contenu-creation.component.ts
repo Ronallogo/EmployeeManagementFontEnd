@@ -5,6 +5,8 @@ import {PositionService} from "../../PositionTools/service/position.service";
 import {ContenuService} from "../service/contenu.service";
 import {formatDate, NgForOf, NgIf} from "@angular/common";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
+import {iconApp, manager} from "../../../models/models";
 
 @Component({
   selector: 'app-contenu-creation',
@@ -42,7 +44,7 @@ export class ContenuCreationComponent implements  OnInit{
   });
   show:  boolean = false;
 
-  constructor(private service :ContenuService) {
+  constructor(private service :ContenuService , private toastr : ToastrService) {
 
   }
 
@@ -64,9 +66,12 @@ export class ContenuCreationComponent implements  OnInit{
 
     this.service.createContenu(this.contenuForm.getRawValue()).subscribe(data =>{
       console.log(data);
-      this.show = true ;
+      this.toastr.success(iconApp+ " Contenu enregistré avec succès !!" , manager , { enableHtml : true})
+
     } , error => {
-      console.log(error)
+      console.log(error);
+      this.toastr.error(iconApp+ "  Une erreur es survenue lors de l'enregistrement !!" , manager , { enableHtml : true})
+
     })
   }
 

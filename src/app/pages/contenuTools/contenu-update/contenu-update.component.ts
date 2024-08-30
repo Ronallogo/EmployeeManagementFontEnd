@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {formatDate, NgIf} from "@angular/common";
 import {ContenuService} from "../service/contenu.service";
-import {ContenuModel, ContenuModel2} from "../../../models/models";
+import {ContenuModel, ContenuModel2, iconApp, manager} from "../../../models/models";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-contenu-update',
@@ -42,7 +43,7 @@ export class ContenuUpdateComponent  implements OnInit{
   show:  boolean = false ;
 
 
-  constructor(private service : ContenuService) {
+  constructor(private service : ContenuService , private toastr : ToastrService) {
   }
 
   ngOnInit(): void {
@@ -61,9 +62,10 @@ export class ContenuUpdateComponent  implements OnInit{
 
     this.service.updateContenu(this.id , {...this.contenuForm.getRawValue()}).subscribe(data =>{
       console.log(data);
-      this.show  = true ;
+      this.toastr.success(iconApp + " Mise a jour effectué avec succès !!" , manager , {enableHtml :true})
     } , error => {
       console.log(error);
+      this.toastr.error(iconApp + " Une erreur c'est produit lors de la mise à jour!!!" , manager , {enableHtml : true})
     })
   }
 

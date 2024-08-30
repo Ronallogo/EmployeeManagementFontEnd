@@ -68,6 +68,34 @@ export interface EmployeeModel2 {
   position : any |null;
 
 }
+export interface EmployeeModel3 extends  EmployeeModel5{
+  "id" : number
+
+}
+export interface EmployeeModel5  {
+
+  "name" :string ,
+  "surname" : string ,
+  "email" : string ,
+  "birthday" : string,
+  "phone" : number ,
+  "address" : string ,
+  "position" : PositionModel
+  "old_password" : string ,
+  new_password : string ,
+}
+
+export interface EmployeeModel4  {
+  "id" : number
+  name :string ,
+  surname : string ,
+  email : string ,
+  birthday : string,
+  phone : number ,
+  address : string ,
+  position : any
+
+}
 
 
 export interface AbsenceModel2 {
@@ -126,6 +154,24 @@ export interface PayStubModel{
 }
 export interface PayStubModel2 extends PayStubModel{
     id : number;
+}
+
+
+export  interface UserDetails  {
+  id :number;
+  firstname :string;
+  lastname :string;
+  email : string;
+  password  : string;
+  role : string;
+}
+export  interface UserDetails2  {
+  id :number;
+  firstname :string;
+  lastname :string;
+  email : string;
+
+  role : string;
 }
 
 

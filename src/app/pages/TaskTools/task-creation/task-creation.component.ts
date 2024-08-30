@@ -4,6 +4,8 @@ import {NgIf} from "@angular/common";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {TaskService} from "../service/task.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
+import {iconApp, manager} from "../../../models/models";
 
 @Component({
   selector: 'app-task-creation',
@@ -37,18 +39,17 @@ export class TaskCreationComponent  implements OnInit{
 });
 
 
-   constructor(private service :TaskService) {}
+   constructor(private service :TaskService , private toastr : ToastrService) {}
 
-  reloadNotification() {
-        this.show = false;
-  }
+
 
   createTask() {
         this.service.createTask(this.task.getRawValue()).subscribe(data => {
           console.log(data)
-          this.show = true ;
+          this.toastr.success(iconApp + " tache créée avec succès" , manager ,{enableHtml:true});
         } ,error => {
           console.log(error);
+          this.toastr.error(iconApp + " Une erreur est survenue lors de la création !!" , manager , {enableHtml : true});
         })
   }
 
