@@ -17,6 +17,7 @@
             <button class="btn btn-outline-default btn-round"  style="margin-left: 100px">
               <i class="nc-icon nc-cloud-download-93"></i> imprimer la liste des bulletins
             </button>
+
           </div>
         </form>
       </div>
@@ -53,11 +54,11 @@
             </th>
             <th>
               <div class="row" style="margin-left: 20px">
-                <button class="btn btn-outline-default-default" style="margin-bottom: 5px ; margin-right: 5px ; height: 50px"  (click)="deletePayStub(p.id)">
+                <!-- <button class="btn btn-outline-default-default" style="margin-bottom: 5px ; margin-right: 5px ; height: 50px"  (click)="deletePayStub(p.id)">
                   <i class="fa fa-trash"></i>
-                </button>
+                </button> -->
 
-                <button class="btn btn-outline-default" style="height: 50px"  (click)="service.setPayStub(p)" routerLinkActive="active" routerLink="/absence-update" >
+                <button class="btn btn-outline-default" style="height: 50px"  (click)="service.setPayStub(p)" routerLinkActive="active" routerLink="/payStub-update" >
                   <i class="fa fa-refresh"></i>
                 </button>
 

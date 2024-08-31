@@ -11,15 +11,13 @@ export class PayStubService {
 
   private Url : string = environment.host+"/payStub";
 
-  private payStub!: PayStubModel2|PayStubModel;
+  private payStub!: PayStubModel2;
 
 
 
 
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(protected http: HttpClient) { }
 
 
 
@@ -33,7 +31,7 @@ export class PayStubService {
     console.log(this.payStub + "give")
     return this.payStub
   }
-  setPayStub(PayStub : PayStubModel){
+  setPayStub(PayStub : PayStubModel2){
     this.payStub = PayStub;
     console.log(PayStub + " receive")
   }
@@ -66,5 +64,8 @@ export class PayStubService {
 
   refreshPayStub(id :number , data : PayStubModel):Observable<any>{
       return this.http.put(this.Url + '/edit/'+id, data)
+  }
+  initPayStub(id :number , data : PayStubModel):Observable<any>{
+    return this.http.put(this.Url + '/refresh/'+id, data)
   }
 }

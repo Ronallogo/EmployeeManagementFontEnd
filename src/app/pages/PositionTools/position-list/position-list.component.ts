@@ -38,7 +38,7 @@ import {ToastrService} from "ngx-toastr";
 export class PositionListComponent implements  OnInit{
   protected dataSource: any[] = [] ;
   show: boolean = false;
-
+  private format : string = "pdf";
 
 
   positionForNotification! : PositionModel;
@@ -73,9 +73,26 @@ export class PositionListComponent implements  OnInit{
 
       }  , error => {
          console.log(error);
-        this.toastr.error(iconApp+" Une erreur esyt subvenu lors de la suppression!!!" , manager , {enableHtml:true})
+        this.toastr.error(iconApp+" Une erreur est subvenu lors de la suppression!!!" , manager , {enableHtml:true})
        })
 
+  }
+
+  generePdf(){
+    this.service.report().subscribe((data : Blob) => {
+      console.log(data);
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'liste_poste.pdf'; // You can dynamically set the filename if needed
+      a.click();
+      URL.revokeObjectURL(url);
+      this.toastr.success(iconApp+" génération réussie !! \n"+data , manager , {enableHtml:true} );
+    } , error => {
+      this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
+      console.log(error)
+    })
   }
 
 

@@ -62,5 +62,5 @@ export class DashboardComponent implements OnInit{
   }
 
 
-
+    protected readonly Date = Date;
 }

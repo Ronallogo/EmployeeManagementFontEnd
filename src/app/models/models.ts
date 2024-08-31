@@ -117,7 +117,7 @@ export interface CongeModel2{
 
 }
 
-export interface CongeModel extends AbsenceModel2{
+export interface CongeModel extends CongeModel2{
   id  : number;
 }
 
@@ -173,6 +173,32 @@ export  interface UserDetails2  {
 
   role : string;
 }
+
+export interface   DemandeConge {
+
+  id : number| null ;
+  beginning : string ;
+  end  : string;
+  employee : any ;
+  type :string;
+  Apply : string ;
+  validate : boolean;
+
+
+}
+
+export interface  DemandeConge2{
+
+  beginning : string ;
+  end  : string;
+  employee : number ;
+  type :string;
+  Apply : string ;
+  validate : boolean;
+}
+
+
+
 
 
 

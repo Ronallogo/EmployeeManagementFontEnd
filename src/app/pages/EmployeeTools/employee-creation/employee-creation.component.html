@@ -85,7 +85,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="date_insertion">Date d'insertion dans le système: <span class="text-danger">*</span></label>
-              <input formControlName="date_insertion" class="form-control" id="date_insertion" required type="date">
+              <input  [(ngModel)]="date_insertion" [ngModelOptions]="{standalone : true}" class="form-control" name="date_insertion" required type="date">
             </div>
           </div>
           <div class="col-12 mt-3">
