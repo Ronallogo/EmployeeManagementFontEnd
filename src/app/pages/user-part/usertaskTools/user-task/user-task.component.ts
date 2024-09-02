@@ -60,20 +60,25 @@ export class UserTaskComponent implements OnInit{
       this.employee = data;
       console.log(this.employee);
 
+      this.service.getAllTaskForOnePosition(this.employee.position.id).subscribe(data =>{
+        console.log(data);
+        this.ListTaskInserted = data
+      } , error => {
+        this.toastr.warning(iconApp+' les task insérées du système' +
+          ' non pas été chargé pour la création de contenu' , manager , {enableHtml:true});
+      })
+
+
     } , error => {
       console.log(error);
       this.toastr.warning(iconApp+ "il semble avoir un problème avec la récupération de vos données ." , manager , {enableHtml:true})
     });
+
+
      this.serviceContent.allContenu().subscribe(data =>{
        console.log(data);
        this.listContent = data ;
-       this.service.getAllTaskForOnePosition(this.employee.position.id).subscribe(data =>{
-         console.log(data);
-         this.ListTaskInserted = data
-       } , error => {
-         this.toastr.warning(iconApp+' les task insérées du système' +
-           ' non pas été chargé pour la création de contenu' , manager , {enableHtml:true});
-       })
+
      } , error => {
        console.log(error);
        this.toastr.warning(iconApp+' les contenu non pas été chargé pour la création de contenu' , manager , {enableHtml:true});
@@ -94,7 +99,7 @@ export class UserTaskComponent implements OnInit{
           this.toastr.success(iconApp+" Cette tache est désormais en cours ...bon travail!!" ,manager , {enableHtml:true});
       } , error => {
         console.log(error);
-        this.toastr.error(iconApp+" Une erreur c est produite !!" ,manager , {enableHtml:true});
+        this.toastr.error(iconApp+" Une erreur c est produite !! Vérifier que la chronologie des dates soit correcte !!" ,manager , {enableHtml:true});
       })
   }
 }

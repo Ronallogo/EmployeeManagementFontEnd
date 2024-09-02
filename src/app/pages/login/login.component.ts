@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit{
         this.token =    localStorage.getItem('jwt') ;
       console.log(localStorage.getItem("jwt"))
       console.log(localStorage.getItem("user"))
+
         if(this.dataUser.role =="USER" || this.dataUser.role =="ADMIN"){
             this.serviceApp.parseJWT()
             this.showSuccess()

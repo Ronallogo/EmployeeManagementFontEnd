@@ -1,9 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ContenuModel, EmployeeModel, EmployeeModel2, iconApp, TaskInsertedModel2} from "../../../../models/models";
+import {
+  ContenuModel,
+  EmployeeModel,
+  EmployeeModel2,
+  iconApp,
+  manager,
+  TaskInsertedModel2
+} from "../../../../models/models";
 import {UserSettingService} from "../../service/user-setting.service";
 import {EmployeeService} from "../../../EmployeeTools/service/employee.service";
 import {ToastrService} from "ngx-toastr";
+import {TaskService} from "../../../TaskTools/service/task.service";
+import {PayStubService} from "../../../payStubTools/service/pay-stub.service";
+import {AbsenceService} from "../../../absenceTools/service/absence.service";
 
 @Component({
   selector: 'app-user-profil',
@@ -18,9 +28,20 @@ import {ToastrService} from "ngx-toastr";
 export class UserProfilComponent implements OnInit{
   protected id !: number ;
   protected Employee !: EmployeeModel2 ;
+  protected salaire :number = 0;
+  protected task : number = 0
+  protected  absence: number = 0;
+
   public user!: {email : string , role : string};
 
-  constructor(private serviceEmployeeService : EmployeeService , private toastr : ToastrService  ) {
+  constructor(
+      private serviceEmployeeService : EmployeeService ,
+      private toastr : ToastrService ,
+      private serviceTask : TaskService ,
+      private servicePayStub : PayStubService ,
+      private serviceAbsence : AbsenceService
+    ) {
+
   }
 
 
@@ -35,8 +56,28 @@ export class UserProfilComponent implements OnInit{
           this.Employee = data;
           console.log(data)
           this.id = data.id
+          this.serviceTask.getTaskScheduleForOne(this.id).subscribe(data =>{
+              this.task = data.length
+          } , error => {
+            console.log(error);
+            this.toastr.warning(iconApp + " nombre de tache non chargé" , manager , {enableHtml:true})
+          });
+
+          this.servicePayStub.getPayStubForOne(String(this.Employee.email)).subscribe(data =>{
+              console.log(data);
+               this.salaire = data.amount ;
+          } , error => {
+            this.toastr.warning(iconApp + "  salaire non chargé" , manager , {enableHtml:true})
+          })
+
+        this.serviceAbsence.searchAbsence(String(this.Employee.email)).subscribe(data =>{
+          console.log(data);
+          this.absence  =  data.length
+        })
+
       } , error => {
         console.log(error);
+        this.toastr.warning(iconApp + " nombre de d'absence non chargé" , manager , {enableHtml:true})
       })
   }
 

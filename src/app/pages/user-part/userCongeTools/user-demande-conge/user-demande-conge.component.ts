@@ -24,7 +24,7 @@ export class UserDemandeCongeComponent implements  OnInit{
     type : "" ,
     employee  : 0 ,
     validate : false ,
-    Apply : ""
+    apply : ""
 
 }   ;
 
@@ -60,7 +60,8 @@ export class UserDemandeCongeComponent implements  OnInit{
         console.log(this.demandeConge.type)
         this.service.createDemandeConge(this.demandeConge).subscribe(data =>{
             console.log(data);
-            this.toastr.success(iconApp + " Demande envoyé !!" , manager , {enableHtml : true})
+            this.toastr.success(iconApp + " Demande envoyé !!" , manager , {enableHtml : true});
+
         } , error => {
           console.log(error);
           this.toastr.error(iconApp + " Demande non envoyé !!" , manager , {enableHtml:true})

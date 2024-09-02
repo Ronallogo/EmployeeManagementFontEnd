@@ -66,6 +66,7 @@ export class UserPayementComponent implements OnInit {
             this.toastr.success(iconApp+" Votre bulletin est maintenant à jour..!" , manager , {enableHtml:true})
         } ,error => {
             this.toastr.warning(iconApp+" Votre bulletin ne peut pas subir une mise à jour pour le moment..!" , manager , {enableHtml:true})
+          console.log(error)
         })
 
 

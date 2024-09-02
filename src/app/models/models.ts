@@ -107,12 +107,13 @@ export interface AbsenceModel extends AbsenceModel2{
     id : number;
 }
 
+
 export interface CongeModel2{
-  date_beginning : string ;
-  date_end : string ;
+  beginning : string ;
+  end : string ;
   type : string ;
   status : boolean ;
-  time_off_apply : number
+  timeOffApply : any
 
 
 }
@@ -176,12 +177,12 @@ export  interface UserDetails2  {
 
 export interface   DemandeConge {
 
-  id : number| null ;
+  id : number ;
   beginning : string ;
   end  : string;
   employee : any ;
   type :string;
-  Apply : string ;
+  apply : string ;
   validate : boolean;
 
 
@@ -193,7 +194,7 @@ export interface  DemandeConge2{
   end  : string;
   employee : number ;
   type :string;
-  Apply : string ;
+  apply : string ;
   validate : boolean;
 }
 

@@ -25,6 +25,7 @@ import {
   UserDemandeCongeComponent
 } from "../../pages/user-part/userCongeTools/user-demande-conge/user-demande-conge.component";
 import {UserTaskListComponent} from "../../pages/user-part/usertaskTools/user-task-list/user-task-list.component";
+import {UserTaskUpdateComponent} from "../../pages/user-part/usertaskTools/user-task-update/user-task-update.component";
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -43,6 +44,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'user-demande-conge',      component:  UserDemandeCongeComponent },
   { path: 'logout',      component:  LogoutComponent },
   { path: 'user',           component: UserComponent },
+  { path: 'user-task-update',component: UserTaskUpdateComponent},
   { path: 'table',          component: TableComponent },
   { path: 'icons',          component: IconsComponent },
   { path: 'maps',           component: MapsComponent },

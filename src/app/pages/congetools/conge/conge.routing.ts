@@ -4,6 +4,7 @@ import {CongeMenuComponent} from "../conge-menu/conge-menu.component";
 import {CongeUpdateComponent} from "../conge-update/conge-update.component";
 import {CongeCreationComponent} from "../conge-creation/conge-creation.component";
 import {SearchCongeComponent} from "../search-conge/search-conge.component";
+import {DemandeListComponent} from "../demandeCongeTools/demande-list/demande-list.component";
 
 
 
@@ -13,7 +14,8 @@ export const CongeLayoutsRoutes: Routes = [
   { path: 'conge-update',      component: CongeUpdateComponent },
   {path: 'conge-menu',      component: CongeMenuComponent },
   {path: 'conge-list',      component: CongeListComponent } ,
-  {path: 'conge-search',      component: SearchCongeComponent }
+  {path: 'conge-search',      component: SearchCongeComponent },
+  {path: 'demande-list',      component: DemandeListComponent }
 
 
 ];

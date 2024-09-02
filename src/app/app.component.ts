@@ -33,12 +33,12 @@ export class AppComponent implements OnInit {
     if(this.jwt != null){
           if(user.role == "ADMIN"){
             console.log("je suis en administrador")
-             this.router.navigate(['dashboard']);
+             //this.router.navigate(['dashboard']);
             this.toastr.success(this.icon+" Bienvenu dans l'interface administrateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
           }
           if(user.role == "USER"){
             console.log("je suis en user")
-            this.router.navigate(['user-profil']);
+           // this.router.navigate(['user-profil']);
             this.toastr.success(this.icon+" Bienvenu dans l'interface utilisateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
           }
          /* else{

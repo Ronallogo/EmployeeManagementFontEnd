@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../../environments/environment";
-import {TaskInsertedModel2, TaskModel, TaskScheduled} from "../../../models/models";
+import {TaskInsertedModel2, TaskModel, TaskScheduled, TaskScheduled2} from "../../../models/models";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TaskInsertionListComponent} from "../task_insertion/task-insertion-list/task-insertion-list.component";
@@ -15,6 +15,7 @@ export class TaskService {
   private Url2 : string = environment.host+"/taskInserted"
   private Url3 : string = environment.host+"/TaskScheduled"
   private Task!: TaskModel;
+  private TaskScheduled !: TaskScheduled2
 
   private TaskInserted! : TaskInsertedModel2 ;
   private formattedDate!: string;
@@ -51,6 +52,10 @@ export class TaskService {
     return   this.http.delete(this.Url2 + '/delete/' + id);
 
   }
+  deleteTaskScheduled(id: number) : Observable<any> {
+    return   this.http.delete(this.Url3 + '/delete/' + id);
+
+  }
 
   getTask() : TaskModel {
     console.log(this.Task + "give")
@@ -72,6 +77,10 @@ export class TaskService {
 
   updateTask(id : number, Task :  {task_name : string, task_description : string } ){
     return this.http.put(this.Url + '/edit/'+id , Task)
+  }
+
+  updateTaskSheduled(id: number, Task: TaskScheduled){
+    return this.http.put(this.Url3 + '/edit/'+id , Task)
   }
 
 
@@ -97,7 +106,7 @@ export class TaskService {
   getTaskScheduleForOne(id: number) : Observable<any> {
       return this.http.get(this.Url3 + '/taskForOne/'+id)
   }
-  getAllTaskScheduled(){
+  AllTaskScheduled(){
     return  this.http.get<any>(this.Url3 + '/all');
   }
   getAllTaskForOnePosition(id : number){
@@ -106,5 +115,13 @@ export class TaskService {
 
   createTaskScheduled(task  : TaskScheduled){
       return this.http.post(this.Url3 + '/create', task);
+  }
+
+  setTaskSchedule(p: TaskScheduled2) {
+    this.TaskScheduled  = p ;
+  }
+
+  getTaskScheduled(){
+    return this.TaskScheduled;
   }
 }
