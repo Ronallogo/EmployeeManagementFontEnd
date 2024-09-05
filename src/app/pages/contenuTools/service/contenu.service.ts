@@ -50,4 +50,10 @@ export class ContenuService {
   searchContenu(keyword : string) : Observable<any>{
     return this.http.get(this.Url + '/search/' + keyword )
   }
+
+  report() : Observable<any>{
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/content/report/pdf" , {
+      responseType: "Blob" as "json"
+    });
+  }
 }

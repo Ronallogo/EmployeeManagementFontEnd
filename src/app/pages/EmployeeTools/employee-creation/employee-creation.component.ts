@@ -6,7 +6,7 @@ import {PositionService} from "../../PositionTools/service/position.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
 import {ToastrService} from "ngx-toastr";
-import {iconApp, manager} from "../../../models/models";
+import {iconApp, manager, UserDetails} from "../../../models/models";
 
 
 
@@ -37,6 +37,7 @@ import {iconApp, manager} from "../../../models/models";
 export class EmployeeCreationComponent implements  OnInit{
 
   protected allPosition : any[] = []
+  private user !:UserDetails;
 
   protected date_insertion : string = "";
 
@@ -68,30 +69,42 @@ export class EmployeeCreationComponent implements  OnInit{
   show2: boolean = false;
 
   createEmployee(){
-    console.log(this.Employee.getRawValue().password  , " ", this.Employee.getRawValue().confirmPassword)
-    console.log(this.Employee.getRawValue())
+
+    const userData = {
+      firstname: this.Employee.getRawValue().name,
+      lastname: this.Employee.getRawValue().surname,
+      email: this.Employee.getRawValue().email,
+      password: this.Employee.getRawValue().password,
+      role: "USER"
+    };
+
+
     if( this.Employee.getRawValue().password == this.Employee.getRawValue().confirmPassword ){
-      this.employeeService.createEmployee(this.Employee.getRawValue()).subscribe(data => {
+      this.employeeService.registerUser(userData).subscribe(data =>{
         console.log(data);
-        this.toastr.success(iconApp+ " Employee crée avec succès !",manager , {enableHtml:true})
 
-
-        this.payStubService.createPayStub({
-          amount : 0 ,
-          nbrTasks : 0,
-          bonus : 0 ,
-          paymentDate : this.date_insertion,
-          employee : data.id
-        }).subscribe(data =>{
-          this.toastr.info(iconApp+ " Cet employé possède désormais un bulletin de paie !",manager , {enableHtml:true})
+        this.employeeService.createEmployee(this.Employee.getRawValue()).subscribe(data => {
           console.log(data);
-        },error => {
-            console.log(error);
-          this.toastr.warning(iconApp+ " Cet employé ne possède pas de bulletin de paie !",manager , {enableHtml:true})
-        })
-      } , error => {
-        console.log(error);
+          this.toastr.success(iconApp+ " Employee crée avec succès !",manager , {enableHtml:true})
 
+
+          this.payStubService.createPayStub({
+            amount : 0 ,
+            nbrTasks : 0,
+            bonus : 0 ,
+            paymentDate : this.date_insertion,
+            employee : data.id
+          }).subscribe(data =>{
+            this.toastr.info(iconApp+ " Cet employé possède désormais un bulletin de paie !",manager , {enableHtml:true})
+            console.log(data);
+          },error => {
+            console.log(error);
+            this.toastr.warning(iconApp+ " Cet employé ne possède pas de bulletin de paie !",manager , {enableHtml:true})
+          })
+        } , error => {
+          console.log(error);
+
+        })
       })
     }
     else{

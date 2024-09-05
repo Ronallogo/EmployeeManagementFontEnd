@@ -35,7 +35,7 @@ export class EmployeeSearchComponent implements OnInit{
         console.log(data)
       })
   }
-  deleteEmployee(id:number) {
+  deleteEmployee(id:number , p : any) {
     this.service.deleteEmployee(id).subscribe (data => {
       console.log(data);
       window.location.reload();

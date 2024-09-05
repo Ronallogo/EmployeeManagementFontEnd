@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
-import {TaskModel } from "../../../models/models";
+import {iconApp, manager, TaskModel} from "../../../models/models";
 import {TaskService} from "../service/task.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-task-list',
@@ -38,7 +39,7 @@ export class TaskListComponent  implements  OnInit{
   protected dataStatus : any[] = []
   header : string[] = ["No" , "nom" , "description" ,"status" ,  "actions"];
 
-  constructor(protected service: TaskService) {}
+  constructor(protected service: TaskService , private toastr : ToastrService) {}
 
   ngOnInit(): void {
 
@@ -88,20 +89,32 @@ export class TaskListComponent  implements  OnInit{
 
   deleteTask(id : number , Task : TaskModel){
     this.service.deleteTask(id).subscribe(data =>{
-      this.show = false;
-      console.log(this.show)
+      this.toastr.success(iconApp + " suppression reussie!!" , manager , {enableHtml:true})
       window.location.reload();
 
     }  , error => {
       console.log(error);
-      this.show = true ;
+      this.toastr.error(iconApp + " Erreur de suppression!!!" , manager , {enableHtml :true})
       this.taskForNotification = Task ;
     })
 
   }
 
 
-  reloadNotification() {
-      this.show = false ;
+  generePdf(){
+    this.service.report().subscribe((data : Blob) => {
+      console.log(data);
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'liste_tache.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+      this.toastr.success(iconApp+" génération réussie !! \n"+data , manager , {enableHtml:true} );
+    } , error => {
+      this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
+      console.log(error)
+    })
   }
 }

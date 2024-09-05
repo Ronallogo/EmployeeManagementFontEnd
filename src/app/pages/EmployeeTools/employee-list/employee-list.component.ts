@@ -3,8 +3,9 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {EmployeeService} from "../service/employee.service";
 import {NgForOf} from "@angular/common";
 import {ToastrService} from "ngx-toastr";
-import {EmployeeModel, iconApp, manager} from "../../../models/models";
+import {EmployeeModel, EmployeeModel6, iconApp, manager} from "../../../models/models";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
+import {ApplicationService} from "../../../globalService/appService/application.service";
 
 @Component({
   selector: 'app-employee-list',
@@ -21,12 +22,13 @@ export class EmployeeListComponent  implements OnInit{
 
 
   protected listEmployee : any[] =[];
-
+  protected  idUser !: number ;
   protected header : string[] = ["No" , "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
   constructor(
     protected service : EmployeeService ,
     private  toastr : ToastrService ,
-    private payStubService : PayStubService
+    private payStubService : PayStubService ,
+    private app : ApplicationService
     ) {}
 
   ngOnInit(): void {
@@ -41,14 +43,22 @@ export class EmployeeListComponent  implements OnInit{
   }
 
 
-  deleteEmployee(p : EmployeeModel ) {
+  deleteEmployee(p : EmployeeModel6 ) {
+
+    this.app.deleteUser(p.user.id).subscribe (data => {
+      console.log(data);
+      this.toastr.info(iconApp + " Toute les données de cet employés on été nettoyé!!!!" , manager , {enableHtml:true})
+    } , error => {
+      console.log(error);
+      this.toastr.warning(iconApp+" il y a encore des résidu de données de cet employé!!!!" , manager , {enableHtml:true})
+    });
     this.payStubService.getPayStubForOne(String(p.email)).subscribe (data =>{
       console.log(data);
       this.payStubService.deletePayStub(data.id).subscribe(data =>{
         this.service.deleteEmployee(p.id).subscribe (data => {
           console.log(data);
+          this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true});
           window.location.reload();
-          this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true})
 
         } , error => {
           console.log(error);
@@ -59,11 +69,31 @@ export class EmployeeListComponent  implements OnInit{
     } , error => {
       console.log(error);
       this.toastr.error(iconApp+" Erreur de Suppression du bulletin de paie !!!" , manager , {enableHtml:true});
+    });
+
+
+
+
+
+
+
+  }
+
+
+  generePdf(){
+    this.service.report().subscribe((data : Blob) => {
+      console.log(data);
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'liste_employés.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+      this.toastr.success(iconApp+" génération réussie !! \n"+data , manager , {enableHtml:true} );
+    } , error => {
+      this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
+      console.log(error)
     })
-
-
-
-
-
   }
 }

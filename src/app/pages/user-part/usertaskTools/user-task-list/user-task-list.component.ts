@@ -77,7 +77,7 @@ export class UserTaskListComponent implements OnInit{
 
       } , error => {
         console.log(error);
-      })
         this.toastr.error(iconApp +" Erreur de supprimer!!!!" , manager , {enableHtml:true});
+      })
   }
 }

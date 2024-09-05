@@ -124,4 +124,14 @@ export class TaskService {
   getTaskScheduled(){
     return this.TaskScheduled;
   }
+  report() : Observable<any>{
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/task/report/pdf" , {
+      responseType: "Blob" as "json"
+    });
+  }
+  report2() : Observable<any>{
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/taskInserted/report/pdf" , {
+      responseType: "Blob" as "json"
+    });
+  }
 }

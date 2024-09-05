@@ -3,18 +3,18 @@ import { environment } from "../../../../environments/environment";
 import {
   EmployeeModel,
   EmployeeModel2,
-  EmployeeModel3,
-  EmployeeModel4, EmployeeModel5,
+  EmployeeModel5, EmployeeModel6,
   iconApp,
   manager,
   UserDetails, UserDetails2
 } from "../../../models/models";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+
 import { AuthenticationService } from "../../../globalService/auth/authentication.service";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
 import {ApplicationService} from "../../../globalService/appService/application.service";
 import {ToastrService} from "ngx-toastr";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,18 @@ export class EmployeeService {
   private isCreate : boolean = false ;
   private  registerEndpoint: string = "http://localhost:8080/api/auth/register";
   private selectedEmployee!:  any;
+
+
+  private user !: {
+    id : number,
+    firstname : string ,
+    lastname : string ,
+    email : string ,
+    password : string ,
+    role : string
+
+
+  }
 
 
   constructor(
@@ -39,8 +51,8 @@ export class EmployeeService {
     return new HttpHeaders({ 'Authorization': 'Bearer ' + this.authService.jwt });
   }*/
 
-  allEmployees(): Observable<EmployeeModel[]> {
-    return this.http.get<EmployeeModel[]>(`${this.baseUrl}/all`);
+  allEmployees(): Observable<EmployeeModel6[]> {
+    return this.http.get<EmployeeModel6[]>(`${this.baseUrl}/all`);
   }
 
   deleteEmployee(id: number): Observable<void> {
@@ -57,39 +69,6 @@ export class EmployeeService {
 
   updateEmployee(id: number, employee: EmployeeModel2): Observable<EmployeeModel> {
     return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id}`, employee);
-  }
-
-
-  updateEmployeeWithPassword(user: UserDetails, id_user: number, id_employee: number, employee: EmployeeModel5): Observable<EmployeeModel> {
-    user = {
-      id: user.id,
-      firstname : employee.name ,
-      lastname : employee.surname ,
-      email : employee.email ,
-      password : user.password  ,
-      role : user.role
-    };
-    this.serviceApp.updateUserWithPassword(id_user , user).subscribe(data =>{
-      console.log(data);
-      this.toastr.info(iconApp+" ...mise à jour des données !!" , manager , {enableHtml:true});
-    },error => {
-      console.log(error);
-      this.toastr.warning(iconApp+" La mise a jour des données n'a pas abouti !!" , manager,{enableHtml:true});
-    })
-
-    console.log(employee)
-    let e = {
-      "name" : employee.name ,
-      "surname" : employee.surname ,
-      "email" : employee.email ,
-      "birthday" : employee.birthday ,
-      "phone" : employee.phone ,
-      "address" : employee.address,
-      "position" : employee.position.id
-
-    }
-
-    return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id_employee}`, e);
   }
 
 
@@ -135,46 +114,46 @@ export class EmployeeService {
 
 
   createEmployee(employee: any): Observable<EmployeeModel>  {
-     const employeeData = {
-       name: employee.name,
-       surname: employee.surname,
-       email: employee.email,
-       birthday: employee.birthday,
-       phone: employee.phone,
-       address: employee.address ,
-       position : employee.position
-     };
+    const employeeData = {
+      name: employee.name,
+      surname: employee.surname,
+      email: employee.email,
+      birthday: employee.birthday,
+      phone: employee.phone,
+      address: employee.address ,
+      position : employee.position
+    };
 
-     const userData = {
-       firstname: employee.name,
-       lastname: employee.surname,
-       email: employee.email,
-       password: employee.password,
-       role: "USER"
-     };
 
-     this.registerUser(userData).subscribe(data =>{
-       console.log(data);
-        this.isCreate = true ;
-     } , error => {
-       console.log(error);
+    return    this.http.post<EmployeeModel>(`${this.baseUrl}/create`, employeeData) ;
 
-       }
-     );
 
-     return   this.http.post<EmployeeModel>(`${this.baseUrl}/create`, employeeData) ;
+
 
   }
+
 
   searchEmployee(keyword: string): Observable<EmployeeModel[]> {
     return this.http.get<EmployeeModel[]>(`${this.baseUrl}/search/${keyword}`);
   }
 
-  private registerUser(data: { firstname: string; lastname: string; email: string; password: string; role: string }): Observable<void> {
+  registerUser(data: { firstname: string; lastname: string; email: string; password: string; role: string }): Observable<any> {
     return this.http.post<void>(this.registerEndpoint, data);
   }
 
   getEmployeeByEmail(email : string){
     return this.http.get<EmployeeModel>(`${this.baseUrl}/email/${email}`);
   }
+
+  report() : Observable<any>{
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/content/report/pdf" , {
+      responseType: "Blob" as "json"
+    });
+  }
+
+
+
+
+
+
 }

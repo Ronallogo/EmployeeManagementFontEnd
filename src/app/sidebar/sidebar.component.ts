@@ -22,7 +22,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/conge',         title: 'Conge',        icon:'nc-icon  nc-sun-fog-29',  views : "ADMIN" ,  class: '' },
     { path: '/absence',       title: 'Absence',    icon:'nc-icon nc-time-alarm', views : "ADMIN" ,   class: '' },
     { path: '/payStub',      title: 'Payement',  icon:'nc-icon nc-money-coins', views : "ADMIN" ,   class: '' },
-    { path: '/icons',         title: 'Icons',             icon:'nc-diamond', views : "" ,   class: '' },
+   /* { path: '/icons',         title: 'Icons',             icon:'nc-diamond', views : "all" ,   class: '' },*/
+    { path: '/user-security',         title: 'Sécurité',             icon:'nc-lock-circle-open', views : "USER" ,   class: '' },
     { path: '/user-demande-conge',         title: 'Demande de Congé',             icon:'nc-icon nc-send', views : "USER" ,   class: '' },
     { path: '/user',          title: 'Utilisateurs',      icon:'nc-single-02', views : "" , class: '' },
    /* { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },*/

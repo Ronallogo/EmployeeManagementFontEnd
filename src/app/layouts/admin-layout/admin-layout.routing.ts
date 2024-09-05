@@ -26,11 +26,13 @@ import {
 } from "../../pages/user-part/userCongeTools/user-demande-conge/user-demande-conge.component";
 import {UserTaskListComponent} from "../../pages/user-part/usertaskTools/user-task-list/user-task-list.component";
 import {UserTaskUpdateComponent} from "../../pages/user-part/usertaskTools/user-task-update/user-task-update.component";
+import {UserSecurityComponent} from "../../pages/user-part/user-security/user-security.component";
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard',      component: DashboardComponent },
   { path: 'user-profil',      component: UserProfilComponent },
+  { path: 'user-security',      component: UserSecurityComponent  },
   { path: 'employee',      component: EmployeeComponent },
   { path: 'position',      component: PositionComponent },
   { path: 'task',      component: TaskComponent },

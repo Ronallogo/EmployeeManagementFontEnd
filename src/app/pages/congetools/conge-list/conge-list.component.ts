@@ -53,4 +53,23 @@ export class CongeListComponent implements OnInit{
 
     })
   }
+
+
+  generePdf(){
+    this.service.report().subscribe((data : Blob) => {
+      console.log(data);
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'liste_congé.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+      this.toastr.success(iconApp+" génération réussie !! \n"+data , manager , {enableHtml:true} );
+    } , error => {
+      this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
+      console.log(error)
+    })
+  }
+
 }

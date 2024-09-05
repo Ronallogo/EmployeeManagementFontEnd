@@ -47,9 +47,9 @@ export class AbsenceService {
   }
 
 
-
-
-
-
-
+  report() : Observable<any>{
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/absence/report/pdf" , {
+      responseType: "Blob" as "json"
+    });
+  }
 }

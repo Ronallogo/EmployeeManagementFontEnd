@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {AbsenceService} from "../service/absence.service";
-import {AbsenceModel} from "../../../models/models";
+import {AbsenceModel, iconApp, manager} from "../../../models/models";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
@@ -53,9 +53,21 @@ export class AbsenceListComponent implements OnInit{
 
       })
   }
-  reloadNotification() {
-    this.show = false ;
-    this.show2 =false;
-    window.location.reload();
+
+  generePdf(){
+    this.service.report().subscribe((data : Blob) => {
+      console.log(data);
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'liste_absence.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+      this.toastr.success(iconApp+" génération réussie !! \n"+data , manager , {enableHtml:true} );
+    } , error => {
+      this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
+      console.log(error)
+    })
   }
 }

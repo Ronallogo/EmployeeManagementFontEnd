@@ -104,6 +104,10 @@ export class ApplicationService {
     return this.http.put(`${this.host}/editWithoutPassword/${id}`, userDetails);
   }
 
+  deleteUser(id :number){
+    return this.http.delete(`${this.host}/delete/${id}`);
+  }
+
 
 
 }

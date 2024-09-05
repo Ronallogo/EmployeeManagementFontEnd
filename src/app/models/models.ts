@@ -58,6 +58,10 @@ export interface EmployeeModel extends EmployeeModel2{
     id : number;
 }
 
+export interface EmployeeModel6 extends EmployeeModel {
+  user :any ;
+}
+
 export interface EmployeeModel2 {
   name :string | null ;
   surname : string | null;
@@ -68,6 +72,8 @@ export interface EmployeeModel2 {
   position : any |null;
 
 }
+
+
 export interface EmployeeModel3 extends  EmployeeModel5{
   "id" : number
 
