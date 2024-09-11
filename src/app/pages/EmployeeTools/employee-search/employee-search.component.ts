@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {EmployeeService} from "../service/employee.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -12,7 +12,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     RouterLink,
     RouterLinkActive,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './employee-search.component.html',
   styleUrl: './employee-search.component.css'

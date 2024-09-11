@@ -73,6 +73,9 @@ export class UserProfilComponent implements OnInit{
         this.serviceAbsence.searchAbsence(String(this.Employee.email)).subscribe(data =>{
           console.log(data);
           this.absence  =  data.length
+        } , error => {
+          console.log(error);
+          this.toastr.warning(iconApp + " Nombre d absence non chargée!!" , manager , {enableHtml:true})
         })
 
       } , error => {

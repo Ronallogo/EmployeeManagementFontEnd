@@ -3,7 +3,7 @@ import {AbsenceService} from "../service/absence.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {EmployeeService} from "../../EmployeeTools/service/employee.service";
-import {AbsenceModel2} from "../../../models/models";
+import {AbsenceModel2, iconApp, manager} from "../../../models/models";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -45,6 +45,9 @@ export class AbsenceCreationComponent implements OnInit{
       console.log(data);
       this.toastr.success(this.icon+" Absence de Mr/Mme est enregistrés avec succès!!!!" , ` EMPLOYEE MANAGER` , {enableHtml : true});
       this.show =true ;
+    } , error => {
+      console.log(error);
+      this.toastr.error(iconApp + " Erreur de création d absence!!" , manager ,{enableHtml : true})
     })
   }
 

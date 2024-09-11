@@ -18,6 +18,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/position',      title: 'Poste',        icon:'nc-badge',  views : "ADMIN" ,  class: ' ' },
     { path: '/user-task-list',      title: 'Liste des Taches',        icon:'nc-bullet-list-67',  views : "USER" ,  class: ' ' },
     { path: '/task',          title: 'Tache',        icon:'nc-icon nc-bookmark-2',  views : "ADMIN" ,  class: '' },
+    { path: '/list-task-scheduled',          title: 'Validation',        icon:'nc-icon nc-tag-content',  views : "ADMIN" ,  class: '' },
     { path: '/contenu',       title: 'Contenu',    icon:'nc-icon nc-book-bookmark',  views : "ADMIN" ,  class: '' },
     { path: '/conge',         title: 'Conge',        icon:'nc-icon  nc-sun-fog-29',  views : "ADMIN" ,  class: '' },
     { path: '/absence',       title: 'Absence',    icon:'nc-icon nc-time-alarm', views : "ADMIN" ,   class: '' },

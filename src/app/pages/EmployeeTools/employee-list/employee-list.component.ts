@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {EmployeeService} from "../service/employee.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {ToastrService} from "ngx-toastr";
 import {EmployeeModel, EmployeeModel6, iconApp, manager} from "../../../models/models";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
@@ -10,11 +10,12 @@ import {ApplicationService} from "../../../globalService/appService/application.
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink,
-    RouterLinkActive
-  ],
+    imports: [
+        NgForOf,
+        RouterLink,
+        RouterLinkActive,
+        NgIf
+    ],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })

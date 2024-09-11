@@ -27,6 +27,9 @@ import {
 import {UserTaskListComponent} from "../../pages/user-part/usertaskTools/user-task-list/user-task-list.component";
 import {UserTaskUpdateComponent} from "../../pages/user-part/usertaskTools/user-task-update/user-task-update.component";
 import {UserSecurityComponent} from "../../pages/user-part/user-security/user-security.component";
+import {
+  ListTaskScheduledComponent
+} from "../../pages/TaskTools/taskScheduledTools/list-task-scheduled/list-task-scheduled.component";
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -36,6 +39,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'employee',      component: EmployeeComponent },
   { path: 'position',      component: PositionComponent },
   { path: 'task',      component: TaskComponent },
+  { path: 'list-task-scheduled',      component: ListTaskScheduledComponent  },
   { path: 'user-task',      component: UserTaskComponent },
   { path: 'user-task-list',      component: UserTaskListComponent  },
   { path: 'contenu',      component: ContenuComponent },

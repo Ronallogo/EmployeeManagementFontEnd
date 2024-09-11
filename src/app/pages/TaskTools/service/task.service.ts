@@ -80,7 +80,16 @@ export class TaskService {
   }
 
   updateTaskSheduled(id: number, Task: TaskScheduled){
-    return this.http.put(this.Url3 + '/edit/'+id , Task)
+    console.log(Task);
+    let taskData ={
+      taskInserted  : Task.taskInserted.id ,
+      employee : Task.employee.id ,
+      beginning : Task.beginning ,
+      end : Task.end,
+      status :  true,
+      content : Task.content.id
+    }
+    return this.http.put(this.Url3 + '/edit/'+id , taskData )
   }
 
 
