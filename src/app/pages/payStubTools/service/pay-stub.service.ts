@@ -57,6 +57,9 @@ export class PayStubService {
   searchPayStub(keyword : string) : Observable<any>{
     return this.http.get(this.Url + '/search/' + keyword )
   }
+  searchPayStubById(keyword : number) : Observable<any>{
+    return this.http.get(this.Url + '/searchById/' + keyword )
+  }
 
   deletePayStub(id : number){
     return this.http.delete(this.Url + '/delete/'+id)

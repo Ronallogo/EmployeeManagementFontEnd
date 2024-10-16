@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ContenuService} from "../service/contenu.service";
 import {ContenuModel, iconApp, manager} from "../../../models/models";
 import {FormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 
@@ -13,7 +13,8 @@ import {ToastrService} from "ngx-toastr";
     FormsModule,
     NgForOf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgIf
   ],
   templateUrl: './contenu-search.component.html',
   styleUrl: './contenu-search.component.css'
@@ -33,7 +34,7 @@ export class ContenuSearchComponent implements OnInit{
   searchContenu(keyword: string){
       this.service.searchContenu(keyword).subscribe (data => {
           this.contenuPicked = data;
-          if(data.length == 0 ) this.toastr.warning(iconApp + " Aucun contenu ne correspond a ce mot clé !! " , manager , {enableHtml:true});
+          if(data.length == 0 ) this.toastr.warning(iconApp + " Aucun contenu ne correspond a cet intitulé !! " , manager , {enableHtml:true});
       } , error => {
         console.log(error);
       })

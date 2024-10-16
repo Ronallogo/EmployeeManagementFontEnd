@@ -40,6 +40,7 @@ export class EmployeeCreationComponent implements  OnInit{
   private user !:UserDetails;
 
   protected date_insertion : string = "";
+  private selectedFile: any;
 
   constructor(
     private employeeService: EmployeeService ,
@@ -82,8 +83,8 @@ export class EmployeeCreationComponent implements  OnInit{
     if( this.Employee.getRawValue().password == this.Employee.getRawValue().confirmPassword ){
       this.employeeService.registerUser(userData).subscribe(data =>{
         console.log(data);
-
-        this.employeeService.createEmployee(this.Employee.getRawValue()).subscribe(data => {
+        if(this.selectedFile == undefined) this.selectedFile =  new File([], "", {type: 'application/octet-stream'})
+        this.employeeService.createEmployee(this.Employee.getRawValue() , this.selectedFile).subscribe(data => {
           console.log(data);
           this.toastr.success(iconApp+ " Employee crée avec succès !",manager , {enableHtml:true})
 
@@ -126,8 +127,9 @@ export class EmployeeCreationComponent implements  OnInit{
     })
   }
 
-  reloadNotification() {
-    this.show =false ;
-    this.show2 =false;
+
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 }

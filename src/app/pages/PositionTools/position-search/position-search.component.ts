@@ -3,7 +3,7 @@ import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "
 import {PositionService} from "../service/position.service";
 import {iconApp, manager, PositionModel} from "../../../models/models";
 import {FormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {PositionListComponent} from "../position-list/position-list.component";
 import {ToastrService} from "ngx-toastr";
@@ -20,7 +20,8 @@ import {ToastrService} from "ngx-toastr";
     FormsModule,
     NgForOf,
     RouterLink,
-    RouterLinkActive ,
+    RouterLinkActive,
+    NgIf,
 
   ],
   templateUrl: './position-search.component.html',
@@ -44,12 +45,27 @@ export class PositionSearchComponent implements  OnInit{
       this.service.searchPosition(keyword).subscribe(data => {
           this.dataSource = data ;
           console.log(data)
-          if(data.length == 0 )this.toastr.warning(iconApp + " Aucun poste  ne correspond à ce mot clé !! " , manager , {enableHtml:true});
+          if(data.length == 0 )this.toastr.warning(iconApp + " Aucun poste  ne correspond à ce nom !! " , manager , {enableHtml:true});
 
       } , error => {
         console.log(error);
         this.toastr.error(iconApp + " Une erreur est survenue !!" , manager , {enableHtml:true});
       })
+  }
+
+  deletePosition(id : number){
+      let conf  = confirm("Ce poste sera supprimé");
+      if(!conf)return ;
+
+      this.service.deletePosition(id).subscribe(data =>{
+        this.toastr.success(iconApp + " Suppression faite avec sccès!!!! " , manager , {enableHtml:true} );
+        window.location.reload();
+      }  , error => {
+        console.log(error);
+        this.toastr.warning(iconApp+" Une erreur est survenu lors de la suppression !!!  \n vérifiez que ce poste n'est pas affecté a un employé" , manager , {enableHtml:true})
+      })
+
+
   }
 
 

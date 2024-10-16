@@ -3,6 +3,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {EmployeeService} from "../service/employee.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
+import {iconApp, manager} from "../../../models/models";
 
 @Component({
   selector: 'app-employee-search',
@@ -21,26 +23,43 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 export class EmployeeSearchComponent implements OnInit{
   protected listEmployee : any[] =[];
 
-  protected header : string[] = ["No" , "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
-  keyword: string = "";
+  protected header : string[] = ["No" ,"Photo" , "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
+  keyword!:  number ;
 
 
-  constructor(protected service : EmployeeService){}
+  constructor(protected service : EmployeeService , private toastr : ToastrService){}
   ngOnInit(): void {
   }
 
 
-  search(keyword: string){
-      this.service.searchEmployee(keyword).subscribe(data =>{
-        this.listEmployee = data ;
-        console.log(data)
-      })
+  search(key:  number){
+    this.listEmployee = [];
+    if(this.keyword == null ){
+      this.toastr.warning(iconApp + "Veuillez saisir l'identifiant de  l'employé!!" , manager , {enableHtml:true});
+      return;
+    }
+    this.service.searchEmployeeById(key).subscribe(data =>{
+
+      if(data != null) this.listEmployee.push(data) ;
+      if(data == null) this.toastr.warning(iconApp + " Aucun employé  ne possède cet identifiant  !!" , manager , {enableHtml:true});
+    } , error => {
+      if(error.message == "Http failure response for http://127.0.0.1:8080/api/auth/employee_manager/employee/searchById/undefined: 500 OK"){
+        this.toastr.warning(iconApp + "  Veuillez saisir l'identifiant de l'employé !!" , manager , {enableHtml:true});
+      }
+      else{
+        this.toastr.error(iconApp + " Une erreur est survenue !!" , manager , {enableHtml:true});
+      }
+
+
+    })
   }
   deleteEmployee(id:number , p : any) {
     this.service.deleteEmployee(id).subscribe (data => {
-      console.log(data);
       window.location.reload();
     })
+  }
+  getImageUrl(photo: any) {
+    return `data:image/jpg;base64,${photo}`;
   }
 
 }

@@ -1,0 +1,7 @@
+.rounded-photo {
+  width: 100px; /* Ajustez la taille selon vos besoins */
+  height: 100px; /* Ajustez la taille selon vos besoins */
+  border-radius: 50%; /* Pour rendre l'image ronde */
+  object-fit: cover; /* Pour couper l'image et garder les proportions */
+  border: 2px solid #ddd; /* Optionnel : une bordure pour l'image */
+}

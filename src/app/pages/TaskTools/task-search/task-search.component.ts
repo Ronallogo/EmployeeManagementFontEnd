@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {PositionModel, TaskModel} from "../../../models/models";
+import {iconApp, manager, PositionModel, TaskModel} from "../../../models/models";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {TaskService} from "../service/task.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-task-search',
@@ -13,7 +14,8 @@ import {TaskService} from "../service/task.service";
         FormsModule,
         NgForOf,
         RouterLink,
-        RouterLinkActive
+        RouterLinkActive,
+        NgIf
     ],
   templateUrl: './task-search.component.html',
   styleUrl: './task-search.component.css'
@@ -26,6 +28,7 @@ export class TaskSearchComponent implements OnInit {
 
   constructor(
     protected service : TaskService  ,
+    private toastr : ToastrService
 
   ){}
   ngOnInit(): void {
@@ -34,15 +37,14 @@ export class TaskSearchComponent implements OnInit {
   searchTask(keyword : string){
     this.service.searchTask(keyword).subscribe(data => {
       this.dataSource = data ;
-      console.log(data)
+      console.log(data);
+      if(this.dataSource.length == 0 ) this.toastr.warning(iconApp + " Aucune tache ne correspond a ce nom !! " , manager , {enableHtml:true});
 
     } , error => {
       console.log(error);
-    })
+    });
   }
 
 
-  searchPosition(keyword: string) {
 
-  }
 }

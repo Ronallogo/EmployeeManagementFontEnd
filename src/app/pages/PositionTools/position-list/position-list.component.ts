@@ -73,7 +73,7 @@ export class PositionListComponent implements  OnInit{
 
       }  , error => {
          console.log(error);
-        this.toastr.error(iconApp+" Une erreur est subvenu lors de la suppression!!!" , manager , {enableHtml:true})
+        this.toastr.warning(iconApp+" Une erreur est survenu lors de la suppression !!!  \n vérifiez que ce poste n'est pas affecté a un employé" , manager , {enableHtml:true})
        })
 
   }

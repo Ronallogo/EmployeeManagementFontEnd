@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {AbsenceService} from "../service/absence.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -9,13 +9,14 @@ import {iconApp, manager} from "../../../models/models";
 @Component({
   selector: 'app-absence-search',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink,
-    RouterLinkActive,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        NgForOf,
+        RouterLink,
+        RouterLinkActive,
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf
+    ],
   templateUrl: './absence-search.component.html',
   styleUrl: './absence-search.component.css'
 })
@@ -24,7 +25,7 @@ export class AbsenceSearchComponent implements OnInit {
   protected header : string[] = ["No" , "le nom de l'employé", "Date de l'absence" , "Raison de l'absence" , "Actions"];
   absences:  any[]= [];
   private show: boolean = false;
-  keyword:  string = "";
+  keyword!:   number;
 
   constructor(protected service: AbsenceService , private toastr: ToastrService){}
 
@@ -33,15 +34,15 @@ export class AbsenceSearchComponent implements OnInit {
 
 
 
-  search(keyword :string){
+  search(keyword :number){
+    this.absences = [];
     console.log(keyword)
-    this.service.searchAbsence(keyword).subscribe(data =>{
-        this.absences = data
-        console.log(data)
-        if(this.absences.length == 0) this.toastr.warning(iconApp+" Aucune Absence ne corresponds à ce mot clé !! " , manager , {enableHtml:true});
+    this.service.searchAbsenceById(keyword).subscribe(data =>{
+      if(data == null) this.toastr.warning(iconApp + " l'employé ayant cet identifiant n'a aucune absence !!" , manager , {enableHtml:true});
+      else  this.absences.push(data)
     } , error => {
       console.log(error);
-      this.toastr.warning(iconApp+ `ce genre de caractère n'est pas permit : ${keyword} ` , manager , {enableHtml:true});
+      this.toastr.warning(iconApp+ `ce genre de caractère n'est pas permit  ` , manager , {enableHtml:true});
     })
   }
 

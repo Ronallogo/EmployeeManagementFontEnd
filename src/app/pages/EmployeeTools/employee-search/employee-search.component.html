@@ -2,12 +2,12 @@
   <div class="card">
     <div class="card-header row">
       <div class="col">
-        <h4 class="card-title">recherche des  </h4>
+        <h4 class="card-title">recherche des  Employés </h4>
       </div>
       <div class="col text-right" style="margin-top: 6px">
         <form>
           <div class="input-group no-border">
-            <input  [(ngModel)]="keyword"   name="keyword"  type="text"   class="form-control" placeholder="Search...">
+            <input [(ngModel)]="keyword" name="keyword"  type="number" class="form-control" placeholder="Veuillez saisir l'id de l 'employé">
             <div class="input-group-append">
               <div class="input-group-text">
                 <button  (click)="search(keyword)"  type="submit" style="border: none"><i class="nc-icon nc-zoom-split"></i></button>
@@ -31,6 +31,13 @@
           <tr *ngFor="let p of listEmployee">
             <th>
               {{listEmployee.indexOf(p) + 1 }}
+            </th>
+            <th>
+              @if(p.photo != null && p.photo != ""){
+                <img *ngIf="p.photo" [src]="getImageUrl(p.photo)" alt="Employee Photo" class="avatar border-gray"  />
+              } @else {
+                <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
+              }
             </th>
             <th>
               {{p.name}}
@@ -75,7 +82,7 @@
 
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listEmployee.length == 0 ">
-          <h4>Aucun employé</h4>
+          <h5>Aucun employé</h5>
         </div>
       </div>
     </div>

@@ -1,141 +1,136 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="row">
-  <div class="col-md-4">
-    <div class="card card-user">
-      <div class="image">
-        <img src="assets/img/m93D0ZU.webp" alt="...">
-      </div>
-      <div class="card-body">
-        <div class="author">
-          <div>
-            <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
-            <h5 class="title text-dark">{{Employee.name}}_{{Employee.surname}}</h5>
-          </div>
-          <p class="description">
-            &#64;{{Employee.name}}
-          </p>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card card-user">
+        <div class="image">
+          <img src="assets/img/m93D0ZU.webp" alt="...">
         </div>
-      </div>
-      <div class="card-footer">
-        <hr>
-        <div class="button-container">
-          <div class="row">
-            <div class="col-lg-3 col-md-6 col-6 ml-auto">
-              <h5>{{task}}
-                <br>
-                <small>tache </small>
-              </h5>
+        <div class="card-body">
+          <div class="author">
+            <div>
+              @if( Employee.photo != null &&  Employee.photo != ""){
+                <img *ngIf="Employee.photo" [src]="getImageUrl(Employee.photo)" alt="Employee Photo" class="avatar border-gray"  />
+              } @else {
+                <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
+              }
+
+              <h5 class="title text-dark">{{Employee.name}}_{{Employee.surname}}</h5>
             </div>
-            <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-              <h5> {{absence}}
-                <br>
-                <small>Absence</small>
-              </h5>
-            </div>
-            <div class="col-lg-3 mr-auto">
-              <h5> {{salaire /1000}}K
-                <br>
-                <small>Salaire</small>
-              </h5>
+            <p class="description">
+              &#64;{{Employee.name}}
+            </p>
+            <p class="description">
+              Identifiant :
+              {{id}}
+            </p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <hr>
+          <div class="button-container">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-6 ml-auto">
+                <h5>{{task}}
+                  <br>
+                  <small>tache </small>
+                </h5>
+              </div>
+              <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+                <h5> {{absence}}
+                  <br>
+                  <small>Absence</small>
+                </h5>
+              </div>
+              <div class="col-lg-3 mr-auto">
+                <h5> {{salaire /1000}}K
+                  <br>
+                  <small>Salaire</small>
+                </h5>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!--    <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Team Members</h4>
+            </div>
+            <div class="card-body">
+            </div>
+          </div>-->
     </div>
-<!--    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Team Members</h4>
-      </div>
-      <div class="card-body">
-      </div>
-    </div>-->
-  </div>
-  <div class="col-md-8">
-    <div class="card card-user">
-      <div class="card-header">
-        <h5 class="card-title">Mettre à jour votre  Profil</h5>
-      </div>
-      <div class="card-body">
-        <form  (submit)="updateUser()">
-          <div class="row">
-            <div class="col-md-5 pr-1">
-              <div class="form-group">
-                <label> Secteur d'activité: <span class="star">*</span></label>
-                <input type="text" class="form-control" disabled=""   value="{{Employee.position.position_name}}">
+    <div class="col-md-8">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Mettre à jour votre  Profil</h5>
+        </div>
+        <div class="card-body">
+          <form  (submit)="updateUser()">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label> Secteur d'activité: <span class="star">*</span></label>
+                  <input type="text" class="form-control" disabled=""   value="{{Employee.position.position_name}}">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text"  disabled="" class="form-control" name="username"   value="&#64;{{Employee.name}}">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="UserMail">Adresse Email: <span class="star">*</span></label>
+                  <input disabled="" [(ngModel)]="Employee.email"  name="email" type="email" class="form-control"  value ="{{Employee.email}}" >
+                </div>
               </div>
             </div>
-            <div class="col-md-3 px-1">
-              <div class="form-group">
-                <label>Username</label>
-                <input type="text"  disabled="" class="form-control" name="username"   value="&#64;{{Employee.name}}">
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Nom:  <span class="star">*</span></label>
+                  <input [(ngModel)]="Employee.name" type="text" name="name" class="form-control"  value="{{Employee.name}}">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Prénom: <span class="star">*</span></label>
+                  <input [(ngModel)]="Employee.surname" name="surname" type="text" class="form-control"   value="{{Employee.surname}}">
+                </div>
               </div>
             </div>
-            <div class="col-md-4 pl-1">
-              <div class="form-group">
-                <label for="UserMail">Adresse Email: <span class="star">*</span></label>
-                <input disabled="" [(ngModel)]="Employee.email"  name="email" type="email" class="form-control"  value ="{{Employee.email}}" >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Adresse:<span class="star">*</span></label>
+                  <input [(ngModel)]="Employee.address" name="address" type="text" class="form-control"  value="{{Employee.address}}">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pr-1">
-              <div class="form-group">
-                <label>Nom:  <span class="star">*</span></label>
-                <input [(ngModel)]="Employee.name" type="text" name="name" class="form-control"  value="{{Employee.name}}">
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Téléphone:<span class="star">*</span></label>
+                  <input  [(ngModel)]="Employee.phone" name="phone" class="form-control" type="tel"  min="0" value=" {{Employee.phone}}">
+                </div>
               </div>
-            </div>
-            <div class="col-md-6 pl-1">
-              <div class="form-group">
-                <label>Prénom: <span class="star">*</span></label>
-                <input [(ngModel)]="Employee.surname" name="surname" type="text" class="form-control"   value="{{Employee.surname}}">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Adresse:<span class="star">*</span></label>
-                <input [(ngModel)]="Employee.address" name="address" type="text" class="form-control"  value="{{Employee.address}}">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pr-1">
-              <div class="form-group">
-                <label>Téléphone:<span class="star">*</span></label>
-                <input  [(ngModel)]="Employee.phone" name="phone" class="form-control" type="tel"  min="0" value=" {{Employee.phone}}">
-              </div>
-            </div>
 
-            <div class="col-md-6 pl-1">
-              <div class="form-group">
-                <label>Date de naissance:<span class="star">*</span></label>
-                <input [(ngModel)]="Employee.birthday" type="date" name="birthday" class="form-control"  value="{{Employee.birthday}}">
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Date de naissance:<span class="star">*</span></label>
+                  <input [(ngModel)]="Employee.birthday" type="date" name="birthday" class="form-control"  value="{{Employee.birthday}}">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-outline-default btn-round"><i class="fa fa-refresh"></i>&nbsp; mise à jour</button>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <input type="file"  (change)="onFileSelected($event)" />
+                <button type="submit" class="btn btn-outline-default btn-round"><i class="fa fa-refresh"></i>&nbsp; mise à jour</button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+

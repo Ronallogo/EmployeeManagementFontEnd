@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../../environments/environment";
 import {
   EmployeeModel,
-  EmployeeModel2,
+  EmployeeModel2, EmployeeModel4,
   EmployeeModel5, EmployeeModel6,
-  iconApp,
+  iconApp, imageConvert,
   manager,
   UserDetails, UserDetails2
 } from "../../../models/models";
@@ -67,8 +67,8 @@ export class EmployeeService {
     this.selectedEmployee = employee;
   }
 
-  updateEmployee(id: number, employee: EmployeeModel2): Observable<EmployeeModel> {
-    return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id}`, employee);
+  updateEmployee(id: number, employee: EmployeeModel4 , photo : any  ): Observable<EmployeeModel> {
+    return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id}`, this.initializer(employee ,photo));
   }
 
 
@@ -81,7 +81,7 @@ export class EmployeeService {
       role : user.role
     };
     console.log(user)
-    this.serviceApp.updateUserWithoutPassword(id_user , user).subscribe(data =>{
+    /*this.serviceApp.updateUserWithoutPassword(id_user , user).subscribe(data =>{
       console.log(data);
       this.toastr.info(iconApp+" ...mise à jour des données !!" , manager , {enableHtml:true});
       this.isCreate = true
@@ -89,12 +89,9 @@ export class EmployeeService {
       console.log(error);
       this.toastr.warning(iconApp+" La mise a jour des données n'a pas abouti en tant qu'utilisateur !!" , manager,{enableHtml:true});
 
-    })
+    })*/
 
 
-    console.log( "position :" +  employee.position.id);
-    console.log( "employee :" +  JSON.stringify(employee))    ;
-    console.log( "employee :" +  JSON.stringify(employee.position.id) )    ;
     let e = {
       "name" : employee.name ,
       "surname" : employee.surname ,
@@ -102,39 +99,31 @@ export class EmployeeService {
       "birthday" : employee.birthday ,
       "phone" : employee.phone ,
       "address" : employee.address,
-      "position" : employee.position.id
+      "position" : employee.position,
+
+
 
     }
 
-    return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id_employee}`, e);
+    return this.http.put<EmployeeModel>(`${this.baseUrl}/edit/${id_employee}`, this.initializer(e ,imageConvert(employee.photo)));
   }
 
 
 
 
 
-  createEmployee(employee: any): Observable<EmployeeModel>  {
-    const employeeData = {
-      name: employee.name,
-      surname: employee.surname,
-      email: employee.email,
-      birthday: employee.birthday,
-      phone: employee.phone,
-      address: employee.address ,
-      position : employee.position
-    };
+  createEmployee(employee: any , photo  : any): Observable<EmployeeModel>  {
 
-
-    return    this.http.post<EmployeeModel>(`${this.baseUrl}/create`, employeeData) ;
-
-
-
+    return    this.http.post<EmployeeModel>(`${this.baseUrl}/create`, this.initializer(employee , photo)) ;
 
   }
 
 
   searchEmployee(keyword: string): Observable<EmployeeModel[]> {
     return this.http.get<EmployeeModel[]>(`${this.baseUrl}/search/${keyword}`);
+  }
+  searchEmployeeById(id : number): Observable<EmployeeModel> {
+    return this.http.get<EmployeeModel>(`${this.baseUrl}/searchById/${id}`);
   }
 
   registerUser(data: { firstname: string; lastname: string; email: string; password: string; role: string }): Observable<any> {
@@ -151,7 +140,37 @@ export class EmployeeService {
     });
   }
 
+  initializer(employee: any , photo  : any){
+    const employeeData  = new FormData()
 
+    employeeData.append("name" , employee.name)
+    employeeData.append("surname" , employee.surname)
+    employeeData.append("email" , employee.email)
+    employeeData.append("birthday" , new Date(employee.birthday).toDateString())
+    employeeData.append("phone" , employee.phone)
+    employeeData.append("address" , employee.address)
+    employeeData.append("position" , employee.position)
+    employeeData.append("file" , photo)
+
+    return employeeData
+  }
+
+  initializer2(employee: any , photo  : any){
+    const employeeData  = new FormData()
+
+    employeeData.append("name" , employee.name)
+    employeeData.append("surname" , employee.surname)
+    employeeData.append("email" , employee.email)
+    employeeData.append("birthday" , new Date(employee.birthday).toDateString())
+    employeeData.append("phone" , employee.phone)
+    employeeData.append("address" , employee.address)
+    employeeData.append("position" , employee.position);
+    employeeData.append("file" , photo)
+
+    console.log("voici le poste : " + employeeData.get("position"))
+
+    return employeeData
+  }
 
 
 

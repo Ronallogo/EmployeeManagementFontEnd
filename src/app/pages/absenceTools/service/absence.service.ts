@@ -45,6 +45,10 @@ export class AbsenceService {
     console.log( keyword + " is send")
     return this.http.get(this.Url + '/search/' + keyword )
   }
+  searchAbsenceById(keyword : number) : Observable<any>{
+    console.log( keyword + " is send")
+    return this.http.get(this.Url + '/searchById/' + keyword )
+  }
 
 
   report() : Observable<any>{

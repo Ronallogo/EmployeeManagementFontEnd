@@ -14,7 +14,7 @@
       <div class="col text-right" style="margin-top: 6px">
         <form>
           <div class="input-group no-border">
-            <input  [(ngModel)]="keyword"   name="keyword"  type="text"   class="form-control" placeholder="Search...">
+            <input  [(ngModel)]="keyword"   name="keyword"  type="number"   class="form-control" placeholder="Veuillez saisir l'identifiant de l'employé!!">
             <div class="input-group-append">
               <div class="input-group-text">
                 <button  (click)="search(keyword)"  type="submit" style="border: none"><i class="nc-icon nc-zoom-split"></i></button>
@@ -73,6 +73,9 @@
           </tr>
           </tbody>
         </table>
+        <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="ListPayStubList.length == 0 ">
+          <h5>Aucun bulletin </h5>
+        </div>
       </div>
     </div>
   </div>

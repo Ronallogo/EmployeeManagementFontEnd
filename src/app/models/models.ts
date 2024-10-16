@@ -70,14 +70,51 @@ export interface EmployeeModel2 {
   phone : number |null;
   address : string |null;
   position : any |null;
+  photo : any |null;
+
+}
+export interface EmployeeModel4 {
+  name :string | null ;
+  surname : string | null;
+  email : string | null;
+  birthday : string| null;
+  phone : number |null;
+  address : string |null;
+  position : any |null;
+
 
 }
 
 
 export interface EmployeeModel3 extends  EmployeeModel5{
-  "id" : number
+  "id" : number,
+
 
 }
+
+export function imageConvert(image : string) {
+
+
+
+  const binaryString = atob(image); // atob décode la chaîne base64 en chaîne binaire
+
+// 2. Convertir la chaîne binaire en tableau d'octets
+    const byteArray = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      byteArray[i] = binaryString.charCodeAt(i); // Conversion de chaque caractère en son code UTF-16
+    }
+
+// 3. Créer un Blob à partir du tableau d'octets
+    const blob = new Blob([byteArray], { type: 'application/octet-stream' });
+
+// 4. Créer un Fichier à partir du Blob
+  return new File([blob], "nomDuFichier.extension", {type: 'application/octet-stream'}) ;
+
+}
+
+
+
+
 export interface EmployeeModel5  {
 
   "name" :string ,
@@ -86,22 +123,12 @@ export interface EmployeeModel5  {
   "birthday" : string,
   "phone" : number ,
   "address" : string ,
-  "position" : PositionModel
+  "position" : any,
   "old_password" : string ,
   new_password : string ,
+  "photo" : any
 }
 
-export interface EmployeeModel4  {
-  "id" : number
-  name :string ,
-  surname : string ,
-  email : string ,
-  birthday : string,
-  phone : number ,
-  address : string ,
-  position : any
-
-}
 
 
 export interface AbsenceModel2 {

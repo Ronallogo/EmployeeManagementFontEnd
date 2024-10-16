@@ -23,7 +23,7 @@ export class EmployeeUpdateComponent implements OnInit{
   private emailUser !: string ;
   protected password_body :{old_password : string , new_password : string} = {old_password  :"" , new_password  :""}
   protected id !: number ;
-  private position!: number ;
+  protected position!: number ;
   protected employee !: EmployeeModel3  ;
 
   protected dataEmployee!: EmployeeModel5;
@@ -45,6 +45,7 @@ export class EmployeeUpdateComponent implements OnInit{
   getData(){
      this.employee =  this.employeeService.getEmployee();
      this.emailUser = this.employee.email;
+     this.position = this.employee.position.id
 
 
      this.positionService.allPositions().subscribe(data =>{
@@ -55,14 +56,14 @@ export class EmployeeUpdateComponent implements OnInit{
 
   }
 
+
+
   UpdateEmployee() {
     console.log(this.employee);
+    this.employee.position = this.position ;
     console.log(this.password_body);
     this.id = this.employee.id;
-    if(this.employee.position.id == undefined){
-        throw new Error("Employee_position ID is required");
-    }
-
+    console.log("cette position : "+this.employee.position)
     this.dataEmployee = this.employee ;
 
     this.processForUpdateWithoutPassWord();
@@ -77,6 +78,8 @@ export class EmployeeUpdateComponent implements OnInit{
     console.log(this.dataEmployee);
     this.testLogin.fetchUser(this.emailUser).subscribe(data =>{
       console.log("fetchUser"+data.id);
+
+      console.log(JSON.stringify(this.dataEmployee.position));
 
       this.employeeService.updateEmployeeWithoutPassword(data , data.id , this.id , this.dataEmployee ).subscribe(data =>{
         console.log(data);
@@ -96,24 +99,7 @@ export class EmployeeUpdateComponent implements OnInit{
     })
   }
 
-  checkPassword() : boolean{
-    let dataLoginTest = {email  : this.emailUser , password : this.password_body.old_password};
 
-    console.log(dataLoginTest);
-
-    this.testLogin.login(dataLoginTest).subscribe(data =>{
-      console.log(data);
-      console.log(data.status);
-      this.responseCheckPassword =  true;
-    }, error => {
-      console.log(error);
-      console.log(error.status);
-      this.responseCheckPassword =   false;
-    })
-
-    return this.responseCheckPassword ;
-
-  }
 
 
   /* if(this.password_body.old_password =="" && this.password_body.new_password  == "" ){

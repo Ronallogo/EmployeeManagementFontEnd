@@ -82,13 +82,14 @@ export class TaskService {
   updateTaskSheduled(id: number, Task: TaskScheduled){
     console.log(Task);
     let taskData ={
-      taskInserted  : Task.taskInserted.id ,
-      employee : Task.employee.id ,
+      taskInserted  : (Task.taskInserted.id != undefined) ? Task.taskInserted.id :  Task.taskInserted ,
+      employee : (Task.employee.id != undefined) ? Task.employee.id :  Task.employee ,
       beginning : Task.beginning ,
       end : Task.end,
       status :  true,
-      content : Task.content.id
+      content : (Task.content.id != undefined) ? Task.content.id : Task.content
     }
+    console.log(taskData)
     return this.http.put(this.Url3 + '/edit/'+id , taskData )
   }
 
@@ -140,6 +141,11 @@ export class TaskService {
   }
   report2() : Observable<any>{
     return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/taskInserted/report/pdf" , {
+      responseType: "Blob" as "json"
+    });
+  }
+  report3() : Observable<any>{
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/TaskScheduled/report/pdf" , {
       responseType: "Blob" as "json"
     });
   }

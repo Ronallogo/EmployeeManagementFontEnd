@@ -2,17 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {PayStubService} from "../service/pay-stub.service";
 import {iconApp, manager, PayStubModel2} from "../../../models/models";
 import {ToastrService} from "ngx-toastr";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-pay-stub-list',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink,
-    RouterLinkActive
-  ],
+    imports: [
+        NgForOf,
+        RouterLink,
+        RouterLinkActive,
+        NgIf
+    ],
   templateUrl: './pay-stub-list.component.html',
   styleUrl: './pay-stub-list.component.css'
 })

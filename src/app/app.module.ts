@@ -17,6 +17,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import {HttpClient, HttpClientModule, provideHttpClient} from "@angular/common/http";
 import {CommonModule, DatePipe} from "@angular/common";
 import {LoginComponent} from "./pages/login/login.component";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {LoginComponent} from "./pages/login/login.component";
     AdminLayoutComponent
   ],
     imports: [
+      NgxSpinnerModule ,
         BrowserAnimationsModule,
         RouterModule.forRoot(AppRoutes, {
             useHash: true

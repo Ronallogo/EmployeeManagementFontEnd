@@ -24,7 +24,7 @@ export class EmployeeListComponent  implements OnInit{
 
   protected listEmployee : any[] =[];
   protected  idUser !: number ;
-  protected header : string[] = ["No" , "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
+  protected header : string[] = ["No (ID)"  , "Photo", "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
   constructor(
     protected service : EmployeeService ,
     private  toastr : ToastrService ,
@@ -46,31 +46,40 @@ export class EmployeeListComponent  implements OnInit{
 
   deleteEmployee(p : EmployeeModel6 ) {
 
-    this.app.deleteUser(p.user.id).subscribe (data => {
+    this.service.deleteEmployee(p.id).subscribe (data => {
       console.log(data);
-      this.toastr.info(iconApp + " Toute les données de cet employés on été nettoyé!!!!" , manager , {enableHtml:true})
+      this.app.deleteUser(p.user.id).subscribe (data => {
+        console.log(data);
+        this.toastr.info(iconApp + " Toute les données de cet employés on été nettoyé!!!!" , manager , {enableHtml:true});
+        this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true});
+        window.location.reload();
+      } , error => {
+        console.log(error);
+        this.toastr.warning(iconApp+" il y a encore des résidu de données de cet employé!!!!" , manager , {enableHtml:true})
+      });
+
+
     } , error => {
       console.log(error);
-      this.toastr.warning(iconApp+" il y a encore des résidu de données de cet employé!!!!" , manager , {enableHtml:true})
-    });
-    this.payStubService.getPayStubForOne(String(p.email)).subscribe (data =>{
-      console.log(data);
-      this.payStubService.deletePayStub(data.id).subscribe(data =>{
-        this.service.deleteEmployee(p.id).subscribe (data => {
-          console.log(data);
-          this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true});
-          window.location.reload();
+      this.toastr.error(iconApp + " Erreur de suppression de l'employé !!" , manager , {enableHtml:true})
+    })
 
-        } , error => {
-          console.log(error);
-          this.toastr.error(iconApp + " Erreur de suppression de l'employé !!" , manager , {enableHtml:true})
+
+
+
+
+
+    /*  this.payStubService.getPayStubForOne(String(p.email)).subscribe (data =>{
+        console.log(data);
+        this.payStubService.deletePayStub(data.id).subscribe(data =>{
+
         })
+      } , error => {
+        console.log(error);
+        this.toastr.error(iconApp+" Erreur de Suppression du bulletin de paie !!!" , manager , {enableHtml:true});
+      });*/
 
-      })
-    } , error => {
-      console.log(error);
-      this.toastr.error(iconApp+" Erreur de Suppression du bulletin de paie !!!" , manager , {enableHtml:true});
-    });
+
 
 
 
@@ -96,5 +105,9 @@ export class EmployeeListComponent  implements OnInit{
       this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
       console.log(error)
     })
+  }
+
+  getImageUrl(photo: any) {
+    return `data:image/jpg;base64,${photo}`;
   }
 }

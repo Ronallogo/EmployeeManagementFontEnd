@@ -28,6 +28,14 @@
            <tr *ngFor="let p of listEmployee">
             <th>
               {{listEmployee.indexOf(p) + 1 }}
+              ({{ p.id }})
+            </th>
+             <th>
+               @if(p.photo != null && p.photo != ""){
+                 <img *ngIf="p.photo" [src]="getImageUrl(p.photo)" alt="Employee Photo" class="avatar border-gray"  />
+               } @else {
+                 <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
+               }
             </th>
             <th>
               {{p.name}}
@@ -70,7 +78,7 @@
           </tbody>
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listEmployee.length == 0 ">
-          <h4>Aucun employé</h4>
+          <h5>Aucun employé</h5>
         </div>
       </div>
     </div>

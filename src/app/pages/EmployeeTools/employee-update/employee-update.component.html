@@ -21,14 +21,14 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="name">Nom: <span class="text-danger">*</span></label>
-              <input  [(ngModel)]="employee.name"  value="{{employee.name}}" class="form-control" name="name" required type="text">
+              <input  [(ngModel)]="employee.name"    value="{{employee.name}}" class="form-control" name="name" required type="text">
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="surname">Prénom: <span class="text-danger">*</span></label>
-              <input [(ngModel)]="employee.surname" value="{{employee.surname}}" class="form-control" name="surname" required type="text">
+              <input [(ngModel)]="employee.surname"  value="{{employee.surname}}" class="form-control" name="surname" required type="text">
 
             </div>
           </div>
@@ -55,9 +55,9 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="position">Poste de l'employé: (sélectionnez le poste) <span class="text-danger">*</span></label>
-              <select name="position"   class="form-control">
+              <select name="position"   class="form-control"  [(ngModel)]="position">
                 <option value="" disabled selected> dernier selection : {{employee.position.position_name}}</option>
-                <option *ngFor="let p of allPosition" [value]="p">{{ p.position_name }}</option>
+                <option *ngFor="let p of allPosition" [value]="p.id">{{ p.position_name }}</option>
               </select>
             </div>
           </div>

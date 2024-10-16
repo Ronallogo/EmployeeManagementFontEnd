@@ -36,6 +36,7 @@ export const ROUTES: RouteInfo[] = [
     moduleId: module.id,
     selector: 'sidebar-cmp',
     templateUrl: 'sidebar.component.html',
+    styleUrl:'sidebar.css'
 })
 
 export class SidebarComponent implements OnInit {

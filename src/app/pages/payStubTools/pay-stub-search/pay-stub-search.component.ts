@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PayStubService} from "../service/pay-stub.service";
@@ -14,13 +14,14 @@ import {ToastrService} from "ngx-toastr";
     RouterLink,
     RouterLinkActive,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './pay-stub-search.component.html',
   styleUrl: './pay-stub-search.component.css'
 })
 export class PayStubSearchComponent implements OnInit{
-  keyword: string  =  "";
+  keyword!:  number ;
 
   protected ListPayStubList:  PayStubModel2[]  = [];
   header: string[] = ["No"  , "Nom de l'employé" , "nombre de tache faites" , "bonus reçu" , "date de création du bulletin" , "montant" , "actions"]  ;
@@ -32,15 +33,18 @@ export class PayStubSearchComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  search(keyword: string ){
-    this.service.searchPayStub(this.keyword).subscribe(data => {
-        console.log(data);
-        if(data.length  == 0 ) this.toastr.warning(iconApp+" aucun bulletin ne correspond à ce mot clé" , manager , {enableHtml:true})
-        this.ListPayStubList = data
+  search(keyword: number){
+    this.service.searchPayStubById(this.keyword).subscribe(data => {
+
+        if(data != null )   this.ListPayStubList.push(data);
+        else   this.toastr.warning(iconApp+"Aucun employé n'a cet identifiant !!" , manager , {enableHtml:true})
+
+
     },error => {
-      this.toastr.error(iconApp+" une erreur c est produite !!!" , manager , {enableHtml:true});
+
+      this.toastr.error(iconApp+"une erreur c est produite !!!" , manager , {enableHtml:true});
       console.log(error);
-    })
+    });
   }
 
   deletePayStub(id: number) {

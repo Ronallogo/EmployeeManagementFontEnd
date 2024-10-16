@@ -13,12 +13,12 @@
       </div>
       <div class="col text-right" >
         <form>
-          <div class="input-group no-border text-right">
+          <!--<div class="input-group no-border text-right">
             <button class="btn btn-outline-default btn-round"  style="margin-left: 100px">
               <i class="nc-icon nc-cloud-download-93"></i> imprimer la liste des bulletins
             </button>
 
-          </div>
+          </div>-->
         </form>
       </div>
     </div>
@@ -71,6 +71,9 @@
           </tr>
           </tbody>
         </table>
+        <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="ListPayStubList.length == 0 ">
+          <h5>Aucun bulletin enregistré</h5>
+        </div>
       </div>
     </div>
   </div>

@@ -49,7 +49,7 @@ export class CongeListComponent implements OnInit{
       this.listConge = data;
     } , error => {
       console.log(error);
-      this.toastr.warning(iconApp+ " Une erreur est survenue au !!");
+      this.toastr.error(iconApp+ " Une erreur est survenue au !!" , manager , {enableHtml:true});
 
     })
   }
