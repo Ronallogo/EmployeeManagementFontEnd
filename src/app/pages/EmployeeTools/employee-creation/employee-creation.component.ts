@@ -6,7 +6,8 @@ import {PositionService} from "../../PositionTools/service/position.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
 import {ToastrService} from "ngx-toastr";
-import {iconApp, manager, UserDetails} from "../../../models/models";
+import {getTodayDate, iconApp, manager, UserDetails} from "../../../models/models";
+import {NotificationService} from "../../notification/notification/notification.service";
 
 
 
@@ -46,6 +47,8 @@ export class EmployeeCreationComponent implements  OnInit{
     private employeeService: EmployeeService ,
     private positionService : PositionService ,
     private payStubService : PayStubService,
+    private  notify : NotificationService ,
+
     private toastr :ToastrService
   ) {}
 
@@ -101,7 +104,26 @@ export class EmployeeCreationComponent implements  OnInit{
           },error => {
             console.log(error);
             this.toastr.warning(iconApp+ " Cet employé ne possède pas de bulletin de paie !",manager , {enableHtml:true})
+          });
+
+
+          console.log(Date.now().toString())
+
+          this.notify.create({
+            message : " Bienvenue dans votre interface user  @"+data.name+" !!",
+            employee : data.id ,
+            date : getTodayDate(),
+            type : "création"
+          }).subscribe( data =>{
+            console.log(data);
+          } , error => {
+            console.log(error);
           })
+
+
+
+
+
         } , error => {
           console.log(error);
 

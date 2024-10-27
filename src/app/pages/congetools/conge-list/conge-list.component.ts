@@ -37,7 +37,7 @@ export class CongeListComponent implements OnInit{
     let conf = confirm("Are you sure you want to delete this conge?");
     if(!conf) return;
     this.service.deleteConge(id).subscribe(data =>{
-      console.log(data);
+      this.allConge()
       this.toastr.success(iconApp+" congé supprimé avec succès...." , manager , {enableHtml:true});
 
     })
@@ -45,7 +45,6 @@ export class CongeListComponent implements OnInit{
 
   allConge(){
     this.service.allConges().subscribe(data =>{
-      console.log(data);
       this.listConge = data;
     } , error => {
       console.log(error);

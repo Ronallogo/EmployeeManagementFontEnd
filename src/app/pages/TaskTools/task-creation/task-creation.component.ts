@@ -45,7 +45,6 @@ export class TaskCreationComponent  implements OnInit{
 
   createTask() {
         this.service.createTask(this.task.getRawValue()).subscribe(data => {
-          console.log(data)
           this.toastr.success(iconApp + " tache créée avec succès" , manager ,{enableHtml:true});
         } ,error => {
           console.log(error);

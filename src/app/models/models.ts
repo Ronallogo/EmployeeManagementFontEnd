@@ -29,6 +29,15 @@ export interface TaskInsertedModel2 extends TaskInsertedModel {
 
 }
 
+export function   getTodayDate(): string {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
 
 export interface ContenuModel{
     id  : number;
@@ -134,7 +143,7 @@ export interface EmployeeModel5  {
 export interface AbsenceModel2 {
   date : string ;
   reason : string  ;
-  employee : string  ;
+  employee : any  ;
 }
 export interface AbsenceModel extends AbsenceModel2{
     id : number;

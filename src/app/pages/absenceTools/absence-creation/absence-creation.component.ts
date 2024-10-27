@@ -40,19 +40,14 @@ export class AbsenceCreationComponent implements OnInit{
       this.id = this.employeeService.getEmployee().id;
   }
   createAbsence(){
-    console.log(this.absenceForm)
+
     this.service.createAbsence(this.absenceForm).subscribe(data => {
-      console.log(data);
-      this.toastr.success(this.icon+" Absence de Mr/Mme est enregistrés avec succès!!!!" , ` EMPLOYEE MANAGER` , {enableHtml : true});
-      this.show =true ;
+      this.toastr.success(iconApp+" Cette absence   est enregistrés avec succès!!!!" , ` EMPLOYEE MANAGER` , {enableHtml : true});
     } , error => {
       console.log(error);
-      this.toastr.error(iconApp + " Erreur de création d absence!!" , manager ,{enableHtml : true})
+      this.toastr.warning(iconApp + " vérifiez que l'employé ayant cet email existe!!" , manager ,{enableHtml : true});
     })
   }
 
 
-  reloadNotification() {
-    this.show = false ;
-  }
 }

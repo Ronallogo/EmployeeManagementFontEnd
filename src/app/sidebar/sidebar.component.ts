@@ -23,13 +23,18 @@ export const ROUTES: RouteInfo[] = [
     { path: '/conge',         title: 'Conge',        icon:'nc-icon  nc-sun-fog-29',  views : "ADMIN" ,  class: '' },
     { path: '/absence',       title: 'Absence',    icon:'nc-icon nc-time-alarm', views : "ADMIN" ,   class: '' },
     { path: '/payStub',      title: 'Payement',  icon:'nc-icon nc-money-coins', views : "ADMIN" ,   class: '' },
-   /* { path: '/icons',         title: 'Icons',             icon:'nc-diamond', views : "all" ,   class: '' },*/
+  /*  { path: '/icons',         title: 'Icons',             icon:'nc-diamond', views : "USER" ,   class: '' },*/
     { path: '/user-security',         title: 'Sécurité',             icon:'nc-lock-circle-open', views : "USER" ,   class: '' },
     { path: '/user-demande-conge',         title: 'Demande de Congé',             icon:'nc-icon nc-send', views : "USER" ,   class: '' },
+  { path: '/notification',       title: 'Message',    icon:'nc-email-85', views : "USER" , class: '' },
+  /*{ path: '/notifications',       title: 'Notifications',    icon:'nc-bell-55', views : "USER" , class: '' },*/
     { path: '/user',          title: 'Utilisateurs',      icon:'nc-single-02', views : "" , class: '' },
    /* { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },*/
     { path: '/user-payement',       title: 'bulletin de Paie',    icon:'nc-icon nc-money-coins',  views : "USER"  , class: '' },
+
     { path: '/logout',       title: 'Deconnexion',    icon:'nc-button-power', views : "all" , class: '' },
+
+
 ];
 
 @Component({

@@ -15,18 +15,7 @@ import {ToastrService} from "ngx-toastr";
         RouterLink,
         RouterLinkActive
     ],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ transform: 'translateX(0)' })),
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('800ms ease-in')
-      ]),
-      transition(':leave', [
-        animate('800ms ease-in', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ] ,
+
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -37,7 +26,7 @@ export class TaskListComponent  implements  OnInit{
   protected dataSource: any[] = [] ;
   protected dataSource2: any[] = [] ;
   protected dataStatus : any[] = []
-  header : string[] = ["No" , "nom" , "description" ,"status" ,  "actions"];
+  header : string[] = ["No (ID)" , "nom" , "description" ,"status" ,  "actions"];
 
   constructor(protected service: TaskService , private toastr : ToastrService) {}
 
@@ -70,7 +59,7 @@ export class TaskListComponent  implements  OnInit{
             this.dataStatus.push("tâche non insérée");
           }
         }
-        console.log(this.dataStatus)
+
 
 
       } , error => {
@@ -90,12 +79,11 @@ export class TaskListComponent  implements  OnInit{
   deleteTask(id : number , Task : TaskModel){
     this.service.deleteTask(id).subscribe(data =>{
       this.toastr.success(iconApp + " suppression reussie!!" , manager , {enableHtml:true})
-      window.location.reload();
-
+      this.getAllTask();
     }  , error => {
       console.log(error);
       this.toastr.error(iconApp + " Erreur de suppression!!!" , manager , {enableHtml :true})
-      this.taskForNotification = Task ;
+
     })
 
   }

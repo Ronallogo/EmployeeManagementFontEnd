@@ -59,7 +59,11 @@ export class PositionSearchComponent implements  OnInit{
 
       this.service.deletePosition(id).subscribe(data =>{
         this.toastr.success(iconApp + " Suppression faite avec sccès!!!! " , manager , {enableHtml:true} );
-        window.location.reload();
+        this.service.searchPosition(this.keyword).subscribe (data => {
+            this.dataSource = [];
+            if(data.length > 0) this.dataSource = data ;
+            else  this.toastr.info(iconApp + " Plus aucun poste ne corresond a ce mot clé !!!"  ,manager , {enableHtml : true})
+        })
       }  , error => {
         console.log(error);
         this.toastr.warning(iconApp+" Une erreur est survenu lors de la suppression !!!  \n vérifiez que ce poste n'est pas affecté a un employé" , manager , {enableHtml:true})

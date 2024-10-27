@@ -32,6 +32,7 @@ export class ContenuSearchComponent implements OnInit{
   }
 
   searchContenu(keyword: string){
+      this.keyword = keyword;
       this.service.searchContenu(keyword).subscribe (data => {
           this.contenuPicked = data;
           if(data.length == 0 ) this.toastr.warning(iconApp + " Aucun contenu ne correspond a cet intitulé !! " , manager , {enableHtml:true});
@@ -43,8 +44,10 @@ export class ContenuSearchComponent implements OnInit{
     let conf = confirm("Ce contenu sera supprimer !!")
     if(conf) return ;
     this.service.deleteContenu(id).subscribe (data => {
-      console.log(data);
-      window.location.reload();
+      this.service.searchContenu(this.keyword).subscribe (data => {
+        if(data.length > 0 ) this.contenuPicked = data
+        else  this.toastr.info(iconApp + "Plus aucun contenu ne correspond a ce mot clé!!!"  ,manager , {enableHtml : true})
+      })
     } , error => {
       console.log(error);
     })

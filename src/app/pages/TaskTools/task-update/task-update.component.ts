@@ -3,8 +3,9 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {TaskService} from "../service/task.service";
-import {TaskModel} from "../../../models/models";
+import {iconApp, manager, TaskModel} from "../../../models/models";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-task-update',
@@ -41,13 +42,10 @@ export class TaskUpdateComponent implements OnInit{
 
   public task!: TaskModel ;
 
-  constructor(protected service :TaskService) {
+  constructor(protected service :TaskService , private toastr : ToastrService) {
   }
 
 
-  reloadNotification() {
-      this.show = false ;
-  }
 
   ngOnInit(): void {
     this.initialize()
@@ -65,15 +63,15 @@ export class TaskUpdateComponent implements OnInit{
     )
     this.id = this.task.id
 
-    console.log(this.task)
   }
 
   updateTask(){
     this.service.updateTask(this.id, {...this.formulaire.getRawValue()}).subscribe(data =>{
-      console.log(data);
-      this.show = true ;
+        this.toastr.success(iconApp+"Cette tache a été enregistré avec succès!!" , manager ,  {enableHtml:true})
+
     } , error => {
       console.log(error);
+      this.toastr.info(iconApp+"une erreru est survenu" , manager ,{enableHtml:true})
     })
   }
 }

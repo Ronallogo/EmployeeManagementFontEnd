@@ -40,8 +40,7 @@ export class ContenuListComponent implements OnInit{
 
   deleteContenu(id:number) {
       this.service.deleteContenu(id).subscribe (data => {
-         console.log(data);
-         window.location.reload();
+          this.getAllContenu()
          this.toastr.success(iconApp + " Suppression réussie !!!" , manager , {enableHtml:true})
       } , error => {
         console.log(error);

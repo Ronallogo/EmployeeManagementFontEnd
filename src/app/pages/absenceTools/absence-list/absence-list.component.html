@@ -5,7 +5,7 @@
 
 
 
-<div class="col-md-12">
+<div class="col-md-12" style="margin-bottom: 500px">
   <div class="card">
     <div class="card-header row">
       <div class="col">
@@ -43,7 +43,11 @@
               {{a.absence_day}}
             </th>
             <th>
-              {{a.reason}}
+              @if(a.reason =="" || a.reason == undefined){
+                <p>...........</p>
+              } @else {
+               {{a.reason}}
+              }
             </th>
             <th>
               <div class="row" style="margin-left: 20px">

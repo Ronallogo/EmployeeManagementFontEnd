@@ -56,6 +56,7 @@ export class UserProfilComponent implements OnInit{
     this.serviceEmployeeService.getEmployeeByEmail(this.user.email).subscribe(data => {
       this.Employee = data;
       this.id = data.id;
+      localStorage.setItem("id_employee",  String(this.id));
       this.selectedFile = data.photo;
 
       // Charge les tâches

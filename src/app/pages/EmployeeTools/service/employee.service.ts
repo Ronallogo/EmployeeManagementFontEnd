@@ -135,7 +135,7 @@ export class EmployeeService {
   }
 
   report() : Observable<any>{
-    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/content/report/pdf" , {
+    return this.http.get( "http://127.0.0.1:8080/api/auth/employee_manager/employee/report/pdf" , {
       responseType: "Blob" as "json"
     });
   }

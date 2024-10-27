@@ -37,26 +37,25 @@ export class AbsenceListComponent implements OnInit{
   getAllAbsences(){
       this.service.allAbsence().subscribe(data =>{
         this.absences = data;
-        this.show = false ;
       } , error => {
         console.log(error)
       })
   }
 
   deleteAbsence(id : number) {
+      let conf = confirm("Cette absence sera suprimmée !!")
+      if(!conf) return ;
       this.service.deleteAbsence(id).subscribe(data =>{
-        console.log(data);
-        this.show = true ;
-        this.toastr.success(this.icon+"Absence created successfully!!!!" , this.customTitle , {
+        this.toastr.success(iconApp+"Absence created successfully!!!!" , manager , {
           enableHtml: true
         });
-
+        this.getAllAbsences()
       })
   }
 
   generePdf(){
     this.service.report().subscribe((data : Blob) => {
-      console.log(data);
+
       const blob = new Blob([data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -64,7 +63,7 @@ export class AbsenceListComponent implements OnInit{
       a.download = 'liste_absence.pdf';
       a.click();
       URL.revokeObjectURL(url);
-      this.toastr.success(iconApp+" génération réussie !! \n"+data , manager , {enableHtml:true} );
+      this.toastr.success(iconApp+" génération réussie !! \n", manager , {enableHtml:true} );
     } , error => {
       this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
       console.log(error)

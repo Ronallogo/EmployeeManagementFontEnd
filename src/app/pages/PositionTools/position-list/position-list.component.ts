@@ -41,7 +41,7 @@ export class PositionListComponent implements  OnInit{
   private format : string = "pdf";
 
 
-  positionForNotification! : PositionModel;
+
 
   public header = ["No" , "nom" , "description" , "actions"];
   constructor(
@@ -69,7 +69,7 @@ export class PositionListComponent implements  OnInit{
   deletePosition(id : number , position : PositionModel){
        this.service.deletePosition(id).subscribe(data =>{
           this.toastr.success(iconApp + " Suppression faite avec sccès!!!!" , manager , {enableHtml:true} );
-          window.location.reload();
+         this.getAllPosition();
 
       }  , error => {
          console.log(error);

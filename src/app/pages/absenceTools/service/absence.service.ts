@@ -31,7 +31,7 @@ export class AbsenceService {
     console.log(Absence + " receive")
   }
 
-  updateAbsence(id : number, Absence  : AbsenceModel2  ){
+  updateAbsence(id : number, Absence  : { absence_day: string; reason: string; email: string } ){
     return this.http.put(this.Url + '/edit/'+id , Absence)
   }
 

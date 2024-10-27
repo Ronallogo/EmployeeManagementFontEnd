@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {PositionModel} from "../../../models/models";
+import {iconApp, manager, PositionModel} from "../../../models/models";
 import {PositionService} from "../service/position.service";
 import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-position-update',
@@ -46,7 +47,7 @@ export class PositionUpdateComponent implements OnInit{
 
 
 
-  constructor(public positionService: PositionService) {}
+  constructor(public positionService: PositionService , private toastr : ToastrService) {}
 
   ngOnInit(): void {
      this.initialize()
@@ -64,20 +65,18 @@ export class PositionUpdateComponent implements OnInit{
     )
     this.id = this.position.id
 
-    console.log(this.position)
   }
 
   updatePosition(){
       this.positionService.updatePosition(this.id, {...this.formulaire.getRawValue()}).subscribe(data =>{
           console.log(data);
-          this.show = true ;
+          this.toastr.success(iconApp+"Ce poste a été modifié avec succès" , manager , {enableHtml:true})
       } , error => {
         console.log(error);
+        this.toastr.error(iconApp+"unse erreur est survenu" , manager , {enableHtml:true})
       })
   }
 
 
-  reloadNotification() {
-      this.show = false
-  }
+
 }

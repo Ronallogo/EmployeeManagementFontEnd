@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" style="margin-bottom: 500px">
   <div class="card">
     <div class="card-header row">
       <div class="col">
@@ -25,7 +25,7 @@
           </th>
           </thead>
           <tbody>
-           <tr *ngFor="let p of listEmployee">
+           <tr *ngFor="let p of listEmployee"  >
             <th>
               {{listEmployee.indexOf(p) + 1 }}
               ({{ p.id }})
@@ -60,7 +60,7 @@
              </th>
             <th>
               <div class="row" style="margin-left: 30px ; margin-bottom: 5px">
-                <button class="btn btn-outline-default-default"   (click)="deleteEmployee(p)">
+                <button class="btn btn-outline-default-default" data-dismiss="alert"   (click)="deleteEmployee(p)">
                   <i class="fa fa-trash"></i>
                 </button>
 

@@ -5,6 +5,8 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {NgIf} from "@angular/common";
 import {PositionService} from "../service/position.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ToastrService} from "ngx-toastr";
+import {iconApp, manager} from "../../../models/models";
 
 @Component({
   selector: 'app-position-creation',
@@ -40,15 +42,15 @@ export class PositionCreationComponent implements OnInit{
       position_description: new FormControl("")
   })
 
-  constructor(private service :PositionService) {}
+  constructor(private service :PositionService ,private toastr : ToastrService) {}
   ngOnInit(): void {
   }
 
   createPosition(){
       this.service.createPosition({...this.position.getRawValue()}).subscribe(data => {
-          console.log(data);
-          this.show  = true ;
+          this.toastr.success(iconApp+' Ce poste a été enregistré avec succès!!',manager ,{enableHtml:true});
       } , error => {
+        this.toastr.error(iconApp+"une erreur est survenu",manager,{enableHtml:true})
         console.log(error);
       })
   }

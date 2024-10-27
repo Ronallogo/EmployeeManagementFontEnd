@@ -35,6 +35,7 @@ export class TaskSearchComponent implements OnInit {
   }
 
   searchTask(keyword : string){
+    this.keyword = keyword;
     this.service.searchTask(keyword).subscribe(data => {
       this.dataSource = data ;
       console.log(data);
@@ -43,6 +44,20 @@ export class TaskSearchComponent implements OnInit {
     } , error => {
       console.log(error);
     });
+  }
+
+  delete(id : number){
+      this.service.deleteTask(id).subscribe (data => {
+        this.toastr.success(iconApp + "  Cette a été suprimée avec succès !!!"  ,manager , {enableHtml : true})
+        this.service.searchTask(this.keyword).subscribe(data => {
+          this.dataSource = [] ;
+          if(data.length > 0)this.dataSource = data;
+          else  this.toastr.info(iconApp + "  Plus aucune tache e correspond a ce mot clé !!!"  ,manager , {enableHtml : true})
+
+
+        })
+      })
+
   }
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {AbsenceModel, AbsenceModel2, iconApp, manager, PositionModel} from "../../../models/models";
@@ -17,18 +17,13 @@ import {ToastrService} from "ngx-toastr";
   templateUrl: './absence-update.component.html',
   styleUrl: './absence-update.component.css'
 })
-export class AbsenceUpdateComponent {
+export class AbsenceUpdateComponent  implements  OnInit{
   ////variable qui nous permettra de modifier la position selectionner
   absence!: AbsenceModel ;
 
   public id! : number ;
 
-  formulaire  =  new FormGroup(
-    { date: new FormControl() , reason: new FormControl() , employee : new FormControl() }
-  )
-  show: boolean = false;
-
-
+  formulaire!: { absence_day: string; reason: string; email: string }
 
 
 
@@ -41,22 +36,18 @@ export class AbsenceUpdateComponent {
 
   initialize(){
     this.absence = this.service.getAbsence();
-    this.formulaire.setValue(
-      {
-        date : this.absence.date ,
-        reason: this.absence.reason,
-        employee: this.absence.employee ,
+    this.formulaire = {
+      absence_day : this.absence.date ,
+      reason: this.absence.reason,
+      email: this.absence.employee.email ,
 
       }
-    )
     this.id = this.absence.id
 
-    console.log(this.absence)
   }
 
   updateAbsence(){
-    this.service.updateAbsence(this.id, {...this.formulaire.getRawValue()}).subscribe(data =>{
-      console.log(data);
+    this.service.updateAbsence(this.id, this.formulaire).subscribe(data =>{
       this.toastr.success(iconApp+ "mise à jour effectuée avec succès !!!" , manager , {enableHtml:true})
     } , error => {
       console.log(error);

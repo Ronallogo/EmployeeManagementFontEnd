@@ -5,7 +5,7 @@ import { Location} from '@angular/common';
 
 @Component({
 
-    selector: 'navbar-cmp',
+    selector: 'app-navbar-cmp',
     templateUrl: 'navbar.component.html'
 })
 
@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit{
     private sidebarVisible!: boolean;
 
     public isCollapsed = true;
-   // @ViewChild('navbar-cmp', {static: true}) button!: ElementRef ;
+    //@ViewChild("app-navbar-cmp", {static: true}) button!: ElementRef ;
     constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
         this.location = location;
         this.nativeElement = element.nativeElement;

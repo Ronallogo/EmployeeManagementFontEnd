@@ -23,6 +23,7 @@ export class EmployeeListComponent  implements OnInit{
 
 
   protected listEmployee : any[] =[];
+  protected visible = true ;
   protected  idUser !: number ;
   protected header : string[] = ["No (ID)"  , "Photo", "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
   constructor(
@@ -36,23 +37,27 @@ export class EmployeeListComponent  implements OnInit{
       this.getAllEmployee() ;
   }
 
-  getAllEmployee(){
+     getAllEmployee(){
       this.service.allEmployees().subscribe(data =>{
           this.listEmployee = data ;
-          console.log(data)
+
       })
   }
 
 
   deleteEmployee(p : EmployeeModel6 ) {
 
+    let conf  = confirm("cet employé sera supprimé !!!") ;
+    if(!conf)return;
     this.service.deleteEmployee(p.id).subscribe (data => {
-      console.log(data);
+
       this.app.deleteUser(p.user.id).subscribe (data => {
-        console.log(data);
+
         this.toastr.info(iconApp + " Toute les données de cet employés on été nettoyé!!!!" , manager , {enableHtml:true});
         this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true});
-        window.location.reload();
+        this.getAllEmployee();
+
+
       } , error => {
         console.log(error);
         this.toastr.warning(iconApp+" il y a encore des résidu de données de cet employé!!!!" , manager , {enableHtml:true})
@@ -92,7 +97,7 @@ export class EmployeeListComponent  implements OnInit{
 
   generePdf(){
     this.service.report().subscribe((data : Blob) => {
-      console.log(data);
+
       const blob = new Blob([data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -110,4 +115,5 @@ export class EmployeeListComponent  implements OnInit{
   getImageUrl(photo: any) {
     return `data:image/jpg;base64,${photo}`;
   }
+
 }

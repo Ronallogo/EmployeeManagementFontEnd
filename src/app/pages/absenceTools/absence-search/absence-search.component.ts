@@ -36,7 +36,7 @@ export class AbsenceSearchComponent implements OnInit {
 
   search(keyword :number){
     this.absences = [];
-    console.log(keyword)
+    this.keyword = keyword
     this.service.searchAbsenceById(keyword).subscribe(data =>{
       if(data == null) this.toastr.warning(iconApp + " l'employé ayant cet identifiant n'a aucune absence !!" , manager , {enableHtml:true});
       else  this.absences.push(data)
@@ -48,17 +48,17 @@ export class AbsenceSearchComponent implements OnInit {
 
   deleteAbsence(id : number) {
     let conf  =  confirm("Cette absence sera supprimée !!")
-
     if(!conf) return;
 
     this.service.deleteAbsence(id).subscribe(data =>{
-      console.log(data);
       this.toastr.success(iconApp + " Cette absence a été supprimé avec succès!! " , manager , {enableHtml:true});
-
-
+      this.absences = [];
+      this.service.searchAbsenceById(id).subscribe(data =>{
+        if(data.length == 0) this.toastr.info(iconApp+"Aucune autre absence n' été trouvée !!" , manager , {enableHtml:true});
+      })
     } , error => {
       console.log(error);
-      this.toastr.error(iconApp + " Une erreur est survenue lors de la suppression !!!"  ,manager , {enableHtml : true})
+      this.toastr.error(iconApp + " Une erreur est survenue lors de la suppression !!!"  ,manager , {enableHtml : true});
     })
   }
 

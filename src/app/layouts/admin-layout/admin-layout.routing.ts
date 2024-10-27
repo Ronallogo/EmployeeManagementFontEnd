@@ -30,6 +30,7 @@ import {UserSecurityComponent} from "../../pages/user-part/user-security/user-se
 import {
   ListTaskScheduledComponent
 } from "../../pages/TaskTools/taskScheduledTools/list-task-scheduled/list-task-scheduled.component";
+import {NotificationComponent} from "../../pages/notification/notification/notification.component";
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -54,6 +55,9 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'table',          component: TableComponent },
   { path: 'icons',          component: IconsComponent },
   { path: 'maps',           component: MapsComponent },
+  { path: 'notification',  component: NotificationComponent },
   { path: 'notifications',  component: NotificationsComponent },
-  { path: 'upgrade',        component: UpgradeComponent }
+  { path: 'upgrade',        component: UpgradeComponent },
+
+
 ];

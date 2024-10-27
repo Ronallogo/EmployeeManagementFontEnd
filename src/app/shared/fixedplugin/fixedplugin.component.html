@@ -7,8 +7,10 @@
             <li class="header-title">Sidebar Background Text</li>
             <li class="adjustments-line text-center">
                 <a href="javascript:void(0)" class="switch-trigger background-color">
-                    <span class="badge filter badge-dark" [ngClass]="{'active':sidebarColor==='grey'}" (click)="changeSidebarColor('grey')"></span>
+
                     <span class="badge filter badge-light active" [ngClass]="{'active':sidebarColor==='white'}" (click)="changeSidebarColor('white')"></span>
+                    <span class="badge filter badge-dark active" [ngClass]="{'active':sidebarColor==='dark'}" (click)="changeSidebarColor('dark')"></span>
+
                 </a>
             </li>
 

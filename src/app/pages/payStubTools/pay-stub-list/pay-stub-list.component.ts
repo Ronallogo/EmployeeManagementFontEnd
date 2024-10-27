@@ -41,16 +41,5 @@ export class PayStubListComponent implements OnInit{
 
   }
 
-  deletePayStub(id: number) {
 
-    let conf = confirm("voulez vous vraiment supprimer?? ");
-    if(!conf) return  ;
-    this.service.deletePayStub(id).subscribe(data =>{
-      console.log(data);
-      this.toastr.success(iconApp+" le bulletin de paie a été supprimé" , manager , {enableHtml:true})
-    },error => {
-      console.log(error);
-      this.toastr.error(iconApp+" le bulletin n'a pas pu etre supprimer !!" , manager , {enableHtml:true})
-    })
-  }
 }

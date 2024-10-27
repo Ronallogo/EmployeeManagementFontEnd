@@ -28,20 +28,20 @@
           </div>
         </div>
       </div>
-      <form  [formGroup]="formulaire" (ngSubmit)= "updateAbsence()">
+      <form   (submit)= "updateAbsence()">
         <div class="row" style="border-top: solid 1px lightgray">
 
           <div class="card-body  col-sm-6">
             <div class="form-group has-label col-xl-11" style="width: 100%">
               <label class="control-label" for="reason">Raison de l'absence: <span class="star">*</span></label>
-              <textarea [(ngModel)]="formulaire.getRawValue().reason" class="form-control ng-pristine ng-invalid ng-touched" name="reason"  required type="text"> </textarea>
+              <textarea [(ngModel)]="formulaire.reason" class="form-control ng-pristine ng-invalid ng-touched" name="reason"  required type="text"> </textarea>
 
             </div>
           </div>
           <div class="card-body  col-sm-6">
             <div class="form-group has-label col-xl-11" style="width: 100%">
               <label class="control-label" for="date">  Date de l'absence: <span class="star">*</span></label>
-              <input  [(ngModel)]="formulaire.getRawValue().date" class="form-control ng-pristine ng-invalid ng-touched" name="date" required type="date">
+              <input  [(ngModel)]="formulaire.absence_day" class="form-control ng-pristine ng-invalid ng-touched" name="absence_day" required type="date">
 
             </div>
           </div>

@@ -34,6 +34,7 @@ export class EmployeeSearchComponent implements OnInit{
 
   search(key:  number){
     this.listEmployee = [];
+    this.keyword = key;
     if(this.keyword == null ){
       this.toastr.warning(iconApp + "Veuillez saisir l'identifiant de  l'employé!!" , manager , {enableHtml:true});
       return;
@@ -55,7 +56,11 @@ export class EmployeeSearchComponent implements OnInit{
   }
   deleteEmployee(id:number , p : any) {
     this.service.deleteEmployee(id).subscribe (data => {
-      window.location.reload();
+       this.service.searchEmployeeById(this.keyword).subscribe(data =>{
+           this.listEmployee = []
+           if(data != null)  this.listEmployee.push(data) ;
+           else  this.toastr.info(iconApp + "  Plus aucun employé ne correspond a cet identifiant !!!"  ,manager , {enableHtml : true})
+       })
     })
   }
   getImageUrl(photo: any) {
