@@ -1,6 +1,7 @@
 
 
 
+
 export interface PositionModel {
   "id":number ,
   "position_name":string,
@@ -170,11 +171,12 @@ export const iconApp  = `<i class="nc-icon nc-chart-bar-32 "></i>`;
 
 export interface TaskScheduled {
     taskInserted : any ;
-    employee : any ;
     beginning : string;
     end :string ;
     status :boolean;
     content : any;
+    type : string ;
+  nbrPerson : number ;
 }
 
 export interface TaskScheduled2 extends  TaskScheduled {
@@ -185,6 +187,24 @@ export interface TaskScheduled2 extends  TaskScheduled {
 export const manager  = "EMPLOYEE MANAGER";
 
 
+
+export interface employeeRepartition{
+   id : number ;
+   name : string;
+  surname :  string  ;
+   email : string;
+   position : string;
+  photo : any;
+   function : string ;
+}
+
+
+export interface repartition {
+  listEmployee : employeeRepartition[] ,
+  taskScheduled_id :number ,
+   taskScheduled_name :string ;
+   status :boolean;
+}
 
 export interface PayStubModel{
 

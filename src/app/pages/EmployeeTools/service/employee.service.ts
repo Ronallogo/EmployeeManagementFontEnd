@@ -60,7 +60,9 @@ export class EmployeeService {
   }
 
   getEmployee(): any {
+    localStorage.setItem("employeeUpdate", JSON.stringify(this.selectedEmployee));
     return this.selectedEmployee;
+
   }
 
   setEmployee(employee: EmployeeModel): void {

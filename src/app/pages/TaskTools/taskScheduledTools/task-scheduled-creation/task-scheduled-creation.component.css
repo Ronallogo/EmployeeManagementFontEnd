@@ -1,0 +1,15 @@
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Déplacement vers le bas */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s forwards; /* Durée de l'animation */
+  animation-delay: 4s; /* Délai de 4 secondes avant le démarrage */
+}

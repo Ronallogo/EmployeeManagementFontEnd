@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserTaskComponent } from './user-task.component';
+import { TaskScheduledCreationComponent } from './task-scheduled-creation.component';
 
 describe('UserTaskComponent', () => {
-  let component: UserTaskComponent;
-  let fixture: ComponentFixture<UserTaskComponent>;
+  let component: TaskScheduledCreationComponent;
+  let fixture: ComponentFixture<TaskScheduledCreationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserTaskComponent]
+      imports: [TaskScheduledCreationComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserTaskComponent);
+    fixture = TestBed.createComponent(TaskScheduledCreationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

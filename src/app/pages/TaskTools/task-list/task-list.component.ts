@@ -5,16 +5,19 @@ import {iconApp, manager, TaskModel} from "../../../models/models";
 import {TaskService} from "../service/task.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ToastrService} from "ngx-toastr";
+import {NgxPaginationModule} from "ngx-pagination";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-    imports: [
-        NgForOf,
-        NgIf,
-        RouterLink,
-        RouterLinkActive
-    ],
+  imports: [
+    NgForOf,
+    NgIf,
+    RouterLink,
+    RouterLinkActive,
+    NgxPaginationModule
+  ],
 
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
@@ -27,6 +30,7 @@ export class TaskListComponent  implements  OnInit{
   protected dataSource2: any[] = [] ;
   protected dataStatus : any[] = []
   header : string[] = ["No (ID)" , "nom" , "description" ,"status" ,  "actions"];
+  currentPage:  number = 1 ;
 
   constructor(protected service: TaskService , private toastr : ToastrService) {}
 
@@ -77,17 +81,56 @@ export class TaskListComponent  implements  OnInit{
   }
 
   deleteTask(id : number , Task : TaskModel){
-    this.service.deleteTask(id).subscribe(data =>{
-      this.toastr.success(iconApp + " suppression reussie!!" , manager , {enableHtml:true})
-      this.getAllTask();
-    }  , error => {
-      console.log(error);
-      this.toastr.error(iconApp + " Erreur de suppression!!!" , manager , {enableHtml :true})
 
-    })
+
+
+    Swal.fire({
+      title: "Voulez vous supprimé cette tache  ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#9fec9a",
+      cancelButtonColor: "#e62b2b",
+      confirmButtonText: "Supprimer" ,
+      cancelButtonText: "annuler" ,
+      backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  ` ,
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
+
+    `
+      },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+      }
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteTask(id).subscribe(data =>{
+          this.toastr.success(iconApp + " suppression reussie!!" , manager , {enableHtml:true})
+          this.getAllTask();
+        }  , error => {
+          console.log(error);
+          this.toastr.error(iconApp + " Erreur de suppression!!!" , manager , {enableHtml :true})
+
+        })
+
+      }
+
+    });
+
+
+
 
   }
-
 
   generePdf(){
     this.service.report().subscribe((data : Blob) => {
@@ -104,5 +147,9 @@ export class TaskListComponent  implements  OnInit{
       this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
       console.log(error)
     })
+  }
+
+  pageChanged($event: number) {
+      this.currentPage  =  $event ;
   }
 }

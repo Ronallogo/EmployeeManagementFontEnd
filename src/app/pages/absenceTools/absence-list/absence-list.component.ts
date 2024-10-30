@@ -5,6 +5,7 @@ import {AbsenceModel, iconApp, manager} from "../../../models/models";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @Component({
   selector: 'app-absence-list',
@@ -13,7 +14,8 @@ import {ToastrService} from "ngx-toastr";
     NgForOf,
     RouterLink,
     RouterLinkActive,
-    NgIf
+    NgIf,
+    NgxPaginationModule
   ],
   templateUrl: './absence-list.component.html',
   styleUrl: './absence-list.component.css'
@@ -25,8 +27,9 @@ export class AbsenceListComponent implements OnInit{
   private show2: boolean = false;
 
   protected header : string[] = ["No" , "le nom de l'employé", "Date de l'absence" , "Raison de l'absence" , "Actions"];
-  public icon = `<i class="nc-icon nc-chart-bar-32 "></i>`;
-  public customTitle = '<span style=""><i class="nc-icon nc-chart-bar-32 "></i> EMPLOYEE MANAGER</span>';
+
+
+  protected currentPage: number = 1;
 
   constructor(protected service: AbsenceService ,  public toastr: ToastrService){}
 
@@ -68,5 +71,9 @@ export class AbsenceListComponent implements OnInit{
       this.toastr.error(iconApp +" Erreur de génération!!!!" , manager , {enableHtml:true});
       console.log(error)
     })
+  }
+
+  pageChanged($event: number) {
+      this.currentPage = $event ;
   }
 }

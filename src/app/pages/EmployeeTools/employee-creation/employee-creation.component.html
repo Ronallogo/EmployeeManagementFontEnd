@@ -1,4 +1,4 @@
-<div class="col-lg-9 col-md-6 col-6" style="margin-left: 100px;">
+<div class="col-lg-9 col-md-6 col-6 animate__animated animate__fadeInUp" style="margin-left: 100px;">
   <div class="card card-stats">
     <div class="card-body">
       <div class="row mb-3">
@@ -21,76 +21,143 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="name">Nom: <span class="text-danger">*</span></label>
-              <input formControlName="name" class="form-control" id="name" required type="text">
-
+              <input formControlName="name" class="form-control" id="name" required type="text" placeholder="Veuillez saisir le nom"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.name.dirty && Employee.controls.name.invalid  ,
+               'is-valid' : Employee.controls.name.valid
+              }"
+              >
+              @if( Employee.controls.name.dirty && Employee.controls.name.invalid ){<small class="text-danger" >Le nom est obligatoire</small>}
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="surname">Prénom: <span class="text-danger">*</span></label>
-              <input formControlName="surname" class="form-control" id="surname" required type="text">
+              <input
+                formControlName="surname" class="form-control"
+                id="surname" required type="text" placeholder="Veuillez saisir le prénom"
+                [ngClass]="{
+              'is-invalid' : Employee.controls.surname.dirty && Employee.controls.surname.invalid ,
+               'is-valid' : Employee.controls.surname.valid
+              }"
+              >
+              @if( Employee.controls.surname.dirty && Employee.controls.surname.invalid ){<small class="text-danger">Le prénom est obligatoire</small>}
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="birthday">Date de naissance: <span class="text-danger">*</span></label>
-              <input formControlName="birthday" class="form-control" id="birthday" required type="date">
+              <input formControlName="birthday" class="form-control" id="birthday" required type="date"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.birthday.dirty && Employee.controls.birthday.invalid  ,
+               'is-valid' : Employee.controls.birthday.valid
+              }"
+              >
+              @if( Employee.controls.birthday.dirty && Employee.controls.birthday.invalid ){<small class="text-danger">La date de naissance est obligatoire</small>}
+
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="email">Adresse Mail: <span class="text-danger">*</span></label>
-              <input formControlName="email" class="form-control" id="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" required type="email">
+              <input formControlName="email" class="form-control" id="email"   required type="email" placeholder="Veuillez saisir l'email"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.email.dirty && Employee.controls.email.invalid   ,
+               'is-valid' : Employee.controls.email.valid
+              }"
+              >
+              @if( Employee.controls.email.dirty && Employee.controls.email.invalid ){<small class="text-danger">L'email est obligatoire</small>}
+
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="phone">Téléphone: <span class="text-danger">*</span></label>
-              <input formControlName="phone" class="form-control" id="phone" required type="tel" pattern="[0-9()+- ]*" title="Veuillez entrer un numéro de téléphone valide" placeholder="Entrez votre numéro de téléphone">
+              <input formControlName="phone" class="form-control" id="phone" required type="tel"   title="Veuillez entrer un numéro de téléphone valide" placeholder="Entrez votre numéro de téléphone"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.phone.dirty && Employee.controls.phone.invalid  ,
+               'is-valid' : Employee.controls.phone.valid
+              }"
+
+              >
+              @if(Employee.controls.phone.dirty && Employee.controls.phone.invalid){<small class="text-danger">Le numéro de téléphone est obligatoire</small>}
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="position">Poste de l'employé: <span class="text-danger">*</span></label>
-              <select id="position" formControlName="position" class="form-control">
+              <select id="position" formControlName="position" class="form-control"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.position.dirty && Employee.controls.position.invalid  ,
+               'is-valid' : Employee.controls.position.valid
+              }"
+              >
                 <option value="" disabled selected>Choisir un poste</option>
                 <option *ngFor="let p of allPosition" [value]="p.id">{{ p.position_name }}</option>
               </select>
+              @if( Employee.controls.position.dirty && Employee.controls.position.invalid ){<small class="text-danger">Le  poste est obligatoire</small>}
+
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="password">Mot de passe: <span class="text-danger">*</span></label>
-              <input formControlName="password" class="form-control" id="password" required type="password">
+              <input formControlName="password" class="form-control" id="password" required type="password"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.password.dirty && Employee.controls.password.invalid  ,
+               'is-valid' : Employee.controls.password.valid
+
+              }"
+              >
+              @if( Employee.controls.password.dirty && Employee.controls.password.invalid ){<small class="text-danger">Le mot de passe est faible</small>}
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="confirmPassword">Confirmation du mot de passe: <span class="text-danger">*</span></label>
-              <input formControlName="confirmPassword" class="form-control" id="confirmPassword" required type="password">
+              <input formControlName="confirmPassword" class="form-control" id="confirmPassword" required type="password"
+              [ngClass]="{
+              'is-invalid' : Employee.controls.confirmPassword.dirty &&  String(Employee.controls.password.value)  != String(Employee.controls.confirmPassword.value) ,
+               'is-valid' : Employee.controls.confirmPassword.dirty &&  String(Employee.controls.password.value)  == String(Employee.controls.confirmPassword.value)
+              }"
+
+              >
+              @if(String(Employee.controls.password.value)  != String(Employee.controls.confirmPassword.value) ){<small class="text-danger">Les mots de passes ne sont pas identiques</small>}
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="address">Adresse de l'employé: <span class="text-danger">*</span></label>
-              <input formControlName="address" class="form-control" id="address" required type="text">
+              <input formControlName="address" class="form-control" id="address" required type="text"
+               [ngClass]="{
+              'is-invalid' : Employee.controls.address.dirty && Employee.controls.address.invalid  ,
+               'is-valid' : Employee.controls.address.valid
+
+              }"
+              >
+              @if(Employee.controls.address.dirty && Employee.controls.address.invalid){<small class="text-danger"> Adresse est obligatoire</small>}
+
+
 
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label class="control-label" for="date_insertion">Date d'insertion dans le système: <span class="text-danger">*</span></label>
-              <input  [(ngModel)]="date_insertion" [ngModelOptions]="{standalone : true}" class="form-control" name="date_insertion" required type="date">
+              <input  [(ngModel)]="date_insertion" [ngModelOptions]="{standalone : true}" class="form-control" name="date_insertion" required type="date"
+             >
+
+
             </div>
           </div>
           <div class="col-12 mt-3">
             <input type="file"  (change)="onFileSelected($event)" />
-            <button type="submit" class="btn btn-outline-default btn-round">
+            <button type="submit" class="btn btn-outline-default btn-round"  [disabled]="Employee.invalid && String(Employee.controls.password)  != String(Employee.controls.confirmPassword)">
               <i class="fa fa-save"></i> Enregistrer l'employé
             </button>
           </div>
@@ -99,3 +166,5 @@
     </div>
   </div>
 </div>
+
+

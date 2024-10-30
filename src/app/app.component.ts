@@ -27,31 +27,38 @@ export class AppComponent implements OnInit {
   }
 
   checkPermission(){
-    this.jwt=localStorage.getItem('jwt');
+    this.jwt=JSON.parse(String(this.jwt));
     let user =  JSON.parse(String(localStorage.getItem('user')));
+     console.log(this.jwt)
     console.log(this.jwt)
-    if(this.jwt != null){
-          if(user.role == "ADMIN"){
-            console.log("je suis en administrador")
-             //this.router.navigate(['dashboard']);
-            this.toastr.success(this.icon+" Bienvenu dans l'interface administrateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
-          }
-          if(user.role == "USER"){
-            console.log("je suis en user")
-           // this.router.navigate(['user-profil']);
-            this.toastr.success(this.icon+" Bienvenu dans l'interface utilisateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
-          }
-         /* else{
-              console.log("notification de rejet ici ")
-              this.router.navigate(['login']);
-              this.toastr.error(this.icon+" L'accès vous est refusé !!!" , "EMPLOYEE MANAGER" , {enableHtml : true});
-          }*/
-    }
-    else {
-      this.toastr.error(iconApp+" Votre permission d'accès n'est plus valide..! Veuillez vous reconnectez .",manager , {enableHtml:true})
-      this.router.navigate(['login']);
+    this.service.checkValidity().subscribe(data => {
+      if(this.jwt != null){
+        if(user.role == "ADMIN"){
+          console.log("je suis en administrator")
+          this.router.navigate(['dashboard']);
+          this.toastr.success(this.icon+" Bienvenu dans l'interface administrateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
+        }
+        if(user.role == "USER"){
+          console.log("je suis en user")
+           this.router.navigate(['user-profil']);
+          this.toastr.success(this.icon+" Bienvenu dans l'interface utilisateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
+        }
+        /* else{
+             console.log("notification de rejet ici ")
+             this.router.navigate(['login']);
+             this.toastr.error(this.icon+" L'accès vous est refusé !!!" , "EMPLOYEE MANAGER" , {enableHtml : true});
+         }*/
+      }
+      else {
+        this.toastr.error(iconApp+" Votre permission d'accès n'est plus valide..! Veuillez vous reconnectez .",manager , {enableHtml:true})
+        this.router.navigate(['login']);
 
-    }
+      }
+      console.log(data);
+    } , error => {
+      console.log(error)
+    })
+
 
   }
 

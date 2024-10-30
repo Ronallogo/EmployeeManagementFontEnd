@@ -1,11 +1,15 @@
-<div class="col-md-12" style="margin-bottom: 500px">
+<div class="col-md-12 animate__animated animate__fadeInUp" style="margin-bottom: 30%">
+  <button class="btn btn-outline-default btn-round" routerLink="/employee-menu" routerLinkActive="active">
+    <i class="fa fa-backward"></i>
+    Retour
+  </button>
   <div class="card">
     <div class="card-header row">
       <div class="col">
         <h4 class="card-title">recherche des  Employés </h4>
       </div>
       <div class="col text-right" style="margin-top: 6px">
-        <form>
+        <form  >
           <div class="input-group no-border">
             <input [(ngModel)]="keyword" name="keyword"  type="number" class="form-control" placeholder="Veuillez saisir l'id de l 'employé">
             <div class="input-group-append">
@@ -22,67 +26,72 @@
     <div class="card-body">
       <div class="table-responsive">
         <table class="table">
-          <thead class=" text-default">
+          <thead class="text-default">
           <th *ngFor="let h of header" style="width: 100px">
             {{h}}
           </th>
           </thead>
           <tbody>
-          <tr *ngFor="let p of listEmployee">
-            <th>
-              {{listEmployee.indexOf(p) + 1 }}
-            </th>
-            <th>
-              @if(p.photo != null && p.photo != ""){
-                <img *ngIf="p.photo" [src]="getImageUrl(p.photo)" alt="Employee Photo" class="avatar border-gray"  />
-              } @else {
-                <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
-              }
-            </th>
-            <th>
-              {{p.name}}
-            </th>
-            <th>
-              {{p.surname}}
-            </th>
-            <th>
-              {{p.birthday}}
-            </th>
-            <th>
-              {{p.email}}
-            </th>
-            <th>
-              {{p.phone}}
-            </th>
-            <th>
-              {{p.address}}
-            </th>
-            <th>
-              {{p.position.position_name}}
-            </th>
-            <th>
-              <div class="row" style="margin-left: 30px ; margin-bottom: 5px">
-                <button class="btn btn-outline-default-default"   (click)="deleteEmployee(p.id , p)">
-                  <i class="fa fa-trash"></i>
-                </button>
+          @for( p of listEmployee   ; track p){
 
-                <button class="btn btn-outline-default" style="margin-top: 8px;width: 55px" (click)="service.setEmployee(p)" routerLinkActive="active" routerLink="/employee-update" >
-                  <i class="fa fa-edit"></i>
-                </button>
+              <tr class="animate__animated animate__fadeInUp">
+                <th>
+                  {{listEmployee.indexOf(p) + 1 }}
+                </th>
+                <th>
+                  @if(p.photo != null && p.photo != ""){
+                    <img *ngIf="p.photo" [src]="getImageUrl(p.photo)" alt="Employee Photo" class="avatar border-gray"  />
+                  } @else {
+                    <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
+                  }
+                </th>
+                <th>
+                  {{p.name}}
+                </th>
+                <th>
+                  {{p.surname}}
+                </th>
+                <th>
+                  {{p.birthday}}
+                </th>
+                <th>
+                  {{p.email}}
+                </th>
+                <th>
+                  {{p.phone}}
+                </th>
+                <th>
+                  {{p.address}}
+                </th>
+                <th>
+                  {{p.position.position_name}}
+                </th>
+                <th style="width: 20%">
+                  <div class="row" style="margin-left: 30px ; margin-bottom: 5px">
+                    <button class="btn btn-outline-danger btn-round"  style="margin-top: 5% ;width: 30% ; margin-right: 3%"  (click)="deleteEmployee( p)">
+                      <i class="fa fa-trash"></i>
+                    </button>
 
-                <!--  <button class="btn  btn-outline-default">
-                    <i class="fa fa-info-circle"></i>
-                  </button> -->
-              </div>
-            </th>
+                    <button class="btn btn-outline-success btn-round" style="margin-top: 5% ;width: 30%" (click)="service.setEmployee(p)" routerLinkActive="active" routerLink="/employee-update" >
+                      <i class="fa fa-edit"></i>
+                    </button>
 
-          </tr>
+                    <!--  <button class="btn  btn-outline-default">
+                        <i class="fa fa-info-circle"></i>
+                      </button> -->
+                  </div>
+                </th>
+
+              </tr>
+          }
+
 
           </tbody>
 
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listEmployee.length == 0 ">
           <h5>Aucun employé</h5>
+
         </div>
       </div>
     </div>

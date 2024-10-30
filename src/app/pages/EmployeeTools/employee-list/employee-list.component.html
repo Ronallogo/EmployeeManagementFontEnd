@@ -25,57 +25,65 @@
           </th>
           </thead>
           <tbody>
-           <tr *ngFor="let p of listEmployee"  >
-            <th>
-              {{listEmployee.indexOf(p) + 1 }}
-              ({{ p.id }})
-            </th>
-             <th>
-               @if(p.photo != null && p.photo != ""){
-                 <img *ngIf="p.photo" [src]="getImageUrl(p.photo)" alt="Employee Photo" class="avatar border-gray"  />
-               } @else {
-                 <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
-               }
-            </th>
-            <th>
-              {{p.name}}
-            </th>
-            <th>
-              {{p.surname}}
-            </th>
-             <th>
-               {{p.birthday}}
-             </th>
-             <th>
-               {{p.email}}
-             </th>
-             <th>
-               {{p.phone}}
-             </th>
-             <th>
-               {{p.address}}
-             </th>
-             <th>
-               {{p.position.position_name}}
-             </th>
-            <th>
-              <div class="row" style="margin-left: 30px ; margin-bottom: 5px">
-                <button class="btn btn-outline-default-default" data-dismiss="alert"   (click)="deleteEmployee(p)">
-                  <i class="fa fa-trash"></i>
-                </button>
+            @for ( p of listEmployee | paginate: {
+              itemsPerPage: 5,
+              currentPage: currentPage,
+              totalItems: listEmployee.length} ; track p){
+              <tr   class="animate__animated animate__fadeInUp" >
+                <th>
+                  {{listEmployee.indexOf(p) + 1 }}
+                  ({{ p.id }})
+                </th>
+                <th>
+                  @if(p.photo != null && p.photo != ""){
+                    <img *ngIf="p.photo" [src]="getImageUrl(p.photo)" alt="Employee Photo" class="avatar border-gray"  />
+                  } @else {
+                    <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
+                  }
+                </th>
+                <th>
+                  {{p.name}}
+                </th>
+                <th>
+                  {{p.surname}}
+                </th>
+                <th>
+                  {{p.birthday}}
+                </th>
+                <th>
+                  {{p.email}}
+                </th>
+                <th>
+                  {{p.phone}}
+                </th>
+                <th>
+                  {{p.address}}
+                </th>
+                <th>
+                  {{p.position.position_name}}
+                </th>
+                <th style="width: 16%">
+                  <div class="row"   >
+                    <button class="btn btn-outline-danger btn-round"  style="margin-top: 5% ;width: 30% ; margin-right: 3% ;margin-left: 10%"  data-dismiss="alert"   (click)="deleteEmployee(p)">
+                      <i class="fa fa-trash"></i>
+                    </button>
 
-                <button class="btn btn-outline-default" style="margin-top: 8px;width: 55px" (click)="service.setEmployee(p)" routerLinkActive="active" routerLink="/employee-update" >
-                  <i class="fa fa-edit"></i>
-                </button>
+                    <button class="btn btn-outline-success btn-round"  style="margin-top: 5% ;width: 30% ;  "  (click)="service.setEmployee(p)" routerLinkActive="active" routerLink="/employee-update" >
+                      <i class="fa fa-edit"></i>
+                    </button>
 
-                <!--  <button class="btn  btn-outline-default">
-                    <i class="fa fa-info-circle"></i>
-                  </button> -->
-              </div>
-            </th>
+                    <!--  <button class="btn  btn-outline-default">
+                        <i class="fa fa-info-circle"></i>
+                      </button> -->
+                  </div>
+                </th>
 
-          </tr>
+              </tr>
+            }
+
+
           </tbody>
+
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listEmployee.length == 0 ">
           <h5>Aucun employé</h5>
@@ -83,4 +91,21 @@
       </div>
     </div>
   </div>
+  @if(listEmployee.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+
+
+    >
+    </pagination-controls>
+
+  }
 </div>
+

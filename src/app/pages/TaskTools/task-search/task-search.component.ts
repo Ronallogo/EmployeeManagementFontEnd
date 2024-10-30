@@ -6,6 +6,8 @@ import {iconApp, manager, PositionModel, TaskModel} from "../../../models/models
 import {PositionService} from "../../PositionTools/service/position.service";
 import {TaskService} from "../service/task.service";
 import {ToastrService} from "ngx-toastr";
+import {NgxPaginationModule} from "ngx-pagination";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-task-search',
@@ -15,7 +17,8 @@ import {ToastrService} from "ngx-toastr";
         NgForOf,
         RouterLink,
         RouterLinkActive,
-        NgIf
+        NgIf,
+        NgxPaginationModule
     ],
   templateUrl: './task-search.component.html',
   styleUrl: './task-search.component.css'
@@ -24,6 +27,11 @@ export class TaskSearchComponent implements OnInit {
   protected dataSource: TaskModel[] = [] ;
   public keyword! : string
   public header = ["No" , "nom" , "description" , "actions"];
+  currentPage:  number = 1;
+
+  protected dataSource2: any[] = [] ;
+
+
 
 
   constructor(
@@ -61,5 +69,74 @@ export class TaskSearchComponent implements OnInit {
   }
 
 
+  deleteTask(id : number , Task : TaskModel){
+    Swal.fire({
+      title: "Voulez vous supprimé cette tache  ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#9fec9a",
+      cancelButtonColor: "#e62b2b",
+      confirmButtonText: "Supprimer" ,
+      cancelButtonText: "annuler" ,
+      backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  ` ,
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
 
+    `
+      },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+      }
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteTask(id).subscribe(data =>{
+          this.toastr.success(iconApp + " suppression reussie!!" , manager , {enableHtml:true})
+          this.getAllTask();
+        }  , error => {
+          console.log(error);
+          this.toastr.error(iconApp + " Erreur de suppression!!!" , manager , {enableHtml :true})
+
+        })
+
+      }
+
+    });
+
+
+
+
+  }
+
+
+
+
+  getAllTask(){
+    this.service.allTasks().subscribe(data => {
+      this.dataSource = data ;
+      console.log(data)
+
+    } , error => {
+      console.log(error) ;
+    });
+
+
+
+
+
+  }
+
+  pageChanged($event: number) {
+      this.currentPage = $event;
+  }
 }

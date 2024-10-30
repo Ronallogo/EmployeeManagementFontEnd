@@ -54,6 +54,7 @@ export class TaskUpdateComponent implements OnInit{
 
   initialize(){
     this.task = this.service.getTask();
+
     this.formulaire.setValue(
       {
         task_name : this.task.task_name ,

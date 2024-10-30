@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserTaskListComponent } from './user-task-list.component';
+import { UserMessageComponent } from './user-message.component';
 
-describe('UserTaskListComponent', () => {
-  let component: UserTaskListComponent;
-  let fixture: ComponentFixture<UserTaskListComponent>;
+describe('UserMessageComponent', () => {
+  let component: UserMessageComponent;
+  let fixture: ComponentFixture<UserMessageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserTaskListComponent]
+      imports: [UserMessageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserTaskListComponent);
+    fixture = TestBed.createComponent(UserMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

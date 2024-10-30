@@ -4,6 +4,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {iconApp, manager} from "../../../models/models";
+import {NgxPaginationModule} from "ngx-pagination";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-conge-list',
@@ -12,13 +14,15 @@ import {iconApp, manager} from "../../../models/models";
     NgForOf,
     RouterLink,
     RouterLinkActive,
-    NgIf
+    NgIf,
+    NgxPaginationModule
   ],
   templateUrl: './conge-list.component.html',
   styleUrl: './conge-list.component.css'
 })
 export class CongeListComponent implements OnInit{
   protected listConge : any[] =  [];
+  protected currentPage : number = 1 ;
 
 
   protected header : string[] = ["No" , "début de congé" , "fin de congé" , "type de congé" , "status" , "demande de" , "actions"]
@@ -31,16 +35,51 @@ export class CongeListComponent implements OnInit{
   }
 
 
-  deleteConge(id : number) {
+  deleteConge(p : any) {
 
 
-    let conf = confirm("Are you sure you want to delete this conge?");
-    if(!conf) return;
-    this.service.deleteConge(id).subscribe(data =>{
-      this.allConge()
-      this.toastr.success(iconApp+" congé supprimé avec succès...." , manager , {enableHtml:true});
 
-    })
+    Swal.fire({
+      title: "Voulez vous annulé ce congé ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#9fec9a",
+      cancelButtonColor: "#e62b2b",
+      confirmButtonText: "oui" ,
+      cancelButtonText: "non" ,
+      backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  ` ,
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
+
+    `
+      },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+      }
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteConge(p.id).subscribe(data =>{
+          this.allConge()
+          this.toastr.success(iconApp+" congé annulé avec succès...." , manager , {enableHtml:true});
+
+        })
+      }
+
+    });
+
+
+
   }
 
   allConge(){
@@ -52,6 +91,10 @@ export class CongeListComponent implements OnInit{
 
     })
   }
+
+
+
+
 
 
   generePdf(){
@@ -71,4 +114,7 @@ export class CongeListComponent implements OnInit{
     })
   }
 
+  pageChanged($event: number) {
+      this.currentPage = $event ;
+  }
 }

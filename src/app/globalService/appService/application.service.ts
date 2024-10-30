@@ -38,21 +38,15 @@ export class ApplicationService {
     });
   }
 
-  setPermission(permit : boolean):void {
-      this.permit  = permit;
-  }
 
-  getPermission():boolean{
-      return this.permit;
-  }
 
   parseJWT(){
     console.log(this.jwt)
     this.objJWT  =    jwtDecode(this.jwt.access_token);
     this.user.email = this.objJWT.sub
     this.user.role = this.objJWT.roles.at(0).authority
-    console.log(this.objJWT);
-    console.log(this.user);
+   // console.log(this.objJWT);
+   // console.log(this.user);
     localStorage.setItem('user',JSON.stringify(this.user));
 
   }
@@ -63,15 +57,20 @@ export class ApplicationService {
       this.parseJWT();
 
   }
-  loadToken(){
+
+/*  loadToken(){
     this.jwt=localStorage.getItem('jwt');
+    console.log( "token = "+ JSON.stringify(localStorage.getItem('jwt')));
+    this.checkValidity(this.jwt).subscribe(data =>{
+      console.log(data);
+    })
     if(this.jwt != null){
         this.parseJWT();
-        this.router.navigateByUrl("/dashbord");
+       // this.router.navigateByUrl("/dashbord");
         this.toastr.success(`bienvenu dans votre interface` , "EMPLOYEE MANAGER")
 
     }
-  }
+  }*/
 
   getUser(){
     return this.user ;
@@ -107,7 +106,10 @@ export class ApplicationService {
   deleteUser(id :number){
     return this.http.delete(`${this.host}/delete/${id}`);
   }
-
+  checkValidity(){
+     let token = JSON.parse(String(localStorage.getItem('jwt')))
+    return this.http.get(`${this.host}/validity` , token);
+  }
 
 
 }

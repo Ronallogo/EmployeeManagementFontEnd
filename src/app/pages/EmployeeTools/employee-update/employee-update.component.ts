@@ -6,6 +6,8 @@ import {EmployeeService} from "../service/employee.service";
 import {ToastrService} from "ngx-toastr";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {ApplicationService} from "../../../globalService/appService/application.service";
+import {Router} from "@angular/router";
+import {error} from "protractor";
 
 @Component({
   selector: 'app-employee-update',
@@ -19,7 +21,7 @@ import {ApplicationService} from "../../../globalService/appService/application.
   templateUrl: './employee-update.component.html',
   styleUrl: './employee-update.component.css'
 })
-export class EmployeeUpdateComponent implements OnInit{
+export class EmployeeUpdateComponent  implements OnInit{
   private emailUser !: string ;
   protected password_body :{old_password : string , new_password : string} = {old_password  :"" , new_password  :""}
   protected id !: number ;
@@ -34,25 +36,37 @@ export class EmployeeUpdateComponent implements OnInit{
     private employeeService : EmployeeService ,
     private positionService : PositionService ,
     private toastr : ToastrService ,
-    private testLogin : ApplicationService  ) {}
+    private testLogin : ApplicationService , private router : Router  ) {}
 
 
   ngOnInit() {
-      this.getData() ;
+
+    this.getData().then(value => {
+      this.positionService.allPositions().subscribe(data =>{
+        this.allPosition = data;
+      } , error => {
+        console.log(error);
+      })
+
+    } , error =>{
+      this.router.navigate(['employee-list']);
+    }) ;
+
+
+
+
+
+
   }
 
 
-  getData(){
-     this.employee =  this.employeeService.getEmployee();
-     this.emailUser = this.employee.email;
-     this.position = this.employee.position.id
+  async getData(){
+    this.employee =  this.employeeService.getEmployee();
+    this.emailUser = this.employee.email;
+    this.position = this.employee.position.id
 
 
-     this.positionService.allPositions().subscribe(data =>{
-        this.allPosition = data;
-     } , error => {
-       console.log(error);
-     })
+
 
   }
 

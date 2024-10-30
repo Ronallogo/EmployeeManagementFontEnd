@@ -25,14 +25,9 @@ export class TaskService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {}
 
-  createTaskInserted(task: {
-    task : number |null ,
-    position : number | null ,
-    date_insertion : string | null,
-    gain_task_post : number |null
-  }){
+  createTaskInserted(task:  any){
         return this.http.post(this.Url2+"/create", task);
   }
 
@@ -42,6 +37,10 @@ export class TaskService {
 
   allTasksInserted(): Observable<TaskInsertedModel2[]> {
     return  this.http.get<any>(this.Url2 + '/all');
+  }
+
+  allTasksInsertedForOnePosition(position : number): Observable<TaskInsertedModel2[]> {
+    return  this.http.get<any>(this.Url2 + '/allForOnePosition/'+position);
   }
 
   deleteTask(id: number) : Observable<any> {
@@ -58,7 +57,8 @@ export class TaskService {
   }
 
   getTask() : TaskModel {
-    console.log(this.Task + "give")
+    console.log(this.Task + "give") ;
+    if(this.Task == undefined) window.location.replace("http://localhost:4200/#/task-list");
     return this.Task
   }
   getTaskInserted() : TaskInsertedModel2 {
@@ -79,14 +79,15 @@ export class TaskService {
     return this.http.put(this.Url + '/edit/'+id , Task)
   }
 
-  updateTaskSheduled(id: number, Task: TaskScheduled){
+  updateTaskScheduled(id: number, Task:  any){
     console.log(Task);
     let taskData ={
       taskInserted  : (Task.taskInserted.id != undefined) ? Task.taskInserted.id :  Task.taskInserted ,
-      employee : (Task.employee.id != undefined) ? Task.employee.id :  Task.employee ,
       beginning : Task.beginning ,
       end : Task.end,
       status :  true,
+      type : Task.type,
+      nbrPerson : Task.nbrPerson ,
       content : (Task.content.id != undefined) ? Task.content.id : Task.content
     }
     console.log(taskData)
@@ -101,6 +102,13 @@ export class TaskService {
 
   searchTask(keyword : string) : Observable<any>{
     return this.http.get(this.Url + '/search/' + keyword )
+  }
+  searchTaskScheduledByPositionId(position_id: number) : Observable<TaskScheduled2[]>{
+    return this.http.get<TaskScheduled2[]>(this.Url3 + '/searchTaskByPositionId/' + position_id )
+  }
+
+  searchTaskScheduled(keyword : string) : Observable<any>{
+    return this.http.get(this.Url3 + '/searchTaskScheduled/' + keyword )
   }
 
   updateTaskInserted(id: number , taskInserted: {
@@ -123,7 +131,7 @@ export class TaskService {
     return  this.http.get<any>(this.Url2 + '/allForOnePosition/' + id );
   }
 
-  createTaskScheduled(task  : TaskScheduled){
+  createTaskScheduled(task  :  any){
       return this.http.post(this.Url3 + '/create', task);
   }
 
@@ -149,4 +157,8 @@ export class TaskService {
       responseType: "Blob" as "json"
     });
   }
+
+
+
+
 }

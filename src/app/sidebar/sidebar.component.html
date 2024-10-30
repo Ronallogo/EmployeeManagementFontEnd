@@ -7,7 +7,7 @@
   </div>
 
     <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}} zoom-on-hover">
            <ng-container *ngIf="menuItem.views == 'all'  || user.role ==  menuItem.views ">
                <a [routerLink]="[menuItem.path]">
                  <i class="nc-icon {{menuItem.icon}}"></i>
@@ -15,11 +15,6 @@
                </a>
            </ng-container>
 
-
-
-
         </li>
-
-
     </ul>
 </div>

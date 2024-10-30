@@ -8,6 +8,8 @@ import {NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 import {RouterLink, RouterLinkActive, RouterModule} from "@angular/router";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ToastrService} from "ngx-toastr";
+import {NgxPaginationModule} from "ngx-pagination";
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -18,7 +20,8 @@ import {ToastrService} from "ngx-toastr";
     NgbDropdownToggle,
     RouterLink,
     RouterLinkActive,
-    NgIf
+    NgIf,
+    NgxPaginationModule
   ],
   animations: [
     trigger('slideInOut', [
@@ -67,14 +70,48 @@ export class PositionListComponent implements  OnInit{
   }
 
   deletePosition(id : number , position : PositionModel){
-       this.service.deletePosition(id).subscribe(data =>{
-          this.toastr.success(iconApp + " Suppression faite avec sccès!!!!" , manager , {enableHtml:true} );
-         this.getAllPosition();
 
-      }  , error => {
-         console.log(error);
-        this.toastr.warning(iconApp+" Une erreur est survenu lors de la suppression !!!  \n vérifiez que ce poste n'est pas affecté a un employé" , manager , {enableHtml:true})
-       })
+    Swal.fire({
+      title: "Voulez-vous supprimé ce poste ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#9fec9a",
+      cancelButtonColor: "#e62b2b",
+      confirmButtonText: "Supprimer" ,
+      cancelButtonText: "annuler" ,
+      backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  ` ,
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
+
+    `
+      },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+      }
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deletePosition(id).subscribe(data =>{
+          this.toastr.success(iconApp + " Suppression faite avec sccès!!!!" , manager , {enableHtml:true} );
+          this.getAllPosition();
+
+        }  , error => {
+          console.log(error);
+          this.toastr.warning(iconApp+" Une erreur est survenu lors de la suppression !!!  \n vérifiez que ce poste n'est pas affecté a un employé" , manager , {enableHtml:true})
+        })
+      }
+
+    });
 
   }
 
@@ -98,8 +135,9 @@ export class PositionListComponent implements  OnInit{
 
 
 
-  /*counter(count : number) : number{
-      if (this.endCount >= this.count) return this.counter(count) +  1 ;
-  }*/
+  currentPage:  number = 1 ;
 
+  pageChanged($event: number) {
+    this.currentPage = $event
+  }
 }

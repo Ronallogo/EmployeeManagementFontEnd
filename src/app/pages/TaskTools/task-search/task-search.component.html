@@ -28,40 +28,63 @@
           </th>
           </thead>
           <tbody>
-          <tr *ngFor="let p of dataSource">
-            <th>
-              {{p.id}}
-            </th>
-            <th>
-              {{p.task_name}}
-            </th>
-            <th>
-              {{p.task_description}}
-            </th>
-            <th>
-              <div class="row" style="margin-left: 30px">
-                <button class="btn btn-outline-default-default"   (click)="delete(p.id)">
-                  <i class="fa fa-trash"></i>
-                </button>
+            @for(p of dataSource    | paginate: {
+              itemsPerPage: 5,
+              currentPage: currentPage,
+              totalItems: dataSource.length}; track p){
+              <tr class="animate__animated animate__fadeInUp">
+                <th>
+                  {{dataSource.indexOf(p) + 1 }} ({{p.id}})
+                </th>
+                <th>
+                  {{p.task_name}}
+                </th>
+                <th>
+                  {{p.task_description}}
+                </th>
 
-                <button class="btn btn-outline-default"  (click)="service.setTask(p)" routerLinkActive="active" routerLink="/task-update" >
-                  <i class="fa fa-edit"></i>
-                </button>
+                <th>
+                  <div class="row" style="margin-left: 30px">
+                    <button class="btn btn-outline-danger btn-round"   (click)="deleteTask (p.id , p)">
+                      <i class="fa fa-trash"></i>
+                    </button>
 
-                <!--  <button class="btn  btn-outline-default">
-                    <i class="fa fa-info-circle"></i>
-                  </button> -->
-              </div>
-            </th>
+                    <button style="margin-left: 3%"  class="btn btn-outline-success btn-round"  (click)="service.setTask(p)" routerLinkActive="active" routerLink="/task-update" >
+                      <i class="fa fa-edit"></i>
+                    </button>
 
-          </tr>
+                    <!--  <button class="btn  btn-outline-default">
+                        <i class="fa fa-info-circle"></i>
+                      </button> -->
+                  </div>
+                </th>
+
+              </tr>
+            }
+
           </tbody>
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="dataSource.length == 0 ">
-          <h4>Aucune tache</h4>
+          <h5>Aucune tache</h5>
         </div>
       </div>
     </div>
   </div>
+  @if(dataSource.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+
+
+    >
+    </pagination-controls>
+
+  }
 </div>
 

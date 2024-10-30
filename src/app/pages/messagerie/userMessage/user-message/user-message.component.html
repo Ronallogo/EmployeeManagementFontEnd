@@ -1,0 +1,89 @@
+<div class="row" style="height: 700px">
+  <div class="col-md-12">
+    <div class="card ">
+      <div style="border-bottom: #d1cece solid 1px" class="card-header">
+        <h5 class="card-title ">Messages</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+
+              <div class="card-body">
+                @for(message of messages  ; track message.id ){
+                  <div style="background-color: #eeeef1 ; " class="card card-stats col-md-12 alert alert-dismissible animate__animated animate__fadeInUp" >
+                    <div class="card-body">
+                      <div class="row">
+                        <div data-notify="container">
+                          @switch (message.type){
+                            @case ('programmation de tache'){<p><i class="nc-icon nc-calendar-60 text-info"></i> </p>}
+                            @case ('demande de congé'){<p><i class="nc-icon nc-sun-fog-29 text-warning"></i></p>}
+                            @case ('validation de congé'){<p><i class="nc-icon nc-sun-fog-29 text-warning"></i></p>}
+                            @case ('absence'){<p> <i class="nc-icon nc-time-alarm text-danger"></i> </p>}
+                            @case ('validation de tache'){<p><i class="nc-icon nc-alert-circle-i text-info"></i></p>}
+                            @case ('virement'){<p><i class="nc-icon nc-money-coins text-success"></i></p>}
+                            @default {<p><i class="nc-icon nc-single-02"></i></p> }
+                          }
+
+                          <button type="button" aria-hidden="true" (click)="delete(message.id)" class="close text-danger"  data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove "></i>
+                          </button>
+                          <p>
+                            <i class="nc-icon nc-chart-bar-32 text-dark "></i><i><strong>EMPLOYEE_MANAGER :&nbsp; </strong></i>
+                            <span style="font-size: medium">{{message.message}}</span>
+                          </p>
+                          <p>Reçu Le : {{message.date}}</p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                } @empty {
+
+                }
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row-10 col-md-12 col-lg-11" style="margin:5%;">
+    <div class="card card-stats col-md-12 alert alert-dismissible animate__animated animate__fadeInUp">
+      <div class="card-body" style="display: flex; flex-direction: column; justify-content: center;">
+        <!-- Zone de texte (Simulée par une div) -->
+        <div class="textarea-wrapper" style=" border-radius: 10px ;  position: relative; width: 100%; margin-right: 3%; background-color: #dfdcdc; padding: 10px;">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"   id="floatingTextarea2" style="width: 50%; height: 50%; border: none; background-color: transparent;  "></textarea>
+
+          <!-- Bouton pour ajouter un fichier -->
+          <input type="file" id="fileInput"  style="position: absolute; right: 10px; bottom: 10px; z-index: 1; opacity: 0; width: 20px; height: 20px;">
+          <button class="btn"   style=" background-color: transparent ; position: absolute; right: 10px;
+          bottom: 30%; z-index: 2; padding: 5px 10px; height: 50%">
+            <i class="fa fa-file-o" style="background:none ; "></i>
+          </button>
+        </div>
+       <div>
+         <button class="btn btn-success btn-round"    >
+           <i class="fa fa-send-o"></i> ENVOYER
+         </button>
+       </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+

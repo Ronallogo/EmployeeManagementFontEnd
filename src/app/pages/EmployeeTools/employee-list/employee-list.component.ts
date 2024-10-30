@@ -6,16 +6,19 @@ import {ToastrService} from "ngx-toastr";
 import {EmployeeModel, EmployeeModel6, iconApp, manager} from "../../../models/models";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
 import {ApplicationService} from "../../../globalService/appService/application.service";
+import Swal from "sweetalert2";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-    imports: [
-        NgForOf,
-        RouterLink,
-        RouterLinkActive,
-        NgIf
-    ],
+  imports: [
+    NgForOf,
+    RouterLink,
+    RouterLinkActive,
+    NgIf,
+    NgxPaginationModule
+  ],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
@@ -24,8 +27,10 @@ export class EmployeeListComponent  implements OnInit{
 
   protected listEmployee : any[] =[];
   protected visible = true ;
-  protected  idUser !: number ;
+
   protected header : string[] = ["No (ID)"  , "Photo", "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
+  protected currentPage: number = 1;
+
   constructor(
     protected service : EmployeeService ,
     private  toastr : ToastrService ,
@@ -47,46 +52,58 @@ export class EmployeeListComponent  implements OnInit{
 
   deleteEmployee(p : EmployeeModel6 ) {
 
-    let conf  = confirm("cet employé sera supprimé !!!") ;
-    if(!conf)return;
-    this.service.deleteEmployee(p.id).subscribe (data => {
+    Swal.fire({
+      title: "Voulez vous supprimé l'employé @"+p.name +" ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#9fec9a",
+      cancelButtonColor: "#e62b2b",
+      confirmButtonText: "Supprimer" ,
+      cancelButtonText: "annuler" ,
+      backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  ` ,
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
 
-      this.app.deleteUser(p.user.id).subscribe (data => {
+    `
+      },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+      }
 
-        this.toastr.info(iconApp + " Toute les données de cet employés on été nettoyé!!!!" , manager , {enableHtml:true});
-        this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true});
-        this.getAllEmployee();
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteEmployee(p.id).subscribe (data => {
 
+          this.app.deleteUser(p.user.id).subscribe (data => {
 
-      } , error => {
-        console.log(error);
-        this.toastr.warning(iconApp+" il y a encore des résidu de données de cet employé!!!!" , manager , {enableHtml:true})
-      });
-
-
-    } , error => {
-      console.log(error);
-      this.toastr.error(iconApp + " Erreur de suppression de l'employé !!" , manager , {enableHtml:true})
-    })
-
-
-
-
+            this.toastr.info(iconApp + " Toute les données de cet employés on été nettoyé!!!!" , manager , {enableHtml:true});
+            this.toastr.success(iconApp + " suppression effectué!!!!" , manager , {enableHtml:true});
+            this.getAllEmployee();
 
 
-    /*  this.payStubService.getPayStubForOne(String(p.email)).subscribe (data =>{
-        console.log(data);
-        this.payStubService.deletePayStub(data.id).subscribe(data =>{
+          } , error => {
+            console.log(error);
+            this.toastr.warning(iconApp+" il y a encore des résidu de données de cet employé!!!!" , manager , {enableHtml:true})
+          });
 
+
+        } , error => {
+          console.log(error);
+          this.toastr.error(iconApp + " Erreur de suppression de l'employé !!" , manager , {enableHtml:true})
         })
-      } , error => {
-        console.log(error);
-        this.toastr.error(iconApp+" Erreur de Suppression du bulletin de paie !!!" , manager , {enableHtml:true});
-      });*/
+      }
 
-
-
-
+    });
 
 
 
@@ -114,6 +131,13 @@ export class EmployeeListComponent  implements OnInit{
 
   getImageUrl(photo: any) {
     return `data:image/jpg;base64,${photo}`;
+  }
+
+  protected readonly EmployeeService = EmployeeService;
+
+
+  pageChanged($event: number) {
+    this.currentPage = $event ;
   }
 
 }

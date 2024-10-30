@@ -19,30 +19,35 @@ import {PayStubComponent} from "../../pages/payStubTools/pay-stub/pay-stub.compo
 import {LogoutComponent} from "../../pages/logout/logout.component";
 import {LoginComponent} from "../../pages/login/login.component";
 import {UserProfilComponent} from "../../pages/user-part/userProfilTools/user-profil/user-profil.component";
-import {UserTaskComponent} from "../../pages/user-part/usertaskTools/user-task/user-task.component";
 import {UserPayementComponent} from "../../pages/user-part/userPayementTools/user-payement/user-payement.component";
 import {
   UserDemandeCongeComponent
 } from "../../pages/user-part/userCongeTools/user-demande-conge/user-demande-conge.component";
+
 import {UserTaskListComponent} from "../../pages/user-part/usertaskTools/user-task-list/user-task-list.component";
-import {UserTaskUpdateComponent} from "../../pages/user-part/usertaskTools/user-task-update/user-task-update.component";
 import {UserSecurityComponent} from "../../pages/user-part/user-security/user-security.component";
 import {
   ListTaskScheduledComponent
 } from "../../pages/TaskTools/taskScheduledTools/list-task-scheduled/list-task-scheduled.component";
 import {NotificationComponent} from "../../pages/notification/notification/notification.component";
+import {RepartitionComponent} from "../../pages/RepartitionTools/repartition/repartition.component";
+import {TaskScheduledComponent} from "../../pages/TaskTools/taskScheduledTools/task-scheduled/task-scheduled.component";
+import {UserMessageComponent} from "../../pages/messagerie/userMessage/user-message/user-message.component";
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard',      component: DashboardComponent },
   { path: 'user-profil',      component: UserProfilComponent },
+  { path: 'user-task-list',      component: UserTaskListComponent  },
+
   { path: 'user-security',      component: UserSecurityComponent  },
+
   { path: 'employee',      component: EmployeeComponent },
   { path: 'position',      component: PositionComponent },
   { path: 'task',      component: TaskComponent },
   { path: 'list-task-scheduled',      component: ListTaskScheduledComponent  },
-  { path: 'user-task',      component: UserTaskComponent },
-  { path: 'user-task-list',      component: UserTaskListComponent  },
+  { path: 'task-scheduled',      component: TaskScheduledComponent },
+  { path: 'repartition',      component:  RepartitionComponent },
   { path: 'contenu',      component: ContenuComponent },
   { path: 'conge',      component:  CongeComponent },
   { path: 'absence',      component:  AbsenceComponent },
@@ -51,13 +56,15 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'user-demande-conge',      component:  UserDemandeCongeComponent },
   { path: 'logout',      component:  LogoutComponent },
   { path: 'user',           component: UserComponent },
-  { path: 'user-task-update',component: UserTaskUpdateComponent},
+  { path: 'task-scheduled-creation-update',component: UserTaskListComponent},
   { path: 'table',          component: TableComponent },
   { path: 'icons',          component: IconsComponent },
   { path: 'maps',           component: MapsComponent },
   { path: 'notification',  component: NotificationComponent },
   { path: 'notifications',  component: NotificationsComponent },
   { path: 'upgrade',        component: UpgradeComponent },
+  { path: 'message',        component: UserMessageComponent },
+
 
 
 ];

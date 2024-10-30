@@ -4,7 +4,9 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {EmployeeService} from "../service/employee.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
-import {iconApp, manager} from "../../../models/models";
+import {EmployeeModel6, iconApp, manager} from "../../../models/models";
+import Swal from "sweetalert2";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @Component({
   selector: 'app-employee-search',
@@ -15,7 +17,8 @@ import {iconApp, manager} from "../../../models/models";
     RouterLinkActive,
     FormsModule,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgxPaginationModule
   ],
   templateUrl: './employee-search.component.html',
   styleUrl: './employee-search.component.css'
@@ -25,6 +28,7 @@ export class EmployeeSearchComponent implements OnInit{
 
   protected header : string[] = ["No" ,"Photo" , "Nom " ,"Prénom ","Date de naissance" ,"Email",  "Téléphone" , "Adresse" ,"Position" , "Actions" ]
   keyword!:  number ;
+  currentPage: number = 1;
 
 
   constructor(protected service : EmployeeService , private toastr : ToastrService){}
@@ -54,17 +58,64 @@ export class EmployeeSearchComponent implements OnInit{
 
     })
   }
-  deleteEmployee(id:number , p : any) {
-    this.service.deleteEmployee(id).subscribe (data => {
-       this.service.searchEmployeeById(this.keyword).subscribe(data =>{
-           this.listEmployee = []
-           if(data != null)  this.listEmployee.push(data) ;
-           else  this.toastr.info(iconApp + "  Plus aucun employé ne correspond a cet identifiant !!!"  ,manager , {enableHtml : true})
-       })
-    })
+
+  deleteEmployee(p : EmployeeModel6 ) {
+
+    Swal.fire({
+      title: "Voulez vous supprimé l'employé @"+p.name +" ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#94ec8f",
+      cancelButtonColor: "#e62b2b",
+      confirmButtonText: "Supprimer" ,
+      cancelButtonText: "annuler" ,
+      backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  ` ,
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
+
+    `
+      },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+      }
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteEmployee(p.id).subscribe (data => {
+          this.service.searchEmployeeById(this.keyword).subscribe(data =>{
+            this.listEmployee = []
+            if(data != null)  this.listEmployee.push(data) ;
+            else  this.toastr.info(iconApp + "  Plus aucun employé ne correspond a cet identifiant !!!"  ,manager , {enableHtml : true})
+          })
+        })
+
+      }
+
+    });
+
+
+
+
+
   }
+
+
   getImageUrl(photo: any) {
     return `data:image/jpg;base64,${photo}`;
   }
 
+  pageChanged($event: number) {
+    this.currentPage = $event
+
+  }
 }

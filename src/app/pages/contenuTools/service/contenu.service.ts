@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {  ContenuModel, ContenuModel2} from "../../../models/models";
 import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class ContenuService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
 
@@ -30,6 +32,7 @@ export class ContenuService {
 
   getContenu() : ContenuModel {
     console.log(this.contenu + "give")
+    if(this.contenu ==undefined) window.location.replace("http://localhost:4200/#/contenu-list")
     return this.contenu
   }
   setContenu(Contenu : ContenuModel){

@@ -3,7 +3,7 @@ import {ApplicationService} from "../../globalService/appService/application.ser
 import {ToastrService} from "ngx-toastr";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
-import {routes} from "../../app.routes";
+
 
 @Component({
   selector: 'app-login',
@@ -35,27 +35,23 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.serviceApp.loadToken()
-    this.serviceApp.setPermission(false);
 
   }
 
   onLogin():void{
     console.log(this.dataConnexion);
     this.serviceApp.login(this.dataConnexion).subscribe(data => {
-        console.log(data);
         this.serviceApp.saveToken(data.body);
         this.dataUser = this.serviceApp.getUser() ;
         this.token =    localStorage.getItem('jwt') ;
-      console.log(localStorage.getItem("jwt"))
-      console.log(localStorage.getItem("user"))
+
 
         if(this.dataUser.role =="USER" || this.dataUser.role =="ADMIN"){
             this.serviceApp.parseJWT()
             this.showSuccess()
-            this.serviceApp.setPermission(true);
+
           if(this.dataUser.role == "ADMIN"){
-            console.log("je suis en administrador")
+            console.log("je suis en administrator")
             this.router.navigate(['dashboard']);
             this.toastr.success(this.icon+" Bienvenu dans l'interface administrateur" , "EMPLOYEE MANAGER" , {enableHtml : true});
           }

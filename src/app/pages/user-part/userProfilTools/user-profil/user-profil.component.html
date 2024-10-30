@@ -1,4 +1,4 @@
-  <div class="row" style="margin-bottom: 50px">
+  <div class="row animate__animated animate__fadeIn" style="margin-bottom: 50px">
     <div class="col-md-4">
       <div class="card card-user">
         <div class="image">
@@ -8,19 +8,22 @@
           <div class="author">
             <div>
               @if( Employee.photo != null &&  Employee.photo != ""){
-                <img *ngIf="Employee.photo" [src]="getImageUrl(Employee.photo)" alt="Employee Photo" class="avatar border-gray"  />
+                <img *ngIf="Employee.photo" [src]="getImageUrl(Employee.photo)" alt="Employee Photo" class="avatar border-gray animate__animated animate__rotateIn"  />
               } @else {
                 <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
               }
 
-              <h5 class="title text-dark">{{Employee.name}}_{{Employee.surname}}</h5>
+              <h5 class="title text-dark"><strong>{{Employee.name}}_{{Employee.surname}}</strong></h5>
             </div>
-            <p class="description">
-              &#64;{{Employee.name}}
+            <p class="title text-dark animate__animated animate__fadeIn animate__delay-1s">
+              <strong> &#64;{{Employee.name}}</strong>
             </p>
-            <p class="description">
-              Identifiant :
-              {{id}}
+            <p class="title text-dark animate__animated animate__fadeInUp animate__delay-2s">
+              <i class="fa fa-user-circle-o"></i>
+              <strong>
+                Identifiant :
+                {{id}}
+              </strong>
             </p>
           </div>
         </div>
@@ -31,7 +34,7 @@
               <div class="col-lg-3 col-md-6 col-6 ml-auto">
                 <h6>{{task}}
                   <br>
-                  <small>tache </small>
+                  <small>tache(s) </small>
                 </h6>
               </div>
               <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">

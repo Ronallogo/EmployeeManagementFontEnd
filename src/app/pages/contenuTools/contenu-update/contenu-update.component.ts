@@ -5,6 +5,7 @@ import {ContenuService} from "../service/contenu.service";
 import {ContenuModel, ContenuModel2, iconApp, manager} from "../../../models/models";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contenu-update',
@@ -43,11 +44,13 @@ export class ContenuUpdateComponent  implements OnInit{
   show:  boolean = false ;
 
 
-  constructor(private service : ContenuService , private toastr : ToastrService) {
+  constructor(private service : ContenuService , private toastr : ToastrService ,private router : Router) {
   }
 
   ngOnInit(): void {
       this.initialize()
+    console.log(this.contenuFecth.title )
+
   }
 
   updateContenu() {
@@ -71,8 +74,16 @@ export class ContenuUpdateComponent  implements OnInit{
 
   initialize(){
     this.contenuFecth = this.service.getContenu();
-    console.log(this.contenuFecth)
+    if(this.contenuFecth?.title != undefined){
+        localStorage.setItem("contenu",JSON.stringify(this.contenuFecth));
+    }
+    if(this.contenuFecth.title == undefined ) {
+      this.router.navigate(["http://localhost:4200/#/contenu-list"]).then(r =>console.log("ok"))
+    }
 
+
+    this.contenuFecth = JSON.parse(String(localStorage.getItem("contenu")));
+    console.log( " voici mon contenu : "  , this.contenuFecth);
 
     this.id = this.contenuFecth.id;
 

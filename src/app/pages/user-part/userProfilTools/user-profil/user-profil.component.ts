@@ -59,17 +59,13 @@ export class UserProfilComponent implements OnInit{
       localStorage.setItem("id_employee",  String(this.id));
       this.selectedFile = data.photo;
 
-      // Charge les tâches
-      this.serviceTask.getTaskScheduleForOne(this.id).subscribe(taskData => {
-        this.task = taskData.length;
-      }, error => {
-        console.log(error);
-        this.toastr.warning(iconApp + " nombre de tache non chargé", manager, { enableHtml: true });
-      });
+
 
       // Charge le salaire
       this.servicePayStub.getPayStubForOne(String(this.Employee.email)).subscribe(salaireData => {
         this.salaire = salaireData.amount;
+        this.task = salaireData.nbrTasks;
+        console.log(salaireData);
       }, error => {
         this.toastr.warning(iconApp + "  salaire non chargé", manager, { enableHtml: true });
       });

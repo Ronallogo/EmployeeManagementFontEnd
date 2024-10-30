@@ -1,4 +1,4 @@
-<div class="col-md-12 " style="margin-bottom: 500px">
+<div class="col-md-12 " style="margin-bottom: 60%">
   <div class="card">
     <div class="card-header row">
       <div class="col">
@@ -25,48 +25,54 @@
           </th>
           </thead>
           <tbody>
-          <tr *ngFor="let p of listConge">
-            <th>
-              {{listConge.indexOf(p) + 1 }}
-            </th>
-            <th>
-              {{p.beginning}}
-            </th>
-            <th>
-              {{p.end}}
-            </th>
-            <th>
-              {{p.type}}
-            </th>
-            <th>
-              <p *ngIf="p.status; else notValidated">Validate</p>
-              <ng-template #notValidated>
-                <p>Not validate</p>
-              </ng-template>
-            </th>
-            <th>
-              Mr/Mme
-              <span>{{p.timeOffApply.employee.name}} &nbsp;</span>
-              <span>{{p.timeOffApply.employee.surname}}</span>
+          @for(p of listConge  | paginate: {
+            itemsPerPage: 5,
+            currentPage: currentPage,
+            totalItems: listConge.length}; track  p) {
+            <tr class="animate__animated animate__fadeInUp">
+              <th>
+                {{listConge.indexOf(p) + 1 }}
+              </th>
+              <th>
+                {{p.beginning}}
+              </th>
+              <th>
+                {{p.end}}
+              </th>
+              <th>
+                {{p.type}}
+              </th>
+              <th>
+                <p *ngIf="p.status; else notValidated">Validate</p>
+                <ng-template #notValidated>
+                  <p>Not validate</p>
+                </ng-template>
+              </th>
+              <th>
+                Mr/Mme
+                <span>{{p.timeOffApply.employee.name}} &nbsp;</span>
+                <span>{{p.timeOffApply.employee.surname}}</span>
 
-            </th>
-            <th>
-              <div class="row" style="margin-left: 30px ; margin-bottom: 5px">
-                <button class="btn btn-outline-default-default"   (click)="deleteConge(p.id)">
-                  <i class="fa fa-trash"></i>
-                </button>
+              </th>
+              <th>
+                <div class="row" style="margin-left: 30px ; margin-bottom: 5px">
+                  <button class="btn btn-outline-danger btn-round"   (click)="deleteConge(p)">
+                    <i class="fa fa-trash"></i>
+                  </button>
 
-              <!--  <button class="btn btn-outline-default"  (click)="service.setConge(p)" routerLinkActive="active" routerLink="/conge-update" >
-                  <i class="fa fa-edit"></i>
-                </button> -->
+                  <!--  <button class="btn btn-outline-default"  (click)="service.setConge(p)" routerLinkActive="active" routerLink="/conge-update" >
+                      <i class="fa fa-edit"></i>
+                    </button> -->
 
-                <!--  <button class="btn  btn-outline-default">
-                    <i class="fa fa-info-circle"></i>
-                  </button> -->
-              </div>
-            </th>
+                  <!--  <button class="btn  btn-outline-default">
+                      <i class="fa fa-info-circle"></i>
+                    </button> -->
+                </div>
+              </th>
 
-          </tr>
+            </tr>
+          }
+
           </tbody>
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listConge.length == 0 ">
@@ -75,4 +81,18 @@
       </div>
     </div>
   </div>
+  @if(listConge.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+
+  }
 </div>

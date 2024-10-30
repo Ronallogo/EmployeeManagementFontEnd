@@ -5,7 +5,7 @@
 
 
 
-<div class="col-md-12" style="margin-bottom: 500px">
+<div class="col-md-12 animate__animated animate__fadeInUp" style="margin-bottom: 500px">
   <div class="card">
     <div class="card-header row">
       <div class="col">
@@ -32,6 +32,12 @@
           </th>
           </thead>
           <tbody>
+          @for(a of absences | paginate: {
+            itemsPerPage: 5,
+            currentPage: currentPage,
+            totalItems: absences.length}  ; track a ){
+
+          }
           <tr *ngFor="let a of absences">
             <th>
               {{absences.indexOf(a) + 1 }}
@@ -51,11 +57,11 @@
             </th>
             <th>
               <div class="row" style="margin-left: 20px">
-                <button class="btn btn-outline-default-default" style="margin-bottom: 5px ; margin-right: 5px ; height: 50px"  (click)="deleteAbsence(a.id)">
+                <button class="btn btn-outline-danger btn-round" style="margin-bottom: 5px ; margin-right: 5px ; height: 50px"  (click)="deleteAbsence(a.id)">
                   <i class="fa fa-trash"></i>
                 </button>
 
-                <button class="btn btn-outline-default" style="height: 50px"  (click)="service.setAbsence(a)" routerLinkActive="active" routerLink="/absence-update" >
+                <button class="btn btn-outline-success btn-round" style="height: 50px"  (click)="service.setAbsence(a)" routerLinkActive="active" routerLink="/absence-update" >
                   <i class="fa fa-edit"></i>
                 </button>
 
@@ -74,4 +80,20 @@
       </div>
     </div>
   </div>
+  @if(absences.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+
+
+    >
+    </pagination-controls>
+
+  }
 </div>

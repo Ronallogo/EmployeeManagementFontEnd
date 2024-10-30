@@ -3,6 +3,7 @@ import {PositionService} from "../PositionTools/service/position.service";
 import {TaskService} from "../TaskTools/service/task.service";
 import {ContenuService} from "../contenuTools/service/contenu.service";
 import {EmployeeService} from "../EmployeeTools/service/employee.service";
+import {RepartitionService} from "../RepartitionTools/repartition/repartition.service";
 
 
 
@@ -19,6 +20,8 @@ export class DashboardComponent implements OnInit{
   protected nbrTask! : number ;
   protected nbrContenu! : number ;
   protected nbrEmployee! : number ;
+  protected nbrRepartition! : number ;
+  protected nbrTaskScheduled! : number ;
 
 
   constructor(
@@ -26,6 +29,7 @@ export class DashboardComponent implements OnInit{
     private taskService : TaskService ,
     private  contenuService : ContenuService ,
     private  EmployeeService : EmployeeService ,
+    private repartitionService : RepartitionService ,
 
   ) {
   }
@@ -43,24 +47,26 @@ export class DashboardComponent implements OnInit{
       });
 
       this.taskService.allTasksInserted().subscribe(data => {
-        console.log(data);
         this.nbrTask = data.length;
       });
-
       this.contenuService.allContenu().subscribe(data => {
-          console.log(data);
+
           this.nbrContenu = data.length;
       });
       this.EmployeeService.allEmployees().subscribe(data => {
 
-      console.log(data);
       this.nbrEmployee = data.length;
       })
-  }
-  refreshNbrPosition(){
-      this.getAllData()
+
+      this.repartitionService.allRepartition().subscribe(data => {
+          this.nbrRepartition = data.length;
+      })
+      this.taskService.AllTaskScheduled().subscribe(data => {
+        this.nbrTaskScheduled = data.length;
+      })
   }
 
 
-    protected readonly Date = Date;
+
+
 }

@@ -18,6 +18,8 @@ import {HttpClient, HttpClientModule, provideHttpClient} from "@angular/common/h
 import {CommonModule, DatePipe} from "@angular/common";
 import {LoginComponent} from "./pages/login/login.component";
 import {NgxSpinnerModule} from "ngx-spinner";
+import {BrowserModule} from "@angular/platform-browser";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 @NgModule({
@@ -26,8 +28,9 @@ import {NgxSpinnerModule} from "ngx-spinner";
     AdminLayoutComponent
   ],
     imports: [
-      NgxSpinnerModule ,
+        NgxSpinnerModule ,
         BrowserAnimationsModule,
+      [BrowserModule, NgxPaginationModule],
         RouterModule.forRoot(AppRoutes, {
             useHash: true
         }),

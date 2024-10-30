@@ -3,7 +3,7 @@
 
 
 
-<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px; margin-bottom: 200px"   >
+<div   class="col-lg-9 col-md-6 col-6 animate__animated animate__fadeInUp" style="margin-left:  100px; margin-bottom: 200px"   >
   <div class="card card-stats">
     <div class="card-body ">
       <div class="row">
@@ -24,67 +24,79 @@
         </div>
       </div>
       <div class="row" style=" border-top: solid 1px lightgray">
-        <form  (submit)="createDemande()"   style="width: 800px ;">
-          <div class="row"  >
-            <div class="card-body  col-md-6">
+        <form [formGroup]="demandeConge" (ngSubmit)="createDemande()" style="width: 800px;">
+          <div class="row">
+            <div class="card-body col-md-6">
               <div class="form-group has-label col-xl-11" style="width: 100%">
                 <label class="control-label" for="beginning">Début du congé: <span class="text-danger">*</span></label>
-                <input    [(ngModel)]="demandeConge.beginning" name="beginning" class="form-control ng-pristine ng-invalid ng-touched"    required type="date">
-                <small class="text-danger" hidden> Le nom du poste doit etre saisi  </small>
+                <input class="form-control" type="date" formControlName="beginning"
+                       [ngClass]="{
+                 'is-valid': demandeConge.controls.beginning.valid,
+                 'is-invalid': demandeConge.controls.beginning.invalid && demandeConge.controls.beginning.dirty
+               }">
+                <small class="text-danger" *ngIf="demandeConge.controls.beginning.invalid && demandeConge.controls.beginning.dirty">
+                  La date de début est nécessaire
+                </small>
               </div>
             </div>
-            <div class="card-body  col-md-6">
+
+            <div class="card-body col-md-6">
               <div class="form-group has-label col-xl-11" style="width: 100%">
                 <label class="control-label" for="end">Fin du congé: <span class="text-danger">*</span></label>
-                <input    [(ngModel)]="demandeConge.end" name="end" class="form-control ng-pristine ng-invalid ng-touched"    required type="date">
-                <small class="text-danger" hidden> Le nom du poste doit etre saisi  </small>
+                <input class="form-control" type="date" formControlName="end"
+                       [ngClass]="{
+                 'is-valid': demandeConge.controls.end.valid,
+                 'is-invalid': demandeConge.controls.end.invalid && demandeConge.controls.end.dirty
+               }">
+                <small class="text-danger" *ngIf="demandeConge.controls.end.invalid && demandeConge.controls.end.dirty">
+                  La date de fin est nécessaire
+                </small>
               </div>
             </div>
-
-
-            <!-- src/app/conge-selector/conge-selector.component.html -->
 
             <div class="card-body col-sm-6">
-              <div class="form-group has-label col-xl-11" style="width: 200px">
-                <label class="control-label" for="positionSelect">
-                  Type de congé: <span class="text-danger">*</span>
-                </label>
-                <select id="positionSelect"
-                        class="form-control"
-                        name="position"
-                        style="width: 200%; max-width: 400px;"
-                        [(ngModel)]="demandeConge.type">
-                  <option value="" disabled selected>Choisir un type</option>
-                  <option *ngFor="let t of type" [value]="t">
-                    {{ t }}
-                  </option>
-                </select>
-              </div>
-            </div>
-
-
-
-
-            <div class="card-body  col-sm-6">
               <div class="form-group has-label col-xl-11" style="width: 100%">
-                <label class="control-label" for="name">Raison du congé (rédiger votre demande): <span class="star">*</span></label>
-                <textarea     [(ngModel)]="demandeConge.apply"  name="Apply" class="form-control" placeholder="veuillez rédiger votre demande" rows="2"></textarea>
+                <label class="control-label" for="positionSelect">Type de congé: <span class="text-danger">*</span></label>
+                <select id="positionSelect"
+                        class="form-control" formControlName="type"
+                        style="width: 100%;"
+                        [ngClass]="{
+                           'is-valid': demandeConge.controls.type.valid,
+                           'is-invalid': demandeConge.controls.type.invalid && demandeConge.controls.type.dirty
+                        }">
+                  <option value="" disabled selected>Choisir un type</option>
+                  <option *ngFor="let t of type" [value]="t">{{ t }}</option>
+                </select>
+                @if (demandeConge.controls.type.invalid && demandeConge.controls.type.dirty){<small class="text-danger">Le type de congé doit etre renseigné</small>}
+
               </div>
             </div>
 
+            <div class="card-body col-sm-6">
+              <div class="form-group has-label col-xl-11" style="width: 100%">
+                <label class="control-label" for="reason">Raison du congé (rédiger votre demande): <span class="text-danger">*</span></label>
+                <textarea id="apply"
+                          formControlName="apply"
+                          class="form-control"
+                          placeholder="Veuillez rédiger votre demande" rows="2"
+                          [ngClass]="{
+                              'is-invalid': demandeConge.controls.apply.invalid &&  demandeConge.controls.apply.dirty ,
+                              'is-valid': demandeConge.controls.apply.valid
+                          }"
+                ></textarea>
+                @if (demandeConge.controls.apply.invalid &&  demandeConge.controls.apply.dirty){<small class="text-danger">Veuillez donné une raison à votre congé</small>}
 
+              </div>
+            </div>
 
-            <div class="card-body  col-sm-6" style="margin-left: 20px">
-              <button    type="submit" class="btn btn-outline-default btn-round">
-                <i class="fa fa-send-o"></i> envoyer
+            <div class="card-body col-sm-6" style="margin-left: 20px">
+              <button type="submit" class="btn btn-outline-default btn-round" [disabled]="demandeConge.invalid">
+                <i class="fa fa-send-o"></i> Envoyer
               </button>
             </div>
-
-
-
-
           </div>
         </form>
+
       </div>
 
     </div>

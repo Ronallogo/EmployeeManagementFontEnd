@@ -1,0 +1,22 @@
+/* Appliquer une couleur de texte par défaut */
+#floatingTextarea2 {
+  background-color: transparent;  /* Fond transparent */
+  color: black;                   /* Couleur par défaut du texte */
+  border: 1px solid #ccc;         /* Bordure autour du textarea */
+  padding: 10px;
+  width: 100%;
+  height: 150px;
+  resize: none;                   /* Empêche le redimensionnement */
+}
+
+/* Lorsque l'utilisateur commence à taper (focus) */
+#floatingTextarea2:focus {
+            /* Change la couleur de la bordure */
+}
+
+/* Lorsque l'utilisateur a commencé à taper quelque chose (enlever le placeholder) */
+#floatingTextarea2:not(:placeholder-shown) {
+  font-size: 15px ;
+  font-family: "JetBrains Mono SemiBold", serif;
+  font-weight: bold;
+}

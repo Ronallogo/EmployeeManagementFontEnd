@@ -28,7 +28,8 @@ export class PositionService {
   }
 
   getPosition() : PositionModel {
-    console.log(this.position + "give")
+    console.log(this.position + "give");
+    if(this.position == undefined) window.location.replace("http://localhost:4200/#/position-list")
     return this.position
   }
   setPosition(position : PositionModel){

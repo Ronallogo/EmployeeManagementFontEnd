@@ -27,42 +27,51 @@
           </th>
           </thead>
           <tbody>
-          <tr *ngFor="let c of contenus">
-            <th>
-              {{contenus.indexOf(c) + 1 }}
-            </th>
-            <th>
-              {{c.title}}
-            </th>
-            <th>
-              {{c.theme}}
-            </th>
-            <th>
-              {{c.nature}}
-            </th> <th>
-              {{c.language}}
-            </th> <th>
-              {{c.creation_date}}
-            </th> <th>
-              {{c.status}}
-            </th>
-            <th>
-              <div class="row" style="margin-left: 20px">
-                <button class="btn btn-outline-default-default" style="margin-bottom: 5px"  (click)="deleteContenu(c.id)">
-                  <i class="fa fa-trash"></i>
-                </button>
+            @for (c of contenus  | paginate: {
+              itemsPerPage: 5,
+              currentPage: currentPage,
+              totalItems: contenus.length}; track  c){
+              <tr  class="animate__animated animate__fadeInUp">
+                <th>
+                  {{contenus.indexOf(c) + 1 }}
+                </th>
+                <th>
+                  {{c.title}}
+                </th>
+                <th>
+                  {{c.theme}}
+                </th>
+                <th>
+                  {{c.nature}}
+                </th>
+                <th>
+                  {{c.language}}
+                </th>
+                <th>
+                  {{c.creation_date}}
+                </th>
+                <th>
+                  {{c.status}}
+                </th>
+                <th>
+                  <div class="row">
+                    <button class="btn btn-outline-danger btn-round"  style="width: 40% ; margin-right: 2%"  (click)="deleteContenu(c)">
+                      <i class="fa fa-trash"></i>
+                    </button>
 
-                <button class="btn btn-outline-default"  (click)="service.setContenu(c)" routerLinkActive="active" routerLink="/contenu-update" >
-                  <i class="fa fa-edit"></i>
-                </button>
+                    <button class="btn btn-outline-success btn-round"    style="width: 40%" (click)="service.setContenu(c)" routerLinkActive="active" routerLink="/contenu-update" >
+                      <i class="fa fa-edit"></i>
+                    </button>
 
-                <!--  <button class="btn  btn-outline-default">
-                    <i class="fa fa-info-circle"></i>
-                  </button> -->
-              </div>
-            </th>
+                    <!--  <button class="btn  btn-outline-default">
+                        <i class="fa fa-info-circle"></i>
+                      </button> -->
+                  </div>
+                </th>
 
-          </tr>
+              </tr>
+            }
+
           </tbody>
         </table>
         <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="contenus.length == 0 ">
@@ -71,4 +80,22 @@
       </div>
     </div>
   </div>
+  @if(contenus.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+
+
+    >
+    </pagination-controls>
+
+  }
 </div>
+
+

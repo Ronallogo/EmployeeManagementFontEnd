@@ -1,0 +1,65 @@
+<div class="col-md-12 animate__animated animate__fadeIn" style="margin-bottom: 500px">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">recherche de taches planifiées</h4>
+      </div>
+      <div class="col text-right" style="margin-top: 6px">
+        <form>
+          <div class="input-group no-border">
+            <input  [(ngModel)]="keyword"   name="keyword"  type="text"   class="form-control" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <button (click)="searchTaskScheduled(keyword)" type="submit" style="border: none"><i class="nc-icon nc-zoom-split"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-default">
+          <th *ngFor="let h of header" style="width: 100px; text-align: center">
+            {{h}}
+          </th>
+          </thead>
+          <tbody [ngClass]="{'animate__animated animate__fadeInUp': showTableBody}">
+          <tr *ngFor="let p of dataSource">
+            <th>
+              {{dataSource.indexOf(p) + 1}} ({{p.id}})
+            </th>
+            <th>{{p.beginning}}</th>
+            <th>{{p.end}}</th>
+            <th>{{p.content.title}}</th>
+            <th>{{p.taskInserted.task.task_name}}</th>
+            <th>{{(p.status) ? status.at(0) : status.at(1)}}</th>
+            <th>{{p.type}}</th>
+            <th style="text-align: center; width: 5%">
+              {{p.nbrPerson}}
+            </th>
+            <th style="width: 20%;">
+              <div class="row" style="margin-left: 30px">
+                <button class="btn btn-outline-default-default">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <button class="btn btn-outline-default" (click)="this.service.setTaskSchedule(p)" routerLinkActive="active" routerLink="/task-scheduled-update">
+                  <i class="fa fa-edit"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+          </tbody>
+        </table>
+        <div style="display: flex; flex-direction: row; justify-content: center" class="row-cols-5" *ngIf="dataSource.length == 0">
+          <h4>Aucune tâche</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

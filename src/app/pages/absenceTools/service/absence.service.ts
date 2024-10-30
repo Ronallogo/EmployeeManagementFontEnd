@@ -24,6 +24,7 @@ export class AbsenceService {
 
   getAbsence() : AbsenceModel {
     console.log(this.absence + "give")
+    if(this.absence == undefined) window.location.replace("http://localhost:4200/#/absence-list");
     return this.absence
   }
   setAbsence(Absence : AbsenceModel){

@@ -1,0 +1,233 @@
+
+@if(!view){
+  <div   class="col-lg-9 col-md-6 col-6 animate__animated animate__fadeInUp" style="margin-left:  100px;margin-bottom: 200px "
+
+  >
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+              <i class="nc-icon nc-tile-56 text-default"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">formulaire</p>
+            </div>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div class="card-header ">
+              <h2 class="card-title">Préparer la planification</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row" style=" border-top: solid 1px lightgray">
+          <form [formGroup]="taskScheduled_1" (ngSubmit)="createTaskScheduled()" style="width: 800px ;">
+            <div class="row"  >
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-3">
+                  <div class="dropdown">
+                    <div class="form-group">
+                      <label for="position" class="control-label">  Poste: <span class="text-danger">*</span></label>
+                      <select id="position" class="form-control"
+                              formControlName="position"
+                              style="width: 200% ; max-width : 400px"
+                              [ngClass]="{
+                  'is-invalid': taskScheduled_1.controls.position.invalid && taskScheduled_1.controls.position.dirty,
+                  'is-valid': taskScheduled_1.controls.position.valid
+                }">
+                        <option value="" disabled selected>Choisir un poste</option>
+                        <option *ngFor="let c of listPosition" [value]="c.id">
+                          {{ c.position_name }}
+                        </option>
+                      </select>
+                      @if(taskScheduled_1.controls.position.invalid && taskScheduled_1.controls.position.dirty){<small class="text-danger">Le nom du poste est requis</small>}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-3">
+                  <div class="dropdown">
+                    <div class="form-group">
+                      <label for="type" class="control-label"> Type de tache: <span class="text-danger">*</span></label>
+                      <select id="type" class="form-control"
+                              formControlName="type"
+                              style="width: 200% ; max-width : 400px"
+                              [ngClass]="{
+                  'is-invalid': taskScheduled_1.controls.type.invalid && taskScheduled_1.controls.type.dirty,
+                  'is-valid': taskScheduled_1.controls.type.valid
+                }">
+                        <option value="" disabled selected>Choisir un type de tache</option>
+                        <option *ngFor="let c of listType" [value]="c">
+                          {{ c }}
+                        </option>
+                      </select>
+                      @if(taskScheduled_1.controls.type.invalid && taskScheduled_1.controls.type.dirty){<small class="text-danger">Le nom du poste est requis</small>}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+
+              <div class="card-body  col-sm-6" style="margin-left: 20px">
+                <button    type="submit" class="btn btn-outline-default btn-round"  [disabled]="taskScheduled_1.invalid" (click)="fetchTask()" >
+                  <i class="fa fa-forward"></i> &nbsp;   continuer
+                </button>
+              </div>
+
+
+
+
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+} @else {
+  <div   class="col-lg-9 col-md-6 col-6 animate__animated animate__fadeInUp" style="margin-left:  100px;margin-bottom: 200px "
+  >
+    <button    type="submit" class="btn btn-outline-default btn-round" style="height: 40px ; margin-top: 28px ; margin-left: 20px"   (click)="changeView()" >
+      <i class="fa fa-backward"></i> &nbsp;   retour
+    </button>
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+              <i class="nc-icon nc-tile-56 text-default"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">formulaire</p>
+            </div>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div class="card-header ">
+              <h2 class="card-title">Planifier  une tache</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row" style=" border-top: solid 1px lightgray">
+          <form [formGroup]="taskScheduled_2" (ngSubmit)="createTaskScheduled()" style="width: 800px ;">
+            <div class="row"  >
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-3">
+                  <div class="dropdown">
+
+                    <div class="form-group">
+                      <label for="contenuSelect" class="control-label">  Contenu: <span class="text-danger">*</span></label>
+                      <select id="contenuSelect" class="form-control"
+                              formControlName="content"
+                              style="width: 200% ; max-width : 400px"
+                              [ngClass]="{
+                  'is-invalid': taskScheduled_2.controls.content.invalid && taskScheduled_2.controls.content.dirty,
+                  'is-valid': taskScheduled_2.controls.content.valid
+                }">
+                        <option value="" disabled selected>Choisir un contenu</option>
+                        <option *ngFor="let c of listContent" [value]="c.id">
+                          {{ c.title }}
+                        </option>
+                      </select>
+                      @if(taskScheduled_2.controls.content.invalid && taskScheduled_2.controls.content.dirty){<small class="text-danger">Le nom du contenu est requis</small>}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-3">
+                  <div class="dropdown">
+                    <div class="form-group">
+                      <label class="control-label"  for="taskInserted">Tache: <span class="star">*</span></label>
+                      <select id="taskSelect" class="form-control"
+                              formControlName="taskInserted"
+                              style="width: 200% ; max-width : 400px"
+                              [ngClass]="{
+                  'is-invalid': taskScheduled_2.controls.taskInserted.invalid && taskScheduled_2.controls.taskInserted.dirty,
+                  'is-valid': taskScheduled_2.controls.taskInserted.valid
+                }">
+                        <option value="" disabled selected>Choisir une tache</option>
+                        <option *ngFor="let task of ListTaskInserted" [value]="task.id">
+                          {{ task.task.task_name}}
+                        </option>
+                      </select>
+                      @if(taskScheduled_2.controls.taskInserted.invalid && taskScheduled_2.controls.taskInserted.dirty){<small class="text-danger">La nom de la tache est requise</small>}
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+              <div class="card-body  col-sm-6">
+                <div class="form-group has-label col-xl-11"  >
+                  <label class="control-label" for="beginning">début de tache: <span class="text-danger">*</span></label>
+                  <input class="form-control" type="date" formControlName="beginning"
+                         [ngClass]="{
+                 'is-invalid': taskScheduled_2.controls.beginning.invalid && taskScheduled_2.controls.beginning.dirty,
+                 'is-valid': taskScheduled_2.controls.beginning.valid
+               }">
+                  @if (taskScheduled_2.controls.beginning.dirty &&  taskScheduled_2.controls.beginning.invalid){<small class="text-danger">La date de début de tache es requise</small>}
+
+                </div>
+              </div>
+              <div class="card-body  col-sm-6">
+                <div class="form-group has-label col-xl-11"  >
+                  <label class="control-label" for="end">fin de tache: <span class="text-danger">*</span></label>
+                  <input class="form-control" type="date" formControlName="end"
+                         [ngClass]="{
+                 'is-invalid': taskScheduled_2.controls.end.invalid && taskScheduled_2.controls.end.dirty,
+                 'is-valid': taskScheduled_2.controls.end.valid
+               }">
+                  @if (taskScheduled_2.controls.end.invalid && taskScheduled_2.controls.end.dirty){<small class="text-danger">La date de fin de tache est requise</small>}
+
+                </div>
+              </div>
+              @if(taskScheduled_1.value.type == 'Collective'){
+                <div class="card-body  col-sm-6">
+
+                  <div class="form-group has-label col-xl-11">
+                    <label class="control-label" for="nbrPerson">Nombre de personnes <span class="text-danger">*</span></label>
+                    <input formControlName="nbrPerson" class="form-control" id="nbPerson" required type="number" min="2" max="10" placeholder="2">
+
+                  </div>
+                </div>
+              }
+
+
+              <button    type="submit" class="btn btn-outline-default btn-round " style="height: 50px; margin-top: 30px ;margin-left: 30px"  [disabled]="taskScheduled_2.invalid" >
+                <i class="fa fa-thumb-tack"></i> &nbsp;  progammer la tache
+              </button>
+
+
+
+
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  }
+
+
+

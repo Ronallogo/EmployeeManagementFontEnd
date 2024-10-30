@@ -1,14 +1,14 @@
-<div class="row" style="margin-bottom: 500px">
-  <div class="col-md-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+<div class="row animate__animated animate__fadeIn" style="margin-bottom: 3%">
+  <div class="col-md-3 col-md-6 col-sm-6 zoom-on-hover-fluid">
+    <div class="card card-stats invert-on-hover-yellow ">
       <div class="card-body ">
         <div class="row">
-          <div class="col-5 col-md-4">
+          <div class="col-5 col-md-4 ">
             <div class="icon-big text-center icon-warning">
               <i class="nc-icon nc-circle-10 text-warning"></i>
             </div>
           </div>
-          <div class="col-7 col-md-8">
+          <div class="col-7 col-md-8 ">
             <div class="numbers">
               <p class="card-category">Employés</p>
               <p class="card-title">{{nbrEmployee}} individu(s)
@@ -25,8 +25,8 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+  <div class="col-md-3 col-md-6 col-sm-6 zoom-on-hover-fluid">
+    <div class="card card-stats  invert-on-hover-green">
       <div class="card-body ">
         <div class="row">
           <div class="col-5 col-md-4">
@@ -37,7 +37,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Taches</p>
-              <p class="card-title"> {{nbrTask}} planifiée(s)
+              <p class="card-title"> {{nbrTask}} enregistrée(s)
               <p>
             </div>
           </div>
@@ -51,8 +51,8 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+  <div class="col-md-3 col-md-6 col-sm-6 zoom-on-hover-fluid">
+    <div class="card card-stats invert-on-hover-red">
       <div class="card-body ">
         <div class="row">
           <div class="col-5 col-md-4">
@@ -77,8 +77,8 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+  <div class="col-md-3 col-md-6 col-sm-6 zoom-on-hover-fluid">
+    <div class="card card-stats invert-on-hover-blue">
       <div class="card-body ">
         <div class="row">
           <div class="col-5 col-md-4">
@@ -89,7 +89,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Contenu</p>
-              <p class="card-title">{{nbrContenu}} réalisés
+              <p class="card-title">{{nbrContenu}}  enuméré(s)
               <p>
             </div>
           </div>
@@ -99,6 +99,58 @@
         <hr>
         <div class="stats">
           <i class="fa fa-arrow-circle-right"></i>  <button routerLink="/contenu-list" routerLinkActive="active" class="btn btn-info btn-neutral">en savoir plus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-6 col-sm-6 zoom-on-hover-fluid">
+    <div class="card card-stats invert-on-hover-dark">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-dark">
+              <i class="nc-icon nc-calendar-60 text-dark"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Planifications</p>
+              <p class="card-title">{{nbrTaskScheduled}} Listée(s)
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-arrow-circle-right"></i>  <button routerLink="/task-scheduled-list" routerLinkActive="active" class="btn btn-default btn-neutral">en savoir plus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-6 col-sm-6 zoom-on-hover-fluid">
+    <div class="card card-stats invert-on-hover-gray">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-vector text-dark"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Répartition</p>
+              <p class="card-title">{{nbrRepartition}}  comptée(s)
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-arrow-circle-right"></i>  <button routerLink="/repartition-list" routerLinkActive="active" class="btn btn-default btn-neutral">en savoir plus</button>
         </div>
       </div>
     </div>

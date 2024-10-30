@@ -1,4 +1,95 @@
-/* You can add global styles to this file, and also import other style files */
+
+.zoom-on-hover {
+  transition: transform 0.3s ease; /* Transition douce */
+}
+
+.zoom-on-hover:hover {
+  transform: scale(1.1);
+}/* You can add global styles to this file, and also import other style files */
+
+.zoom-on-hover-fluid {
+  transition: transform 0.9s ease; /* Transition douce */
+}
+
+.zoom-on-hover-fluid:hover {
+  transform: scale(1.1);
+}
+
+
+
+.invert-on-hover-yellow ,  .invert-on-hover-green , .invert-on-hover-blue ,
+.invert-on-hover-red  , .invert-on-hover-dark ,.invert-on-hover-gray  {
+  background-color: #ffffff; /* couleur de fond initiale */
+  color: #000000; /* couleur du texte initiale */
+  text-align: center;
+  transition: all 0.7s ease; /* transition douce lors du survol */
+}
+
+.invert-on-hover-yellow:hover {
+  background: linear-gradient(to top, rgba(251, 218, 7, 0.71) 27%, #fffefd ); /* couleur de fond inversée */
+  color: #ffffff; /* couleur du texte inversée */
+  cursor: pointer;
+}
+
+
+
+.invert-on-hover-green:hover {
+  background: linear-gradient(to top, rgba(7, 251, 27, 0.71) 27%, #fffefd ); /* couleur de fond inversée */
+  color: #ffffff; /* couleur du texte inversée */
+  cursor: pointer;
+
+
+}
+
+
+
+
+.invert-on-hover-blue:hover {
+  background: linear-gradient(to top, rgba(7, 149, 251, 0.80) 27%, #fffefd ); /* couleur de fond inversée */
+  color: #ffffff; /* couleur du texte inversée */
+  cursor: pointer;
+
+
+}
+
+
+
+.invert-on-hover-red:hover {
+  background: linear-gradient(to top, rgba(251, 72, 7, 0.6) 27%, #fffefd ); /* couleur de fond inversée */
+  color: #ffffff; /* couleur du texte inversée */
+  cursor: pointer;
+
+
+}
+
+.invert-on-hover-dark:hover {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 27%, #fffefd ); /* couleur de fond inversée */
+  color: #ffffff; /* couleur du texte inversée */
+  cursor: pointer;
+
+
+}
+
+.invert-on-hover-gray:hover {
+  background: linear-gradient(to top, rgba(159, 157, 157, 0.6) 27%, #fffefd ); /* couleur de fond inversée */
+  color: #ffffff; /* couleur du texte inversée */
+  cursor: pointer;
+
+
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+
+}
+
+
+
+
 
 
 
