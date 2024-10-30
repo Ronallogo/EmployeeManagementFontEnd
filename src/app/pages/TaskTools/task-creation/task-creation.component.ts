@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {TaskService} from "../service/task.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -10,11 +10,12 @@ import {iconApp, manager} from "../../../models/models";
 @Component({
   selector: 'app-task-creation',
   standalone: true,
-    imports: [
-        FormsModule,
-        NgIf,
-        ReactiveFormsModule
-    ],
+  imports: [
+    FormsModule,
+    NgIf,
+    ReactiveFormsModule,
+    NgClass
+  ],
   animations: [
     trigger('slideInOut', [
       state('in', style({ transform: 'translateX(0)' })),
@@ -34,7 +35,7 @@ export class TaskCreationComponent  implements OnInit{
   show: any;
    protected task =  new FormGroup({
       task_name : new FormControl('', [Validators.required]),
-     task_description : new FormControl("")
+     task_description : new FormControl("" , [Validators.required])
 
 });
 

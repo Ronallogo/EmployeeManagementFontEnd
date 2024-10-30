@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgbDropdownItem, NgbDropdownMenu} from "@ng-bootstrap/ng-bootstrap";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {PositionService} from "../service/position.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ToastrService} from "ngx-toastr";
@@ -18,7 +18,8 @@ import {iconApp, manager} from "../../../models/models";
     RouterLinkActive,
     FormsModule,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass
   ],
   animations: [
     trigger('slideInOut', [
@@ -39,7 +40,7 @@ export class PositionCreationComponent implements OnInit{
   protected show: boolean = false;
   protected position = new FormGroup({
       position_name : new FormControl('', [Validators.required]),
-      position_description: new FormControl("")
+      position_description: new FormControl("" , [Validators.required])
   })
 
   constructor(private service :PositionService ,private toastr : ToastrService) {}

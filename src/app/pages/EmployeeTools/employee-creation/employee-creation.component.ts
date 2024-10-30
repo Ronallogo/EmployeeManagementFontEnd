@@ -1,13 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {EmailValidator, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {EmployeeService} from "../service/employee.service";
 import {PositionService} from "../../PositionTools/service/position.service";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {PayStubService} from "../../payStubTools/service/pay-stub.service";
 import {ToastrService} from "ngx-toastr";
 import {getTodayDate, iconApp, manager, UserDetails} from "../../../models/models";
 import {NotificationService} from "../../notification/notification/notification.service";
+
+
 
 
 
@@ -18,7 +20,8 @@ import {NotificationService} from "../../notification/notification/notification.
     ReactiveFormsModule,
     NgForOf,
     NgIf,
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   animations: [
     trigger('slideInOut', [
@@ -53,32 +56,36 @@ export class EmployeeCreationComponent implements  OnInit{
   ) {}
 
   ngOnInit(): void {
+
     this.getAllPosition() ;
+
   }
 
 
-  protected Employee = new FormGroup({
-      name : new FormControl() ,
-      surname : new FormControl() ,
-      email : new FormControl() ,
-      birthday : new FormControl() ,
-      phone : new FormControl() ,
-      password: new FormControl() ,
-      confirmPassword: new FormControl() ,
-      address : new FormControl() ,
-      position : new FormControl()
 
-  } );
-  show:  boolean = false;
-  show2: boolean = false;
+
+  protected Employee = new FormGroup({
+  name : new FormControl(String("") ,[ Validators.required  , Validators.minLength(2)]  ) ,
+  surname : new FormControl(String("") , [Validators.required , Validators.minLength(2)] ) ,
+  email : new FormControl("", [ Validators.required , Validators.email ]  ) ,
+  birthday : new FormControl(String("") , Validators.required  ) ,
+  phone : new FormControl(String("exemple : 78954156") , [Validators.required ,Validators.pattern(/^\+?[0-9]{8,15}$/)] ) ,
+  password: new FormControl(String("") , [Validators.required , Validators.minLength(5)] ) ,
+  confirmPassword: new FormControl(String("") , [Validators.required ,Validators.minLength(5) ] ) ,
+  address : new FormControl(String("") , Validators.required ) ,
+  position : new FormControl(String("") , Validators.required )
+
+
+  });
+
 
   createEmployee(){
 
     const userData = {
-      firstname: this.Employee.getRawValue().name,
-      lastname: this.Employee.getRawValue().surname,
-      email: this.Employee.getRawValue().email,
-      password: this.Employee.getRawValue().password,
+      firstname: String(this.Employee.getRawValue().name),
+      lastname: String(this.Employee.getRawValue().surname),
+      email:String(this.Employee.getRawValue().email) ,
+      password:String( this.Employee.getRawValue().password),
       role: "USER"
     };
 
@@ -131,7 +138,7 @@ export class EmployeeCreationComponent implements  OnInit{
       })
     }
     else{
-        this.toastr.warning(iconApp+ " Les mots de passes ne sont pas identiques !!",manager , {enableHtml:true})
+      this.toastr.warning(iconApp+ " Les mots de passes ne sont pas identiques !!",manager , {enableHtml:true})
 
     }
 
@@ -141,11 +148,11 @@ export class EmployeeCreationComponent implements  OnInit{
 
   getAllPosition(){
     this.positionService.allPositions().subscribe(data =>{
-        this.allPosition = data;
-        console.log(data)
+      this.allPosition = data;
+      console.log(data)
 
     } , error => {
-        console.log(error);
+      console.log(error);
     })
   }
 
@@ -154,4 +161,7 @@ export class EmployeeCreationComponent implements  OnInit{
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
+
+
+  protected readonly String = String;
 }

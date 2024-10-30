@@ -11,8 +11,8 @@ import {
 } from "../../../../models/models";
 import {ToastrService} from "ngx-toastr";
 import {ContenuService} from "../../../contenuTools/service/contenu.service";
-import {NgForOf, NgIf} from "@angular/common";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-task',
@@ -21,7 +21,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     NgForOf,
     NgIf,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   templateUrl: './user-task.component.html',
   styleUrl: './user-task.component.css'
@@ -32,14 +33,17 @@ export class UserTaskComponent implements OnInit{
   private user = JSON.parse(String(localStorage.getItem("user")));
   private employee!: EmployeeModel;
 
-  protected taskScheduled: TaskScheduled = {
-    taskInserted : 0,
-    employee : 0,
-    beginning : "",
-    end :"" ,
-    status :false,
-    content : 0
-  } ;
+  protected taskScheduled  = new FormGroup( {
+    taskInserted : new FormControl("" ,Validators.required),
+    employee : new FormControl(),
+    beginning : new FormControl("" , Validators.required),
+    end :new FormControl("" , Validators.required),
+    status :new  FormControl(),
+    content : new  FormControl("" , Validators.required),
+  });
+
+
+
 
 
 
@@ -92,9 +96,20 @@ export class UserTaskComponent implements OnInit{
   }
 
   createTaskScheduled() {
-    this.taskScheduled.employee = this.employee.id ;
-      console.log(this.taskScheduled);
-      this.service.createTaskScheduled(this.taskScheduled).subscribe(data =>{
+
+      console.log(this.taskScheduled.value);
+
+      this.service.createTaskScheduled(
+        {
+            taskInserted : this.taskScheduled.value.taskInserted,
+            content : this.taskScheduled.value.content,
+            beginning :  String(this.taskScheduled.value.beginning) ,
+            end :  String(this.taskScheduled.value.end),
+            employee : this.employee.id,
+            status :false
+        }
+
+      ).subscribe(data =>{
           console.log(data);
           this.toastr.success(iconApp+" Cette tache est désormais en cours ...bon travail!!" ,manager , {enableHtml:true});
       } , error => {

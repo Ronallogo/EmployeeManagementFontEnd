@@ -29,19 +29,31 @@
             <div class="card-body  col-md-6">
               <div class="form-group has-label col-xl-11" style="width: 100%">
                 <label class="control-label" for="name">Nom du poste: <span class="star">*</span></label>
-                <input   formControlName="position_name" name="position_name" class="form-control ng-pristine ng-invalid ng-touched" placeholder="veuillez saisir le poste"  required type="text">
-                <small class="text-danger" hidden> Le nom du poste doit etre saisi  </small>
+                <input   formControlName="position_name" name="position_name" class="form-control" placeholder="veuillez saisir le poste"  required type="text"
+                [ngClass]="{
+                  'is-valid' : position.controls.position_name.valid  ,
+                  'is-invalid' : position.controls.position_name.invalid && position.controls.position_name.dirty
+                }"
+                >
+                @if(position.controls.position_name.invalid && position.controls.position_name.dirty){ <small class="text-danger">Le nom du poste est requis</small>  }
+
               </div>
             </div>
             <div class="card-body  col-sm-6">
               <div class="form-group has-label col-xl-11" style="width: 100%">
                 <label class="control-label" for="name">description du poste: <span class="star">*</span></label>
-                <textarea     formControlName="position_description" name="position_description" class="form-control" placeholder="veuillez saisir la description du poste" rows="2"></textarea>
+                <textarea     formControlName="position_description" name="position_description" class="form-control" placeholder="veuillez saisir la description du poste" rows="2"
+                [ngClass]="{
+                  'is-invalid' : position.controls.position_description.invalid && position.controls.position_description.dirty ,
+                  'is-valid' : position.controls.position_description.valid
+                }"
+                ></textarea>
+                @if(position.controls.position_description.invalid && position.controls.position_description.dirty){<small class="text-danger">La description du poste est requise</small>}
 
               </div>
             </div>
             <div class="card-body  col-sm-6" style="margin-left: 20px">
-              <button    type="submit" class="btn btn-outline-default btn-round">
+              <button    type="submit" class="btn btn-outline-default btn-round"  [disabled]="position.invalid">
                 <i class="fa fa-save"></i> enregistrer
               </button>
             </div>

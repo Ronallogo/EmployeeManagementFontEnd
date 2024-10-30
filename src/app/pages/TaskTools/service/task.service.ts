@@ -27,12 +27,7 @@ export class TaskService {
     private http: HttpClient
   ) { }
 
-  createTaskInserted(task: {
-    task : number |null ,
-    position : number | null ,
-    date_insertion : string | null,
-    gain_task_post : number |null
-  }){
+  createTaskInserted(task:  any){
         return this.http.post(this.Url2+"/create", task);
   }
 

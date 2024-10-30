@@ -1,9 +1,9 @@
 
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {PositionService} from "../../PositionTools/service/position.service";
 import {ContenuService} from "../service/contenu.service";
-import {formatDate, NgForOf, NgIf} from "@angular/common";
+import {formatDate, NgClass, NgForOf, NgIf} from "@angular/common";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ToastrService} from "ngx-toastr";
 import {iconApp, manager} from "../../../models/models";
@@ -15,7 +15,8 @@ import {iconApp, manager} from "../../../models/models";
     FormsModule,
     ReactiveFormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   animations: [
     trigger('slideInOut', [
@@ -35,14 +36,14 @@ import {iconApp, manager} from "../../../models/models";
 export class ContenuCreationComponent implements  OnInit{
 
   protected contenuForm = new FormGroup({
-     title  :  new  FormControl (),
-     theme   : new  FormControl ()      ,
-     nature  : new  FormControl (),
-     language  : new  FormControl (),
-     creation_date  : new  FormControl (),
-     status  : new  FormControl (),
+     title  :  new  FormControl ("" , [Validators.required]),
+     theme   : new  FormControl ("" , Validators.required)      ,
+     nature  : new  FormControl ("" , Validators.required),
+     language  : new  FormControl ("" , Validators.required),
+     creation_date  : new  FormControl ("" , Validators.required),
+     status  : new  FormControl ("" , Validators.required),
   });
-  show:  boolean = false;
+
 
   constructor(private service :ContenuService , private toastr : ToastrService) {
 
@@ -59,7 +60,7 @@ export class ContenuCreationComponent implements  OnInit{
       theme   :  this.contenuForm.getRawValue().theme      ,
       nature  : this.contenuForm.getRawValue().nature  ,
       language  : this.contenuForm.getRawValue().language  ,
-      creation_date  : formatDate(this.contenuForm.getRawValue().creation_date, 'yyyy-MM-dd', 'en-US'),
+      creation_date  : formatDate(String(this.contenuForm.getRawValue().creation_date), 'yyyy-MM-dd', 'en-US'),
       status  : this.contenuForm.getRawValue().status,
     });
 
@@ -75,7 +76,5 @@ export class ContenuCreationComponent implements  OnInit{
     })
   }
 
-  reloadNotification() {
-      this.show = false ;
-  }
+
 }

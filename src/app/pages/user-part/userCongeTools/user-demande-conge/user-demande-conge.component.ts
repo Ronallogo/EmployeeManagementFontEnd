@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {DemandeConge, DemandeConge2, iconApp, manager} from "../../../../models/models";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {UserSettingService} from "../../service/user-setting.service";
 import {EmployeeService} from "../../../EmployeeTools/service/employee.service";
 import {ToastrService} from "ngx-toastr";
+
+
+
 
 @Component({
   selector: 'app-user-demande-conge',
@@ -12,22 +15,25 @@ import {ToastrService} from "ngx-toastr";
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
+    NgClass,
+    NgIf
   ],
   templateUrl: './user-demande-conge.component.html',
   styleUrl: './user-demande-conge.component.css'
 })
-export class UserDemandeCongeComponent implements  OnInit{
-  protected demandeConge : DemandeConge2 = {
-    beginning : "" ,
-    end : "" ,
-    type : "" ,
-    employee  : 0 ,
-    validate : false ,
-    apply : ""
+export class UserDemandeCongeComponent  implements OnInit {
 
-}   ;
 
+
+  protected demandeConge = new FormGroup({
+    beginning : new FormControl("" , [Validators.required]),
+    end : new FormControl("" , [Validators.required]),
+    type : new FormControl("" , [Validators.required]),
+    employee  : new FormControl("" ),
+    validate : new FormControl(""),
+    apply : new FormControl("" , [Validators.required])
+  });
 
   protected  type : string[] = [
     "Congé payé",
@@ -42,10 +48,22 @@ export class UserDemandeCongeComponent implements  OnInit{
     "Congé de bénévolat" ,
     "Autres"
   ];
-   private email : string = "";
+  private email : string = "";
+  private id = 0  ;
 
 
   constructor(private  service : UserSettingService , private employeeService : EmployeeService , private toastr : ToastrService) {
+  }
+
+  getEmployee(){
+
+
+    this.employeeService.getEmployeeByEmail(this.email).subscribe(data =>{
+      console.log(data)
+      this.id = data.id
+    } , error => {
+      console.log(error);
+    })
   }
 
   ngOnInit(): void {
@@ -55,34 +73,30 @@ export class UserDemandeCongeComponent implements  OnInit{
 
   }
 
+
+
+
   createDemande(){
 
-        console.log(this.demandeConge.type)
-        this.service.createDemandeConge(this.demandeConge).subscribe(data =>{
-            console.log(data);
-            this.toastr.success(iconApp + " Demande envoyé !!" , manager , {enableHtml : true});
 
-        } , error => {
-          console.log(error);
-          this.toastr.error(iconApp + " Demande non envoyé !!" , manager , {enableHtml:true})
-        })
+    this.service.createDemandeConge( {
+      beginning :  String(this.demandeConge.value.beginning),
+      end :String(this.demandeConge.value.end),
+      apply : String(this.demandeConge.value.apply) ,
+      validate: false,
+      type:String(this.demandeConge.value.apply),
+      employee :  this.id
+    }).subscribe(data =>{
+
+      this.toastr.success(iconApp + " Demande envoyé !!" , manager , {enableHtml : true});
+
+    } , error => {
+      console.log(error);
+      this.toastr.error(iconApp + " Demande non envoyé !!" , manager , {enableHtml:true})
+    })
   }
-
-
-  getEmployee(){
-
-
-      this.employeeService.getEmployeeByEmail(this.email).subscribe(data =>{
-        console.log(data)
-        this.demandeConge.employee  = data.id;
-        console.log(this.demandeConge.employee)
-      } , error => {
-        console.log(error);
-      })
-  }
-
-
-
-
-
 }
+
+
+
+
