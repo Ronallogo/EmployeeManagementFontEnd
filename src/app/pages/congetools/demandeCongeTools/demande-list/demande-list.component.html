@@ -1,0 +1,99 @@
+<div class="col-md-12" style="margin-bottom: 500px">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">Liste des demande de  congés </h4>
+      </div>
+      <div class="col text-right" >
+        <div>
+          <div class="input-group no-border text-right">
+            <button  (click)="generePdf()" class="btn btn-outline-default btn-round"  style="margin-left: 100px">
+              <i class="nc-icon nc-cloud-download-93"></i> imprimer la liste des demandes congés
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-default">
+          <th *ngFor="let h of header" style="width: 100px">
+            {{h}}
+          </th>
+          </thead>
+          <tbody>
+          @for(p of listConge ; track p) {
+            <tr  class="animate__animated animate__fadeInUp">
+              <th>
+                {{listConge.indexOf(p) + 1 }}
+              </th>
+              <th>
+                {{p.beginning}}
+              </th>
+              <th>
+                {{p.end}}
+              </th>
+              <th>
+                {{p.type}}
+              </th>
+              <th>
+                <p *ngIf="p.validate; else notValidated">Validate</p>
+                <ng-template #notValidated>
+                  <p>Not validate</p>
+                </ng-template>
+              </th>
+              <th>
+
+                <span>{{p.employee.name}} &nbsp;</span>
+                <span>{{p.employee.surname}}</span>
+
+              </th>
+              <th>
+                <div class="row" style= " margin-bottom: 5px">
+                  <button class="btn btn-outline-danger btn-round"   (click)="deleteDemandeConge(p.id)">
+                    <i class="fa fa-remove"></i>
+                  </button>
+                  <ng-container *ngIf="!p.validate">
+                    <button class="btn btn-outline-success btn-round" style="margin-right: 5px" (click)="validate(p)" >
+                      <i class="fa fa-check"></i>
+                    </button>
+                  </ng-container>
+
+                  <!--  <button class="btn  btn-outline-default">
+                      <i class="fa fa-info-circle"></i>
+                    </button> -->
+                </div>
+              </th>
+
+            </tr>
+
+          }
+
+          </tbody>
+        </table>
+        <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listConge.length == 0 ">
+          <h5>Aucune demande congé effectué</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if(listConge.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+
+
+    >
+    </pagination-controls>
+
+  }
+</div>

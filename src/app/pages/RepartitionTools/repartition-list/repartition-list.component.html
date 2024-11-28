@@ -1,0 +1,174 @@
+<div class="row" style="margin-left: 10% ; margin-bottom: 50%">
+
+    @for (rep of listRepartition  | paginate: {
+      itemsPerPage: 1,
+      currentPage: currentPage,
+      totalItems: listRepartition.length}  ;track rep){
+      <div class="col-md-11 col-md-9 col-sm-8 animate__animated animate__fadeInUp">
+        <div class="card card-stats"  style="background-color: #d3d7dd">
+          <div class="card-body">
+            <div class="row" >
+              <div class="card" style="margin-left: 30px ; width: 90%">
+                <div class="card-header">
+                  <h5 class="card-title">Information de la tache planifiée</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+
+                    <div class="col-md-8 col-8">
+                      <div >
+                        <i class="fa fa-bookmark text-success animate__animated animate__rotateIn animate__delay-1s"></i> <span>&nbsp;  <strong>tache :</strong></span> <i>{{ rep.taskScheduled_name}}</i>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-4">
+                      @if (rep.status){
+                        <div >
+                          <i class="fa fa-check text-success  animate__animated animate__rotateIn animate__delay-1s"></i> <span>&nbsp; <strong>status :</strong></span>  <i>Validée</i>
+                        </div>
+                      } @else {
+                        <div >
+                          <i class="fa fa-refresh text-info  animate__animated animate__rotateIn animate__delay-1s"></i> <span>&nbsp; <strong>status :</strong></span>  <i>En cours</i>
+                        </div>
+
+                      }
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="card" >
+              <div class="card-header">
+                <h4 class="card-title">Employés Assignés</h4>
+              </div>
+
+
+              <div class="card-body">
+                <ul class="list-unstyled team-members">
+                  <li class="row">
+                    @for(h of header ; track h){
+                      <div class="col-md-2 col-2"><small class="text-info"><strong>{{h}}</strong></small></div>
+                    }
+                  </li>
+                  <hr>
+
+
+
+                </ul>
+
+
+
+                <ul class="list-unstyled team-members">
+                  @for (emp of rep.listEmployee ; track emp ; ){
+                    <li>
+                      <div class="row">
+                        <div class="col-md-2 col-2">
+                          @if(emp.photo != null && emp.photo != ""){
+                            <img *ngIf="emp.photo" [src]="getImageUrl(emp.photo)" alt="Employee Photo" class="avatar border-gray"  />
+                          } @else {
+                            <img class="avatar border-gray" style="background: white" src="assets/img/faces/profil.png" alt="...">
+                          }
+                        </div>
+                        <div class="col-md-2 col-2">
+                          {{emp.name}} &nbsp; {{emp.surname}}
+                          <br />
+                          <span class="text-muted">
+                              <small> &#64;{{emp.name}}</small>
+                          </span>
+                        </div>
+                        <div class="col-md-2 col-2">
+                          {{emp.email}}
+                          <br />
+                        </div>
+                        <div class="col-md-2 col-2">
+                          {{emp.position}}
+                          <br />
+                        </div>
+                        <div class="col-md-2 col-2">
+                          {{emp.function}}
+                          <br />
+                        </div>
+                        <div class="col-md-2 col-2 text-right">
+                          <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+                          <button style="margin-left: 5%" (click)="deleteEmployeeFromRepartition(emp.id)" class="btn btn-sm btn-outline-danger btn-round btn-icon"><i class="fa fa-trash"></i></button>
+                        </div>
+                      </div>
+                    </li>
+                    <hr>
+
+                  }
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+    } @empty {
+      @if (views){
+        <div class="col-md-10 col-md-8 col-sm-8 animate__animated animate__fadeInUp" style="margin-bottom: 20%">
+          <button type="submit" class="btn btn-outline-default btn-round" routerLinkActive="active" routerLink="/repartition-menu"  >
+            <i class="fa fa-backward"></i> Retour
+          </button>
+          <button type="submit" class="btn btn-outline-info btn-round" routerLinkActive="active" routerLink="/repartition-creation"   >
+            <i class="fa fa-user-circle-o"></i> assigner un employé
+          </button>
+          <div class="card card-stats "  style="background-color: #d3d7dd ; ">
+            <div class="card-body" style="height: 50% ; display: flex ; flex-direction: row ; justify-content: center">
+              <h2>Aucune tache</h2>
+              <img class="avatar border-gray" style="width: 50% ; height: 300px" src="assets/img/faces/undraw_Task_re_wi3v.png" alt="...">
+
+            </div>
+          </div>
+
+        </div>
+      }@else{
+        <p>chargement...</p>
+      }
+    }
+  @if(listRepartition.length > 0){
+    <pagination-controls
+      class="pagination"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+
+  }
+
+
+</div >
+<router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

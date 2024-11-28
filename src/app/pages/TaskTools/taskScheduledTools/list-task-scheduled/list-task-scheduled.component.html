@@ -1,0 +1,75 @@
+<div class="col-md-12 animate__animated animate__fadeIn" style="margin-bottom: 500px">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">Liste des tache  planifiées </h4>
+      </div>
+      <div class="col text-right" >
+        <div>
+          <div class="input-group no-border text-right">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-default">
+          <th *ngFor="let h of header" style="width: 100px">
+            {{h}}
+          </th>
+          </thead>
+          <tbody>
+          @for( p of listTaskScheduled    | paginate: {
+            itemsPerPage: 5,
+            currentPage: currentPage,
+            totalItems: listTaskScheduled.length}; track  p){
+            <tr  class="animate__animated animate__fadeInUp">
+              <th>
+                {{listTaskScheduled.indexOf(p) + 1 }}
+              </th>
+              <th>
+                {{p.taskInserted.task.task_name }}
+              </th>
+              <th>
+                {{p.content.title }}
+              </th>
+              <th>
+                {{p.beginning}}
+              </th>
+              <th>
+                {{p.end}}
+              </th>
+
+              <th style="display: flex ; flex-direction: row ; justify-content: center;padding-top: 25%">
+                @if(p.status) {<i class="fa fa-check text-success animate__animated animate__rotateIn " style="margin-top: 5px"></i><p >&nbsp; Validée</p>}
+                @else { <i class="fa fa-refresh text-info animate__animated animate__rotateIn " style="margin-top: 5px"></i><p> &nbsp; En cours</p>}
+
+              </th>
+              <th style="width: 20%">
+                <button class="btn btn-outline-danger btn-round"   (click)="deleteTask(p.id)">
+                  <i class="fa fa-remove"></i>
+                </button>
+                @if (!p.status){
+                  <button class="btn btn-outline-success btn-round" style="margin-right: 5px" (click)="validateFunction(p)" >
+                    <i class="fa fa-check"></i>
+                  </button>
+                }
+
+              </th>
+
+            </tr>
+          }
+
+          </tbody>
+        </table>
+        <div   style="   display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="listTaskScheduled.length == 0 ">
+          <h5 >Aucune tache n'a été programmée</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

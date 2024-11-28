@@ -1,0 +1,93 @@
+
+
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col">
+        <h4 class="card-title">Liste des taches inserées</h4>
+      </div>
+      <div class="col text-right" >
+        <div>
+          <div class="input-group no-border text-right">
+            <button (click)="generePdf()" class="btn btn-outline-default btn-round"  style="margin-left: 100px">
+              <i class="nc-icon nc-cloud-download-93"></i> imprimer la liste des taches
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-default">
+
+          <th *ngFor="let h of header"  >
+            {{h}}
+          </th>
+          </thead>
+          <tbody>
+            @for (t of taskInsertedModels  | paginate: {
+              itemsPerPage: 5,
+              currentPage: currentPage,
+              totalItems: taskInsertedModels.length} ; track t){
+              <tr  class="animate__animated animate__fadeInUp">
+                <th>
+                  {{taskInsertedModels.indexOf(t) + 1 }}
+                </th>
+                <th>
+                  {{ t.task.task_name }}
+
+                </th>
+                <th>
+                  {{ t.position.position_name }}
+                </th>
+                <th>
+                  {{t.date_insertion}}
+                </th>
+                <th>
+                  {{t.gain_task_post}}
+                </th>
+                <th>
+                  <div class="row" style="margin-left: 30px">
+                    <button class="btn btn-outline-danger btn-round"   (click)="deleteTaskInserted(t)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+
+                    <!-- <button class="btn btn-outline-default"  (click)="service.setTaskInserted(t)"   routerLinkActive="active" routerLink="/task-insertion-update" >
+                       <i class="fa fa-edit"></i>
+                     </button> -->
+
+                    <!--  <button class="btn  btn-outline-default">
+                        <i class="fa fa-info-circle"></i>
+                      </button> -->
+                  </div>
+                </th>
+
+              </tr>
+            }
+
+          </tbody>
+        </table>
+        <div  style="  display: flex ; flex-direction: row ; justify-content: center" class="row-cols-5" *ngIf="taskInsertedModels.length == 0 ">
+          <h5>Aucune tache n'a été insérée</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if(taskInsertedModels.length > 0){
+    <pagination-controls
+      class="pagination-controls"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Précédant"
+      nextLabel="suivant"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+
+  }
+</div>

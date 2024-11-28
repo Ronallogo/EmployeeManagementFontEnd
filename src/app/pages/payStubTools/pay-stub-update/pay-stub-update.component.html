@@ -1,0 +1,52 @@
+
+
+<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px; "   >
+  <div class="card card-stats">
+    <div class="card-body ">
+      <div class="row">
+        <div class="col-5 col-md-4">
+          <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+            <i class="nc-icon nc-tile-56 text-default"></i>
+          </div>
+        </div>
+        <div class="col-7 col-md-8">
+          <div class="numbers">
+            <p class="card-category">formulaire</p>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-8">
+          <div class="card-header ">
+            <h2 class="card-title">réinitialisation du bulletin</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row" style=" border-top: solid 1px lightgray">
+        <form   (submit)= " refreshPayStub()" style="width: 800px ;">
+          <div class="row"  >
+            <div class="card-body  col-md-8">
+              <div class="form-group has-label col-xl-11" style="width: 100%">
+                <label class="control-label" for="name">Date de payement: <span class="text-danger">*</span></label>
+                <input  [(ngModel)]="payStub.paymentDate"    name="paymentDate" class="form-control ng-pristine ng-invalid ng-touched"    required type="date">
+                <small class="text-danger" hidden> Le nom de la tache doit etre saisi  </small>
+              </div>
+            </div>
+
+            <div class="card-body  col-sm-6" style="margin-left: 20px">
+              <button    type="submit" class="btn btn-outline-default btn-round">
+                <i class="fa fa-refresh"></i> réinitialiser
+              </button>
+            </div>
+
+
+
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

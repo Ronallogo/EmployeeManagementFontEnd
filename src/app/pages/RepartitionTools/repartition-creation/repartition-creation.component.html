@@ -1,0 +1,208 @@
+
+@if(!view){
+  <div   class="col-lg-9 col-md-6 col-6 animate__animated animate__fadeInUp" style="margin-left:  100px;margin-bottom: 200px "
+
+  >
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+              <i class="nc-icon nc-tile-56 text-default"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">formulaire</p>
+            </div>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div class="card-header ">
+              <h2 class="card-title">Quel est le poste de cet assignation ?</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row" style=" border-top: solid 1px lightgray">
+          <form [formGroup]="repartition_1" (ngSubmit)="setRepartitionCreation()" style="width: 800px ;">
+            <div class="row"  >
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="dropdown">
+                    <div class="form-group">
+                      <label for="poste" class="control-label">  Poste: <span class="text-danger">*</span></label>
+                      <select id="poste" class="form-control"
+                              formControlName="poste"
+
+                              [ngClass]="{
+                 'is-invalid': repartition_1.controls.poste.invalid && repartition_1.controls.poste.dirty,
+                 'is-valid': repartition_1.controls.poste.valid
+               }"
+                              >
+                        <option value="" disabled selected>Choisir un poste</option>
+                        <option *ngFor="let c of listPosition" [value]="c.id">
+                          {{ c.position_name }}
+                        </option>
+                      </select>
+                      @if(repartition_1.controls.poste.invalid &&  repartition_1.controls.poste.dirty){<small class="text-danger">Le nom du poste est requis</small>}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-body  col-sm-6">
+              </div>
+
+              <div class="card-body  col-sm-6" style="margin-left: 20px">
+                <button    type="submit" class="btn btn-outline-default btn-round"  [disabled]="repartition_1.invalid" (click)="changeView()" >
+                  <i class="fa fa-forward"></i> &nbsp;   continuer
+                </button>
+              </div>
+
+
+
+
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+}
+@else {
+  <div   class="col-lg-9 col-md-6 col-6 animate__animated animate__fadeInUp" style="margin-left:  100px;margin-bottom: 200px "
+  >
+    <button    type="submit" class="btn btn-outline-default btn-round" style="height: 40px ; margin-top: 28px ; margin-left: 20px"   (click)="changeView()" >
+      <i class="fa fa-backward"></i> &nbsp;   retour
+    </button>
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icons- text-lg-left icon-warning" style="margin-top: 3px">
+              <i class="nc-icon nc-tile-56 text-default"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">formulaire</p>
+            </div>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div class="card-header ">
+              <h2 class="card-title">Effectuer l'assignation</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row" style=" border-top: solid 1px lightgray">
+          <form [formGroup]="repartition_2" (ngSubmit)="createRepartition()" style="width: 800px ;">
+            <div class="row"  >
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-3">
+                  <div class="dropdown">
+                    <div class="form-group">
+                      <label for="task" class="control-label">  Tache planifiée: <span class="text-danger">*</span></label>
+                      <select id=" task" class="form-control"
+                              formControlName="task"
+                              style="width: 200% ; max-width : 400px"
+                              [ngClass]="{
+                  'is-invalid': repartition_2.controls.task.invalid && repartition_2.controls.task.dirty,
+                  'is-valid': repartition_2.controls.task.valid
+                }">
+                        <option value="" disabled selected>Choisir une tache</option>
+                        <option *ngFor="let c of listTaskScheduled" [value]="c.id">
+                          {{ c.taskInserted.task.task_name }}
+                        </option>
+                      </select>
+                      @if(repartition_2.controls.task.invalid && repartition_2.controls.task.dirty){<small class="text-danger">Le nom du contenu est requis</small>}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body  col-sm-6">
+                <div class="form-group has-label col-xl-11"  >
+                  <label class="control-label" for="employee">L'Id de l'employé: <span class="text-danger">*</span></label>
+                  <input class="form-control" type="number" formControlName="employee" min="0"
+                         [ngClass]="{
+                 'is-invalid': repartition_2.controls.employee.invalid && repartition_2.controls.employee.dirty,
+                 'is-valid': repartition_2.controls.employee.valid
+               }">
+                  @if (repartition_2.controls.employee.dirty &&  repartition_2.controls.employee.invalid){<small class="text-danger">L'Id de l'employé est requis</small>}
+
+                </div>
+              </div>
+
+              <div class="card-body  col-sm-6">
+                <div class="form-group has-label col-xl-11"  >
+                  <label class="control-label" for="date"> Date de assignation: <span class="text-danger">*</span></label>
+                  <input class="form-control" type="date" formControlName="date"
+                         [ngClass]="{
+                 'is-invalid': repartition_2.controls.date.invalid && repartition_2.controls.date.dirty,
+                 'is-valid': repartition_2.controls.date.valid
+               }">
+                  @if (repartition_2.controls.date.invalid && repartition_2.controls.date.dirty){<small class="text-danger">La date de fin de tache est requise</small>}
+
+                </div>
+              </div>
+
+
+              <div class="card-body  col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-3">
+                  <div class="dropdown">
+                    <div class="form-group">
+                      <label class="control-label"  for="function">Role: <span class="star">*</span></label>
+                      <select id="taskSelect" class="form-control"
+                              formControlName="function"
+                              style="width: 200% ; max-width : 400px"
+                              [ngClass]="{
+                  'is-invalid': repartition_2.controls.function.invalid && repartition_2.controls.function.dirty,
+                  'is-valid': repartition_2.controls.function.valid
+                }">
+                        <option value="" disabled selected>Choisir un role</option>
+                        <option *ngFor="let f of  functions" [value]="f">
+                          {{ f}}
+                        </option>
+                      </select>
+                      @if(repartition_2.controls.function.invalid && repartition_2.controls.function.dirty){<small class="text-danger">Le role est requis</small>}
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+
+
+
+              <button    type="submit" class="btn btn-outline-default btn-round " style="height: 50px; margin-top: 30px ;margin-left: 30px"  [disabled]="repartition_2.invalid" >
+                <i class="nc-icon nc-tag-content"></i> &nbsp;   Assigner
+              </button>
+
+
+
+
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+}
+
+
+
+
