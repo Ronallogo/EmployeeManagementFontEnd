@@ -14,7 +14,6 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/front-end-management-employee",
-            "allowedCommonJsDependencies": ["sockjs-client"],
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -33,10 +32,9 @@
             "styles": [
               "src/styles.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "src/assets/demo/demo.css" ,
-              "node_modules/animate.css/animate.min.css"
 
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/demo/demo.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -109,9 +107,7 @@
               "src/styles.css",
               "src/assets/sass/paper-dashboard.scss",
               "src/assets/demo/demo.css" ,
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
-              "node_modules/animate.css/animate.min.css"
-
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

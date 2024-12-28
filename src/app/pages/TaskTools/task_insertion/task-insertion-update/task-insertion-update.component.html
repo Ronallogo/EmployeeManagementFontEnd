@@ -1,31 +1,5 @@
-<div  *ngIf="show" @slideInOut>
-  <div class="alert alert-success alert-dismissible fade show">
-    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
-      <i class="nc-icon nc-simple-remove"></i>
-    </button>
 
-    <span>
-      <i data-notify="fa" class="fa fa-bell">&nbsp; &nbsp;</i>
-        l'insertion de cette tache a été mis a jour avec avec success !!!!
-    </span>
-  </div>
-</div>
-
-<div  *ngIf="show2" @slideInOut>
-  <div class="alert alert-warning alert-dismissible fade show">
-    <button type="button" aria-hidden="true" class="close" (click)="reloadNotification()"   data-dismiss="alert" aria-label="Close">
-      <i class="nc-icon nc-simple-remove"></i>
-    </button>
-
-    <span>
-      <i data-notify="fa" class="fa fa-warning">&nbsp; &nbsp;</i>
-       Cette tache est déjà insérée dans le système d'activité !!!
-    </span>
-  </div>
-</div>
-
-
-<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px; "   >
+<div   class="col-lg-9 col-md-6 col-6" style="margin-left:  100px;margin-bottom: 200px "   >
   <div class="card card-stats">
     <div class="card-body ">
       <div class="row">
@@ -41,25 +15,32 @@
         </div>
         <div class="col-xl-9 col-md-8">
           <div class="card-header ">
-            <h2 class="card-title">mise à jour insertion d'une tache</h2>
+            <h2 class="card-title">Programmer une tache</h2>
           </div>
         </div>
       </div>
       <div class="row" style=" border-top: solid 1px lightgray">
-        <form  [formGroup]="formulaire" (ngSubmit)= "updateTaskInserted()" style="width: 800px ;">
+        <form  [formGroup]="taskScheduled"   (ngSubmit)="createTaskScheduled()" style="width: 800px ;">
           <div class="row"  >
             <div class="card-body  col-sm-6">
               <div class="col-lg-6 col-md-6 col-sm-3">
                 <div class="dropdown">
 
-                  <div class="form-group  ">
-                    <label for="positionSelect" class="control-label">Poste: <span class="star">*</span></label>
-                    <select id="positionSelect" class="form-control"  formControlName = "position" name="position" style="width: 200%; max-width: 400px;">
-                      <option   disabled selected>Choisir un poste</option>
-                      <option *ngFor="let position of allPosition" [value]="position.id">
-                        {{ position.position_name }}
+                  <div class="form-group">
+                    <label for="contenuSelect" class="control-label">  Contenu: <span class="star">*</span></label>
+                    <select id="contenuSelect" class="form-control"
+                            formControlName="content"
+                            style="width: 200% ; max-width : 400px"
+                            [ngClass]="{
+                  'is-invalid': taskScheduled.controls.content.invalid && taskScheduled.controls.content.dirty,
+                  'is-valid': taskScheduled.controls.content.valid
+                }">
+                      <option value="" disabled selected>Choisir un contenu</option>
+                      <option *ngFor="let c of listContent" [value]="c.id">
+                        {{ c.title }}
                       </option>
                     </select>
+                    @if(taskScheduled.controls.content.invalid && taskScheduled.controls.content.dirty){<small class="text-danger">Le nom du contenu es requis</small>}
                   </div>
 
                 </div>
@@ -68,14 +49,21 @@
             <div class="card-body  col-sm-6">
               <div class="col-lg-6 col-md-6 col-sm-3">
                 <div class="dropdown">
-                  <div class="form-group  ">
-                    <label class="control-label"  for="name">Tache: <span class="star">*</span></label>
-                    <select id="taskSelect"  formControlName="task" name="task"   class="form-control"  style="width: 200%; max-width: 400px;">
+                  <div class="form-group">
+                    <label class="control-label"  for="taskInserted">Tache: <span class="star">*</span></label>
+                    <select id="taskSelect" class="form-control"
+                            formControlName="taskInserted"
+                            style="width: 200% ; max-width : 400px"
+                            [ngClass]="{
+                  'is-invalid': taskScheduled.controls.taskInserted.invalid && taskScheduled.controls.taskInserted.dirty,
+                  'is-valid': taskScheduled.controls.taskInserted.valid
+                }">
                       <option value="" disabled selected>Choisir une tache</option>
-                      <option *ngFor="let task of allTask" [value]="task.id">
-                        {{ task.task_name }}
+                      <option *ngFor="let task of ListTaskInserted" [value]="task.id">
+                        {{ task.task.task_name}}
                       </option>
                     </select>
+                    @if(taskScheduled.controls.taskInserted.invalid && taskScheduled.controls.taskInserted.dirty){<small class="text-danger">La nom de la tache est requise</small>}
                   </div>
                 </div>
 
@@ -85,24 +73,34 @@
             </div>
             <div class="card-body  col-sm-6">
               <div class="form-group has-label col-xl-11"  >
-                <label class="control-label" for="date">Date de l insertion: <span class="star">*</span></label>
-                <input  formControlName="date_insertion"   class="form-control  ng-pristine ng-invalid ng-touched" name="date_insertion"   required type="date">
+                <label class="control-label" for="beginning">début de tache: <span class="star">*</span></label>
+                <input class="form-control" type="date" formControlName="beginning"
+                       [ngClass]="{
+                 'is-invalid': taskScheduled.controls.beginning.invalid && taskScheduled.controls.beginning.dirty,
+                 'is-valid': taskScheduled.controls.beginning.valid
+               }">
+                @if (taskScheduled.controls.beginning.dirty &&  taskScheduled.controls.beginning.invalid){<small class="text-danger">La date de début de tache es requise</small>}
 
               </div>
             </div>
             <div class="card-body  col-sm-6">
-              <div class="form-group has-label col-xl-11" style="width: 100%">
-                <label  class="control-label" for="number">gain unitaire: <span class="star">*</span></label>
-                <input   formControlName = "gain_task_post"   class="form-control ng-pristine ng-invalid ng-touched"  name="gain_task_post" required type="number" min="0"  placeholder="Entrer le gain unitaire">
+              <div class="form-group has-label col-xl-11"  >
+                <label class="control-label" for="end">fin de tache: <span class="star">*</span></label>
+                <input class="form-control" type="date" formControlName="end"
+                       [ngClass]="{
+                 'is-invalid': taskScheduled.controls.end.invalid && taskScheduled.controls.end.dirty,
+                 'is-valid': taskScheduled.controls.end.valid
+               }">
+                @if (taskScheduled.controls.end.invalid && taskScheduled.controls.end.dirty){<small class="text-danger">La date de fin de tache est requise</small>}
 
               </div>
-
             </div>
 
 
+
             <div class="card-body  col-sm-6" style="margin-left: 20px">
-              <button    type="submit" class="btn btn-outline-default btn-round">
-                <i class="fa fa-inbox"></i> mise a jour de l'insertion
+              <button    type="submit" class="btn btn-outline-default btn-round"  [disabled]="taskScheduled.invalid" >
+                <i class="fa fa-thumb-tack"></i> &nbsp;  progammer la tache
               </button>
             </div>
 
@@ -122,33 +120,6 @@
 
 
 <!--
-<form novalidate class="ng-pristine ng-invalid ng-touched" >
-
-  <div class="card-body">
-    <div class="form-group has-label">
-      <label class="control-label" for="email">Email Address: <span class="star">*</span></label>
-      <input class="form-control ng-pristine ng-invalid ng-touched" name="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required type="email">
-      <small class="text-danger" hidden> Email is required and format should be   </small>
-    </div>
-    <div class="form-group has-label">
-      <label class="control-label" for="password">Password <span class="star">*</span></label>
-      <input class="form-control ng-untouched ng-pristine ng-invalid" name="password" required type="password" validateequal="confirmPassword">
-      <small class="text-danger" hidden> Password is required </small>
-    </div>
-    <div class="form-group has-label">
-      <label class="control-label" for="confirmPassword">Confirm Password <span class="star">*</span></label>
-      <input class="form-control ng-untouched ng-pristine ng-invalid" name="confirmPassword" required type="password" validateequal="password">
-      <small class="text-danger" hidden> Password mismatch </small>
-    </div>
-    <div class="category">
-      <span class="star">*</span> Required fields
-    </div>
-  </div>
-  <div class="card-footer text-right">
-
-    <button class="btn btn-primary" type="submit">Register</button>
-  </div>
-</form>
 
 -->
 
