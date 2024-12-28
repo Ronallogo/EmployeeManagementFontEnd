@@ -20,3 +20,13 @@
   font-family: "JetBrains Mono SemiBold", serif;
   font-weight: bold;
 }
+
+
+
+.is-sent {
+  background-color: #d1f5d3; /* Vert clair pour les messages envoyés */
+}
+
+.is-received {
+  background-color: #f5d1d1; /* Rouge clair pour les messages reçus */
+}

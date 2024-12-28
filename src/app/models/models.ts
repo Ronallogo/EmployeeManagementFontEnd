@@ -8,6 +8,16 @@ export interface PositionModel {
   "position_description":string
 }
 
+export interface Message{
+    id : number ,
+    content  : string ,
+    sender : string ,
+    receiver : string ,
+    nature :string ,
+    file  : any
+
+}
+
 
 export interface TaskModel {
   "id":number ,

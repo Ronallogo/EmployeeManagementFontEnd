@@ -157,22 +157,6 @@ export class EmployeeService {
     return employeeData
   }
 
-  initializer2(employee: any , photo  : any){
-    const employeeData  = new FormData()
-
-    employeeData.append("name" , employee.name)
-    employeeData.append("surname" , employee.surname)
-    employeeData.append("email" , employee.email)
-    employeeData.append("birthday" , new Date(employee.birthday).toDateString())
-    employeeData.append("phone" , employee.phone)
-    employeeData.append("address" , employee.address)
-    employeeData.append("position" , employee.position);
-    employeeData.append("file" , photo)
-
-    console.log("voici le poste : " + employeeData.get("position"))
-
-    return employeeData
-  }
 
 
 
