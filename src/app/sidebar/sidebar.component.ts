@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/task-scheduled',     title: 'Planification',          icon:'nc-icon nc-calendar-60', views : "ADMIN" , class: '' },
     { path: '/repartition',     title: 'Assignation',          icon:'nc-icon nc-vector', views : "ADMIN" , class: '' },
     { path: 'user-task-list',      title: 'Tache à faire',        icon:'nc-bullet-list-67',  views : "USER" ,  class: ' ' },
-    { path: '/message',      title: 'Message',        icon:'nc-email-85',  views : "USER" ,  class: ' ' },
+    { path: '/message',      title: 'Message',        icon:'nc-email-85',  views : "all" ,  class: ' ' },
    /* { path: '/list-task-scheduled',          title: 'Validation',        icon:'nc-icon nc-tag-content',  views : "ADMIN" ,  class: '' },*/
     { path: '/conge',         title: 'Conge',        icon:'nc-icon  nc-sun-fog-29',  views : "ADMIN" ,  class: '' },
     { path: '/absence',       title: 'Absence',    icon:'nc-icon nc-time-alarm', views : "ADMIN" ,   class: '' },

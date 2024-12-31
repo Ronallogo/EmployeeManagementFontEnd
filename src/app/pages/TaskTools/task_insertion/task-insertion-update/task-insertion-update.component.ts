@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {formatDate, NgForOf, NgIf} from "@angular/common";
+import {formatDate, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {iconApp, manager, TaskInsertedModel2, TaskModel} from "../../../../models/models";
 import {TaskService} from "../../service/task.service";
@@ -17,7 +17,8 @@ import {ToastrService} from "ngx-toastr";
     ReactiveFormsModule,
     FormsModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgClass
   ],
   animations: [
     trigger('slideInOut', [
@@ -50,6 +51,9 @@ export class TaskInsertionUpdateComponent implements OnInit {
   public allTask : any[] = [ ];
   private formattedDate!: string;
   show2: boolean = false;
+  taskScheduled!: FormGroup;
+  listContent:  any[] = [];
+  ListTaskInserted:  any[] = [];
 
 
 
@@ -120,6 +124,7 @@ export class TaskInsertionUpdateComponent implements OnInit {
   }
 
 
+  createTaskScheduled() {
 
-
+  }
 }

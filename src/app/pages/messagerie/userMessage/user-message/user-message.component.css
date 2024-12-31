@@ -24,9 +24,16 @@
 
 
 .is-sent {
-  background-color: #d1f5d3; /* Vert clair pour les messages envoyés */
+
+  background-color: #7ac67d;
+  color : #ffffff /* Vert clair pour les messages envoyés */
 }
 
 .is-received {
-  background-color: #f5d1d1; /* Rouge clair pour les messages reçus */
+  background-color: #8c8686;
+  color : #ffffff/* Rouge clair pour les messages reçus */
+}
+.btn-green{
+  font-family: "Arial Black", serif;
+  color: #FFFFFF;
 }

@@ -14,7 +14,12 @@ export interface Message{
     sender : string ,
     receiver : string ,
     nature :string ,
-    file  : any
+    file  : any ,
+    name : string ,
+    date : string,
+    delete_for_sender : boolean ,
+    delete_for_recipient : boolean
+
 
 }
 
@@ -45,8 +50,11 @@ export function   getTodayDate(): string {
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
+  const h  = String(today.getHours())
+  const m = String(today.getMinutes());
 
-  return `${year}-${month}-${day}`;
+
+  return `${year}-${month}-${day}-${h}:${m}`;
 }
 
 

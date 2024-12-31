@@ -5,9 +5,9 @@ import {ServiceMessage} from "../../serviceMessage/service/service-message.servi
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
 import {NgClass} from "@angular/common";
-import SockJS from "sockjs-client";
-import Client from "sockjs-client";
-import Stomp from '@stomp/stompjs';
+import { saveAs } from 'file-saver';
+import {base64StringToBlob} from "blob-util";
+
 
 @Component({
   selector: 'app-user-message',
@@ -19,32 +19,25 @@ import Stomp from '@stomp/stompjs';
   templateUrl: './user-message.component.html',
   styleUrl: './user-message.component.css'
 })
-export class UserMessageComponent implements OnInit , OnDestroy {
-   protected message: Message =   {  nature:"" ,  content : "" , receiver :"" , id : 0 , sender :"" , file : undefined};
+export class UserMessageComponent implements  OnInit , OnDestroy {
+   protected message: Message =   { delete_for_sender : false , delete_for_recipient : false ,  date : "" , name : "" , nature:"" ,  content : "" , receiver :"" , id : 0 , sender :"" , file : undefined};
    protected content = " ";
    protected file : any ;
    protected msg !:string ;
-   private server  !: any;
+
    private send : boolean = false
 
-   private emailEmployee : string = JSON.parse(String(localStorage.getItem("user"))).email;
+   protected emailEmployee : string = JSON.parse(String(localStorage.getItem("user"))).email;
    constructor(private service : ServiceMessage , private toastr : ToastrService ) {
 
    }
 
   ListMessages: any[] = [];
-  msgServer !: any;
+
 
   ngOnInit(): void {
-      this.getAllMessage();
-      this.connexionServer();
-      this.service.connect( ); // Update with your backend URL
-     this.service.eventSource.onmessage = event => { this.message = event.data;
-      console.log(this.msg)
-     };
-
-
-
+    this.getAllMessage();
+    setInterval(() => { this.checkMessage(); }, 5000);
   }
 
 
@@ -57,8 +50,17 @@ export class UserMessageComponent implements OnInit , OnDestroy {
     }
   }
 
+
   onFileSelected(event: any) {
-    this.file = event.target.files[0];
+    if (event.target.files[0].type == "application/pdf"){
+      this.file = event.target.files[0];
+      this.message.name  =  this.file.name ;
+
+    }else{
+      this.toastr.warning(iconApp+"Vérifiez que ce fichier soit en format PDF !!" , manager , {enableHtml:true});
+    }
+
+
   }
 
   protected readonly getTodayDate = getTodayDate;
@@ -90,14 +92,22 @@ export class UserMessageComponent implements OnInit , OnDestroy {
 
   getAllMessage() {
       this.service.getMessages(this.emailEmployee).subscribe(data =>{
-          this.ListMessages =   data ;
+        this.ListMessages = data.filter((m  : Message)=>
+          (m.sender === this.emailEmployee && !m.delete_for_sender) ||
+          (m.receiver === this.emailEmployee && !m.delete_for_recipient)
+        );
+        console.log(data)
       }, error => {
           console.log(error)
       })
   }
 
-  delete(id : number, nature: any) {
-
+  delete(id : number) {
+      this.service.delete(id , this.emailEmployee).subscribe(data =>{
+        console.log(data);
+      }, error => {
+        console.log(error);
+      })
   }
 
 
@@ -108,26 +118,44 @@ export class UserMessageComponent implements OnInit , OnDestroy {
     this.send = true ;
     this.service.sendMessage(this.message , this.file).subscribe(data =>{
         console.log(data);
-        this.getAllMessage()
-
+        this.getAllMessage();
+        //this.service.connect();
 
     } , error => {
       console.log(error)
     })
   }
-  connexionServer(){
-      if(this.send){
-        this.service.connexionSeverMessage()
-        this.send = false;
 
-      }
+  checkMessage(){
+    this.service.getMessages(this.emailEmployee).subscribe(data =>{
+      data.forEach((m : Message)=>{
+          if(m.sender === this.emailEmployee && !m.delete_for_sender){
+              this.ListMessages.push(m)
+          }
+      })
+    }, error => {
+      console.log(error)
 
+    })
+  }
+
+
+  ngOnDestroy() { this.service.closeConnection(); }
+
+
+
+
+
+  download(file : any , name : string) {
+    const blob = base64StringToBlob( file, 'application/pdf');
+    saveAs(blob ,  name)
   }
 
 
 
 
-  ngOnDestroy() { this.service.closeConnection(); }
+
+
 }
 
 

@@ -40,6 +40,7 @@ export class ServiceMessage {
 
   connexionSeverMessage(){
       return this.http.get(this.url).subscribe(data =>{
+          console.log("connexion server");
 
       })
 
@@ -60,9 +61,9 @@ export class ServiceMessage {
     });*/
   }
 
-  connect( ) {
+  /*connect( ) {
     return this.http.get(this.url).subscribe(data =>{
-      this.eventSource = new EventSource(this.url);
+      this.eventSource = new EventSource(this.url );
       this.eventSource.onmessage = event => {
         this.message = event.data;
         console.log(this.message);
@@ -72,8 +73,14 @@ export class ServiceMessage {
 
         this.eventSource.close();
       };
+    } , error => {
+        console.log(error)
+
     })
 
+  }*/
+  messageMessage(){
+    return this.http.get(this.url).subscribe(data =>{})
   }
 
 
@@ -86,10 +93,13 @@ export class ServiceMessage {
   getMessages(email : string) : Observable<any>{
       return this.http.get(this.baseUrl+"/all/"+email)/*👍*/
   }
+  checkMessages(email : string) : Observable<any>{
+      return this.http.get(this.baseUrl+"/checkMessage/"+email)/*👍*/
+  }
 
 
-  delete(id_ms : number , nature : string): Observable<any> {
-     return this.http.delete(this.baseUrl+'/delete/'+id_ms+"/"+nature);
+  delete(id_ms : number , email : string): Observable<any> {
+     return this.http.delete(this.baseUrl+'/delete/'+id_ms+"/"+email);
   }
 
 
